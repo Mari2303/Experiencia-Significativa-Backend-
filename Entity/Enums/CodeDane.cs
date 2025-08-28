@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entity.Enums
 {
-    public enum CodigoDane : long
+    public enum CodeDane : long
     {
         AGUSTIN_CODAZZI = 141001001763,
         EL_ROSARIO = 141001002212,

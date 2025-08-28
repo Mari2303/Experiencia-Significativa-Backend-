@@ -20,8 +20,8 @@ namespace API.Controllers
             _helperService = helperService;
             _mapper = mapper;
         }
-        
-        [Authorize]
+
+        [AllowAnonymous]
         [HttpGet("{enumName}")]
         public override async Task<ActionResult<IEnumerable<DataSelectRequest>>> GetEnum(string enumName)
         {
