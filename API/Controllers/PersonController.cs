@@ -2,6 +2,7 @@ using AutoMapper;
 using Entity.Dtos;
 using Entity.Models;
 using Entity.Requests;
+using Microsoft.AspNetCore.Mvc;
 using Service.Interfaces;
 
 namespace API.Controllers
@@ -17,5 +18,24 @@ namespace API.Controllers
             _personService = service;
             _mapper = mapper;
         }
+
+
+
+        [HttpPost("create")]
+        public async Task<IActionResult> Create([FromBody] PersonRequest request)
+        {
+            try
+            {
+                var result = await _personService.CreatePersonAsync(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+
+
     }
 }

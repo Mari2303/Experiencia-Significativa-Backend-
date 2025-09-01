@@ -9,6 +9,8 @@ namespace Service.Interfaces
     /// </summary>
     public interface IUserService : IBaseModelService<User, UserDTO, UserRequest>
     {
+        Task<UserRequest> AddAsync(UserRequest request);
+
         /// <summary>
         /// Retrieves a specific entity by its name identifier.
         /// </summary>
