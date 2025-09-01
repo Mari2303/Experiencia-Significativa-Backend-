@@ -142,7 +142,9 @@ namespace Utilities.Helper
         /// <exception cref="ArgumentException">Thrown if the enum type is not found or is not a valid enumeration.</exception>
         public override async Task<List<DataSelectRequest>> GetEnum(string enumName)
         {
-            var enumType = AppDomain.CurrentDomain.GetAssemblies().SelectMany(a => a.GetTypes()).FirstOrDefault(t => t.IsEnum && t.Name.Equals(enumName, StringComparison.OrdinalIgnoreCase));
+            var enumType = AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(a => a.GetTypes())
+                .FirstOrDefault(t => t.IsEnum && t.Name.Equals(enumName, StringComparison.OrdinalIgnoreCase));
 
             if (enumType == null || !enumType.IsEnum)
                 throw new ArgumentException($"Enum '{enumName}' not found or not a valid enum.");
@@ -152,17 +154,19 @@ namespace Utilities.Helper
             foreach (var value in Enum.GetValues(enumType))
             {
                 var memberInfo = enumType.GetMember(value.ToString()!);
-                var description = memberInfo[0].GetCustomAttribute<DescriptionAttribute>()?.Description ?? value.ToString();
+                var description = memberInfo[0]
+                    .GetCustomAttribute<DescriptionAttribute>()?.Description ?? value.ToString();
 
                 result.Add(new DataSelectRequest
                 {
-                    Id = (int)value,
+                    Id = Convert.ToInt64(value), // soporte para int y long
                     DisplayText = description!
                 });
             }
 
             return result;
         }
+
 
         public override async Task<bool> ValidateDataImport(D request)
         {

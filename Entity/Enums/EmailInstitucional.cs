@@ -1,100 +1,121 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics.Metrics;
 
 namespace Entity.Enums
 {
     public enum EmailInstitucional
     {
-        [Description("Agustin Codazzi")]
+        [Description("ieagustincodazzi@alcaldianeiva.gov.co")]
         AGUSTIN_CODAZZI = 1,
 
-        [Description("Aipecito")]
+        [Description("ieaipecito@alcaldianeiva.gov.co")]
         AIPECITO = 2,
 
-        [Description("Angel Maria Paredes")]
+        [Description("ieangelmaria@alcaldianeiva.gov.co")]
         ANGEL_MARIA_PAREDES = 3,
 
-        [Description("Atanasio Girardot")]
+        [Description("ieatanasiog@alcaldianeiva.gov.co")]
         ATANASIO_GIRARDOT = 4,
 
-        [Description("CEINAR")]
+        [Description("ieceinar@alcaldianeiva.gov.co")]
         CEINAR = 5,
 
-        [Description("Chapinero")]
+        [Description("iechapinero@alcaldianeiva.gov.co")]
         CHAPINERO = 6,
 
-        [Description("Claretiano Gustavo Torres Parra")]
+        [Description("ieclaretiano@alcaldianeiva.gov.co")]
         CLARETIANO_GUSTAVO_TORRES_PARRA = 7,
 
-        [Description("Departamental Tierra de Promisión")]
+        [Description("iedepartamental@alcaldianeiva.gov.co")]
         DEPARTAMENTAL_TIERRA_DE_PROMISION = 8,
 
-        [Description("Eduardo Santos")]
+        [Description("ieeduardosantos@alcaldianeiva.gov.co")]
         EDUARDO_SANTOS = 9,
 
-        [Description("El Carmen")]
-        EL_CARMEN = 10,
+        [Description("iecaguan@alcaldianeiva.gov.co")]
+        EL_CAGUAN = 10,
 
-        [Description("El Limonar")]
+        [Description("ielimonar@alcaldianeiva.gov.co")]
         EL_LIMONAR = 11,
 
-        [Description("Enrique Olaya Herrera")]
+        [Description("ieenriqueolaya@alcaldianeiva.gov.co")]
         ENRIQUE_OLAYA_HERRERA = 12,
 
-        [Description("Escuela Normal Superior")]
+        [Description("ienormalsuperior@alcaldianeiva.gov.co")]
         ESCUELA_NORMAL_SUPERIOR = 13,
 
-        [Description("Gabriel Garcia Marquez")]
+        [Description("iegabrielgarcia@alcaldianeiva.gov.co")]
         GABRIEL_GARCIA_MARQUEZ = 14,
 
-        [Description("Humberto Tafur Charry")]
+        [Description("iehumbertotafur@alcaldianeiva.gov.co")]
         HUMBERTO_TAFUR_CHARRY = 15,
 
-        [Description("INEM Juliam Motta Salas")]
+        [Description("ieinem@alcaldianeiva.gov.co")]
         INEM_JULIAM_MOTTA_SALAS = 16,
 
-        [Description("Jairo Morera Lizcano")]
+        [Description("iejairomorera@alcaldianeiva.gov.co")]
         JAIRO_MORERA_LIZCANO = 17,
 
-        [Description("Jairo Mosquera Moreno")]
+        [Description("ieguacirco@alcaldianeiva.gov.co")]
         JAIRO_MOSQUERA_MORENO = 18,
 
-        [Description("Jose Eustasio Rivera")]
+        [Description("iejoseeustasio@alcaldianeiva.gov.co")]
         JOSE_EUSTASIO_RIVERA = 19,
 
-        [Description("Juan de Cabrera")]
+        [Description("iejuandecabrera@alcaldianeiva.gov.co")]
         JUAN_DE_CABRERA = 20,
 
-        [Description("Liceo de Santa Librada")]
+        [Description("ieliceosantal@alcaldianeiva.gov.co")]
         LICEO_DE_SANTA_LIBRADA = 21,
 
-        [Description("Luis Ignacio Andrade")]
+        [Description("ieluisignacio@alcaldianeiva.gov.co")]
         LUIS_IGNACIO_ANDRADE = 22,
 
-        [Description("Maria Auxiliadora Fortalecillas")]
+        [Description("iefortalecillas@alcaldianeiva.gov.co")]
         MARIA_AUXILIADORA_FORTALECILLAS = 23,
 
-        [Description("Maria Cristina Arango de Pastrana")]
+        [Description("iemariacristina@alcaldianeiva.gov.co")]
         MARIA_CRISTINA_ARANGO_DE_PASTRANA = 24,
 
-        [Description("Misael Pastrana Borrero")]
+        [Description("iemisaelpastrana@alcaldianeiva.gov.co")]
         MISAEL_PASTRANA_BORRERO = 25,
 
-        [Description("Oliverio Lara Borrero")]
+        [Description("ieoliveriolara@alcaldianeiva.gov.co")]
         OLIVERIO_LARA_BORRERO = 26,
 
-        [Description("Promoción Social")]
+        [Description("iepromocion@alcaldianeiva.gov.co")]
         PROMOCION_SOCIAL = 27,
 
-        [Description("Ricardo Borrero Alvarez")]
+        [Description("iericardoborrero@alcaldianeiva.gov.co")]
         RICARDO_BORRERO_ALVAREZ = 28,
 
-        [Description("Roberto Duran Alvira")]
+        [Description("ierobertoduran@alcaldianeiva.gov.co")]
         ROBERTO_DURAN_ALVIRA = 29,
 
-        [Description("Rodrigo Lara Bonilla")]
+        [Description("ierodrigolara@alcaldianeiva.gov.co")]
         RODRIGO_LARA_BONILLA = 30,
 
-        [Description("San Antonio de Anaconia")]
-        SAN_ANTONIO_DE_ANACONIA = 31
+        [Description("iesanantonio@alcaldianeiva.gov.co")]
+        SAN_ANTONIO_DE_ANACONIA = 31,
+
+
+        [Description("iesanluisbeltran@alcaldianeiva.gov.co")]
+        SAN_LUIS_BELTRAN = 32,
+
+        [Description("menev.cosma-rec@policia.gov.co")]
+        SAN_MIGUEL_ARCANGEL = 33,
+
+        [Description("ienacionalsl@alcaldianeiva.gov.co")]
+        SANTA_LIBRADA = 34,
+
+        [Description("iesantateresa@alcaldianeiva.gov.co")]
+        SANTA_TERESA = 35,
+
+        [Description("ieipc@alcaldianeiva.gov.co")]
+        INSTITUTO_TECNICO_IPC_ANDRES_ROSA = 36,
+
+        [Description("ietecnicos@alcaldianeiva.gov.co")]
+        TECNICO_SUPERIOR = 37,
+
     }
 }
