@@ -9,5 +9,6 @@ namespace Service.Interfaces
     /// </summary>
     public interface IPersonService : IBaseModelService<Person, PersonDTO, PersonRequest>
     {
+        Task<PersonRequest> CreatePersonAsync(PersonRequest request);
     }
 }

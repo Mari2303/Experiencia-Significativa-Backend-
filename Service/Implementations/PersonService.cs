@@ -1,4 +1,5 @@
 using Entity.Dtos;
+using Entity.Enums;
 using Entity.Models;
 using Entity.Requests;
 using Repository.Interfaces;
@@ -17,5 +18,40 @@ namespace Service.Implementations
         {
             _personRepository = personRepository;
         }
+
+
+
+        // Método para crear persona desde PersonRequest
+        public async Task<PersonRequest> CreatePersonAsync(PersonRequest request)
+        {
+            if (!Enum.TryParse<DocumentType>(request.DocumentType, out var docEnum))
+            {
+                throw new Exception("DocumentType inválido");
+            }
+
+            var entity = new Person
+            {
+                DocumentType = (int)docEnum,
+                FirstName = request.FirstName,
+                FirstLastName = request.FirstLastName,
+                SecondLastName = request.SecondLastName,
+                MiddleName = request.MiddleName,
+                IdentificationNumber = request.IdentificationNumber,
+                Email = request.Email,
+                EmailInstitutional = request.EmailInstitutional,
+                Phone = request.Phone,
+                CodeDane = request.CodeDane,
+                State = true,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            var savedEntity = await _personRepository.Save(entity);
+            request.Id = savedEntity.Id;
+            return request;
+
+
+        }
     }
 }
+
+

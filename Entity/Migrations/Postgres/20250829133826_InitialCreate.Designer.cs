@@ -3,17 +3,17 @@ using System;
 using Entity.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Entity.Migrations.SqlServer
+namespace Entity.Migrations.Postgres
 {
-    [DbContext(typeof(ApplicationContext))]
-    [Migration("20250826014117_InitialMigrationSqlServer")]
-    partial class InitialMigrationSqlServer
+    [DbContext(typeof(ApplicationContextPostgres))]
+    [Migration("20250829133826_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,45 +21,45 @@ namespace Entity.Migrations.SqlServer
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "9.0.7")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("Entity.Models.Form", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Icon")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int>("Order")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Path")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("State")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -69,7 +69,7 @@ namespace Entity.Migrations.SqlServer
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 8, 25, 20, 41, 16, 373, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedAt = new DateTime(2025, 8, 29, 8, 38, 26, 263, DateTimeKind.Utc).AddTicks(4612),
                             Description = "Manages system modules, allowing users to define, modify, and assign modules available to them based on established roles and permissions.",
                             Icon = "fa-solid fa-window-maximize",
                             Name = "Modules",
@@ -80,7 +80,7 @@ namespace Entity.Migrations.SqlServer
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 8, 25, 20, 41, 16, 373, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedAt = new DateTime(2025, 8, 29, 8, 38, 26, 263, DateTimeKind.Utc).AddTicks(4612),
                             Description = "Manages the forms available in the system, allowing the creation, modification, and deletion of forms associated with different functionalities and modules.",
                             Icon = "fa-solid fa-window-restore",
                             Name = "Forms",
@@ -91,7 +91,7 @@ namespace Entity.Migrations.SqlServer
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2025, 8, 25, 20, 41, 16, 373, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedAt = new DateTime(2025, 8, 29, 8, 38, 26, 263, DateTimeKind.Utc).AddTicks(4612),
                             Description = "Allows you to assign specific permissions to users and roles, controlling access to functions, forms, and modules according to the system's needs and security policies.",
                             Icon = "fa-solid fa-user-lock",
                             Name = "Permissions",
@@ -102,7 +102,7 @@ namespace Entity.Migrations.SqlServer
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2025, 8, 25, 20, 41, 16, 373, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedAt = new DateTime(2025, 8, 29, 8, 38, 26, 263, DateTimeKind.Utc).AddTicks(4612),
                             Description = "Defines and manages roles within the system, allowing you to assign specific permissions to each role and control access to different application features and resources.",
                             Icon = "fa-solid fa-users-gear",
                             Name = "Roles",
@@ -113,7 +113,7 @@ namespace Entity.Migrations.SqlServer
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2025, 8, 25, 20, 41, 16, 373, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedAt = new DateTime(2025, 8, 29, 8, 38, 26, 263, DateTimeKind.Utc).AddTicks(4612),
                             Description = "It allows you to manage user information, including its creation, editing, and deletion. It facilitates the assignment of roles and permissions, ensuring controlled access to the system.",
                             Icon = "fa-solid fa-users",
                             Name = "Users",
@@ -124,7 +124,7 @@ namespace Entity.Migrations.SqlServer
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2025, 8, 25, 20, 41, 16, 373, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedAt = new DateTime(2025, 8, 29, 8, 38, 26, 263, DateTimeKind.Utc).AddTicks(4612),
                             Description = "It allows you to manage the information of people associated with the system, such as users, employees, or any other relevant entity. It facilitates the creation, editing, and deletion of records, allowing you to link people to specific roles, modules, and permissions as needed.",
                             Icon = "fa-solid fa-user",
                             Name = "Persons",
@@ -135,7 +135,7 @@ namespace Entity.Migrations.SqlServer
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTime(2025, 8, 25, 20, 41, 16, 373, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedAt = new DateTime(2025, 8, 29, 8, 38, 26, 263, DateTimeKind.Utc).AddTicks(4612),
                             Description = "This form allows the registration and management of customers within the system. It facilitates the creation, editing, and tracking of customer records, enabling the association of relevant operational data and interactions essential for service delivery and follow-up.",
                             Icon = "fa-solid fa-building-user",
                             Name = "Customers",
@@ -149,24 +149,24 @@ namespace Entity.Migrations.SqlServer
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("FormId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("ModuleId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<bool>("State")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -180,7 +180,7 @@ namespace Entity.Migrations.SqlServer
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 8, 25, 20, 41, 16, 373, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedAt = new DateTime(2025, 8, 29, 8, 38, 26, 263, DateTimeKind.Utc).AddTicks(4612),
                             FormId = 1,
                             ModuleId = 1,
                             State = true
@@ -188,7 +188,7 @@ namespace Entity.Migrations.SqlServer
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 8, 25, 20, 41, 16, 373, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedAt = new DateTime(2025, 8, 29, 8, 38, 26, 263, DateTimeKind.Utc).AddTicks(4612),
                             FormId = 2,
                             ModuleId = 1,
                             State = true
@@ -196,7 +196,7 @@ namespace Entity.Migrations.SqlServer
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2025, 8, 25, 20, 41, 16, 373, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedAt = new DateTime(2025, 8, 29, 8, 38, 26, 263, DateTimeKind.Utc).AddTicks(4612),
                             FormId = 3,
                             ModuleId = 1,
                             State = true
@@ -204,7 +204,7 @@ namespace Entity.Migrations.SqlServer
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2025, 8, 25, 20, 41, 16, 373, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedAt = new DateTime(2025, 8, 29, 8, 38, 26, 263, DateTimeKind.Utc).AddTicks(4612),
                             FormId = 4,
                             ModuleId = 1,
                             State = true
@@ -212,7 +212,7 @@ namespace Entity.Migrations.SqlServer
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2025, 8, 25, 20, 41, 16, 373, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedAt = new DateTime(2025, 8, 29, 8, 38, 26, 263, DateTimeKind.Utc).AddTicks(4612),
                             FormId = 5,
                             ModuleId = 1,
                             State = true
@@ -220,7 +220,7 @@ namespace Entity.Migrations.SqlServer
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2025, 8, 25, 20, 41, 16, 373, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedAt = new DateTime(2025, 8, 29, 8, 38, 26, 263, DateTimeKind.Utc).AddTicks(4612),
                             FormId = 6,
                             ModuleId = 1,
                             State = true
@@ -228,7 +228,7 @@ namespace Entity.Migrations.SqlServer
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTime(2025, 8, 25, 20, 41, 16, 373, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedAt = new DateTime(2025, 8, 29, 8, 38, 26, 263, DateTimeKind.Utc).AddTicks(4612),
                             FormId = 7,
                             ModuleId = 2,
                             State = true
@@ -239,26 +239,26 @@ namespace Entity.Migrations.SqlServer
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("State")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -269,26 +269,26 @@ namespace Entity.Migrations.SqlServer
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("State")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -299,26 +299,26 @@ namespace Entity.Migrations.SqlServer
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("State")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -329,26 +329,26 @@ namespace Entity.Migrations.SqlServer
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("State")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -359,26 +359,26 @@ namespace Entity.Migrations.SqlServer
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("State")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -389,26 +389,26 @@ namespace Entity.Migrations.SqlServer
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("State")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -418,7 +418,7 @@ namespace Entity.Migrations.SqlServer
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 8, 25, 20, 41, 16, 373, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedAt = new DateTime(2025, 8, 29, 8, 38, 26, 263, DateTimeKind.Utc).AddTicks(4612),
                             Description = "The security module manages authentication, roles, permissions, and access to the system's forms and modules, ensuring the control and protection of information.",
                             Name = "Security",
                             State = true
@@ -426,7 +426,7 @@ namespace Entity.Migrations.SqlServer
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 8, 25, 20, 41, 16, 373, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedAt = new DateTime(2025, 8, 29, 8, 38, 26, 263, DateTimeKind.Utc).AddTicks(4612),
                             Description = "The operational module manages the system's core functional forms, allowing users to execute day-to-day activities",
                             Name = "Operational",
                             State = true
@@ -437,30 +437,30 @@ namespace Entity.Migrations.SqlServer
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("State")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -471,7 +471,7 @@ namespace Entity.Migrations.SqlServer
                         {
                             Id = 1,
                             Code = "0001",
-                            CreatedAt = new DateTime(2025, 8, 25, 20, 41, 16, 373, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedAt = new DateTime(2025, 8, 29, 8, 38, 26, 263, DateTimeKind.Utc).AddTicks(4612),
                             Description = "Allows the user to query, update, and delete records within the system, granting full access to the management of associated data.",
                             Name = "Reading and writing",
                             State = true
@@ -480,7 +480,7 @@ namespace Entity.Migrations.SqlServer
                         {
                             Id = 2,
                             Code = "0002",
-                            CreatedAt = new DateTime(2025, 8, 25, 20, 41, 16, 373, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedAt = new DateTime(2025, 8, 29, 8, 38, 26, 263, DateTimeKind.Utc).AddTicks(4612),
                             Description = "Allows the user to only view records within the system, without permission to perform updates or deletions.",
                             Name = "Reading only",
                             State = true
@@ -491,54 +491,54 @@ namespace Entity.Migrations.SqlServer
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CodeDane")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("DocumentType")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("EmailInstitutional")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("FirstLastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("IdentificationNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("MiddleName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<long>("Phone")
                         .HasColumnType("bigint");
 
                     b.Property<string>("SecondLastName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("State")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -549,7 +549,7 @@ namespace Entity.Migrations.SqlServer
                         {
                             Id = 1,
                             CodeDane = "441001004839",
-                            CreatedAt = new DateTime(2025, 8, 25, 20, 41, 16, 373, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedAt = new DateTime(2025, 8, 29, 8, 38, 26, 263, DateTimeKind.Utc).AddTicks(4612),
                             DocumentType = 1,
                             Email = "mariaalejan1080@gmail.com",
                             EmailInstitutional = "mariaa_marinh@soy.sena.com",
@@ -567,30 +567,30 @@ namespace Entity.Migrations.SqlServer
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("State")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -601,7 +601,7 @@ namespace Entity.Migrations.SqlServer
                         {
                             Id = 1,
                             Code = "01",
-                            CreatedAt = new DateTime(2025, 8, 25, 20, 41, 16, 373, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedAt = new DateTime(2025, 8, 29, 8, 38, 26, 263, DateTimeKind.Utc).AddTicks(4612),
                             Description = "",
                             Name = "SUPERADMIN",
                             State = true
@@ -612,27 +612,27 @@ namespace Entity.Migrations.SqlServer
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("FormId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("PermissionId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("RoleId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<bool>("State")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -648,7 +648,7 @@ namespace Entity.Migrations.SqlServer
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 8, 25, 20, 41, 16, 373, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedAt = new DateTime(2025, 8, 29, 8, 38, 26, 263, DateTimeKind.Utc).AddTicks(4612),
                             FormId = 1,
                             PermissionId = 1,
                             RoleId = 1,
@@ -657,7 +657,7 @@ namespace Entity.Migrations.SqlServer
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 8, 25, 20, 41, 16, 373, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedAt = new DateTime(2025, 8, 29, 8, 38, 26, 263, DateTimeKind.Utc).AddTicks(4612),
                             FormId = 2,
                             PermissionId = 1,
                             RoleId = 1,
@@ -666,7 +666,7 @@ namespace Entity.Migrations.SqlServer
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2025, 8, 25, 20, 41, 16, 373, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedAt = new DateTime(2025, 8, 29, 8, 38, 26, 263, DateTimeKind.Utc).AddTicks(4612),
                             FormId = 3,
                             PermissionId = 1,
                             RoleId = 1,
@@ -675,7 +675,7 @@ namespace Entity.Migrations.SqlServer
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2025, 8, 25, 20, 41, 16, 373, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedAt = new DateTime(2025, 8, 29, 8, 38, 26, 263, DateTimeKind.Utc).AddTicks(4612),
                             FormId = 4,
                             PermissionId = 1,
                             RoleId = 1,
@@ -684,7 +684,7 @@ namespace Entity.Migrations.SqlServer
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2025, 8, 25, 20, 41, 16, 373, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedAt = new DateTime(2025, 8, 29, 8, 38, 26, 263, DateTimeKind.Utc).AddTicks(4612),
                             FormId = 5,
                             PermissionId = 1,
                             RoleId = 1,
@@ -693,7 +693,7 @@ namespace Entity.Migrations.SqlServer
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2025, 8, 25, 20, 41, 16, 373, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedAt = new DateTime(2025, 8, 29, 8, 38, 26, 263, DateTimeKind.Utc).AddTicks(4612),
                             FormId = 6,
                             PermissionId = 1,
                             RoleId = 1,
@@ -702,7 +702,7 @@ namespace Entity.Migrations.SqlServer
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTime(2025, 8, 25, 20, 41, 16, 373, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedAt = new DateTime(2025, 8, 29, 8, 38, 26, 263, DateTimeKind.Utc).AddTicks(4612),
                             FormId = 7,
                             PermissionId = 1,
                             RoleId = 1,
@@ -714,33 +714,33 @@ namespace Entity.Migrations.SqlServer
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int>("PersonId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<bool>("State")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -753,7 +753,7 @@ namespace Entity.Migrations.SqlServer
                         {
                             Id = 1,
                             Code = "0001",
-                            CreatedAt = new DateTime(2025, 8, 25, 20, 41, 16, 373, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedAt = new DateTime(2025, 8, 29, 8, 38, 26, 263, DateTimeKind.Utc).AddTicks(4612),
                             Password = "202CB962AC59075B964B07152D234B70",
                             PersonId = 1,
                             State = true,
@@ -765,24 +765,24 @@ namespace Entity.Migrations.SqlServer
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("RoleId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<bool>("State")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -796,7 +796,7 @@ namespace Entity.Migrations.SqlServer
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 8, 25, 20, 41, 16, 373, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedAt = new DateTime(2025, 8, 29, 8, 38, 26, 263, DateTimeKind.Utc).AddTicks(4612),
                             RoleId = 1,
                             State = true,
                             UserId = 1

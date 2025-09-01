@@ -14,6 +14,10 @@ namespace Service.Interfaces
         /// </summary>
         /// <param name="name">The Name of the entity to retrieve.</param>
         /// <returns>A task that represents the asynchronous operation, containing the entity if found.</returns>
-        Task<UserRequest> GetByName(string name);
+        Task<UserRequest?> GetByName(string name);
+        Task<UserRequest> AddAsync(UserRequest request);
+
+
+
     }
 }
