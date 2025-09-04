@@ -9,7 +9,7 @@ namespace Entity.Requests
         /// <summary>
         /// Gets or sets the unique identifier for the selection item.
         /// </summary>
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// Gets or sets the display text for the selection item.

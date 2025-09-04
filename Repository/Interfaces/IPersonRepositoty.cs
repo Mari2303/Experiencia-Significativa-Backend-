@@ -9,5 +9,6 @@ namespace Repository.Interfaces
     /// </summary>
     public interface IPersonRepository : IBaseModelRepository<Person, PersonDTO, PersonRequest>
     {
+       
     }
 }

@@ -17,11 +17,19 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // MySQL
+<<<<<<< HEAD
 //builder.Services.AddDbContext<ApplicationContextMySQL>(options =>
 //    options.UseMySql(
 //        builder.Configuration.GetConnectionString("MySqlConnection"),
 //        new MySqlServerVersion(new Version(8, 0, 36))
 //    ));
+=======
+/*builder.Services.AddDbContext<ApplicationContextMySQL>(options =>
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("MySqlConnection"),
+        new MySqlServerVersion(new Version(8, 0, 36))
+    )); */
+>>>>>>> origin/prueba
 
 // PostgreSQL
 //builder.Services.AddDbContext<ApplicationContextPostgres>(options =>
@@ -70,8 +78,13 @@ using (var scope = app.Services.CreateScope())
     var sqlServerContext = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
     sqlServerContext.Database.Migrate();
 
+<<<<<<< HEAD
     //var mySqlContext = scope.ServiceProvider.GetRequiredService<ApplicationContextMySQL>();
     //mySqlContext.Database.Migrate();
+=======
+ //   var mySqlContext = scope.ServiceProvider.GetRequiredService<ApplicationContextMySQL>();
+  //  mySqlContext.Database.Migrate();
+>>>>>>> origin/prueba
 
     //var postgresContext = scope.ServiceProvider.GetRequiredService<ApplicationContextPostgres>();
     //postgresContext.Database.Migrate();
