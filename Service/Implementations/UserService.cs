@@ -17,14 +17,16 @@ namespace Service.Implementations
     public class UserService : BaseModelService<User, UserDTO, UserRequest>, IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IRoleRepository _roleRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserService"/> class.
         /// </summary>
         /// <param name="userRepository">The repository for managing user data.</param>
-        public UserService(IUserRepository userRepository) : base(userRepository)
+        public UserService(IUserRepository userRepository, IRoleRepository roleRepository) : base(userRepository)
         {
             _userRepository = userRepository;
+            _roleRepository = roleRepository;
         }
 
         /// <summary>
@@ -56,6 +58,7 @@ namespace Service.Implementations
             };
         }
 
+        
         // Sobrescribimos AddAsync para registrar usuarios sin token
         public async Task<UserRequest> AddAsync(UserRequest request)
         {
@@ -66,7 +69,14 @@ namespace Service.Implementations
                 passwordHash = EncryptMD5(request.Password);
             }
 
-            // Mapeo manual de UserRequest -> User (entidad)
+            // Buscar el rol "Profesor" predeterminado
+            var defaultRole = await _roleRepository.GetByNameRol("Profesor");
+            if (defaultRole == null)
+            {
+                throw new Exception("El rol 'Profesor' no existe en la base de datos.");
+            }
+
+            // Crear la entidad User
             var entity = new User
             {
                 Code = request.Code,
@@ -74,9 +84,18 @@ namespace Service.Implementations
                 Password = passwordHash,
                 PersonId = request.PersonId,
                 State = true,
-                CreatedAt = DateTime.UtcNow
-
+                CreatedAt = DateTime.UtcNow,
+                UserRoles = new List<UserRole>() // Inicializar la colección
             };
+
+            // Asignar rol Profesor al usuario
+            entity.UserRoles.Add(new UserRole
+            {
+                RoleId = defaultRole.Id,
+                State = true,
+                CreatedAt = DateTime.UtcNow,
+                User = entity
+            });
 
             // Guardar en BD
             var savedEntity = await _userRepository.Save(entity);
@@ -89,9 +108,9 @@ namespace Service.Implementations
                 Username = savedEntity.Username,
                 Password = savedEntity.Password,
                 PersonId = savedEntity.PersonId
-                 
             };
         }
+
 
 
         private string EncryptMD5(string input)

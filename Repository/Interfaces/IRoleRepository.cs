@@ -10,5 +10,7 @@ namespace Repository.Interfaces
     /// </summary>
     public interface IRoleRepository : IBaseModelRepository<Role, RoleDTO, RoleRequest>
     {
+        Task<Role> GetByNameRol(string roleName);
+
     }
 }
