@@ -17,15 +17,15 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // MySQL
-builder.Services.AddDbContext<ApplicationContextMySQL>(options =>
-    options.UseMySql(
-        builder.Configuration.GetConnectionString("MySqlConnection"),
-        new MySqlServerVersion(new Version(8, 0, 36))
-    ));
+//builder.Services.AddDbContext<ApplicationContextMySQL>(options =>
+//    options.UseMySql(
+//        builder.Configuration.GetConnectionString("MySqlConnection"),
+//        new MySqlServerVersion(new Version(8, 0, 36))
+//    ));
 
 // PostgreSQL
-builder.Services.AddDbContext<ApplicationContextPostgres>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection")));
+//builder.Services.AddDbContext<ApplicationContextPostgres>(options =>
+//    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection")));
 
 
 // Add services to the container.
@@ -70,11 +70,11 @@ using (var scope = app.Services.CreateScope())
     var sqlServerContext = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
     sqlServerContext.Database.Migrate();
 
-    var mySqlContext = scope.ServiceProvider.GetRequiredService<ApplicationContextMySQL>();
-    mySqlContext.Database.Migrate();
+    //var mySqlContext = scope.ServiceProvider.GetRequiredService<ApplicationContextMySQL>();
+    //mySqlContext.Database.Migrate();
 
-    var postgresContext = scope.ServiceProvider.GetRequiredService<ApplicationContextPostgres>();
-    postgresContext.Database.Migrate();
+    //var postgresContext = scope.ServiceProvider.GetRequiredService<ApplicationContextPostgres>();
+    //postgresContext.Database.Migrate();
 }
 
 
