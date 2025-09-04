@@ -4,6 +4,7 @@ using Entity.Dtos;
 using Entity.Models;
 using Entity.Requests;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 using Repository.Interfaces;
 using Utilities.Helper;
@@ -117,6 +118,26 @@ namespace Repository.Implementations
                 throw;
             }
         }
+
+
+
+        // Iniciar transacción
+        public async Task<IDbContextTransaction> BeginTransactionAsync()
+        {
+            return await _context.Database.BeginTransactionAsync();
+        }
+
+
+
+
+        // Guardar entidad genérica
+        public async Task<T> SaveAsync(T entity)
+        {
+            await _context.Set<T>().AddAsync(entity);
+            await _context.SaveChangesAsync();
+            return entity;
+        }
+
 
         /// <summary>
         /// Saves a new entity to the database.

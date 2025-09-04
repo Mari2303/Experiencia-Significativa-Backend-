@@ -9,13 +9,15 @@ namespace Entity.Context
     {
         public ApplicationContext CreateDbContext(string[] args)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
-            
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .Build();
 
+            var configuration = new ConfigurationBuilder()
+                 .SetBasePath(Directory.GetCurrentDirectory())
+                 .AddJsonFile("appsettings.json")
+                 .Build();
+
+            var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
+
+            // Configura aquí el provider que quieras para crear la migración
             optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
 
             return new ApplicationContext(optionsBuilder.Options, configuration);

@@ -19,6 +19,14 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.7" />
     <PackageReference Include="Microsoft.Extensions.FileProviders.Physical" Version="9.0.7" />
     <PackageReference Include="Microsoft.SqlServer.Server" Version="1.0.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\MySQL\" />
+    <Folder Include="Migrations\Postgres\" />
+    <Folder Include="Migrations\SqlServer\" />
   </ItemGroup>
 
 </Project>

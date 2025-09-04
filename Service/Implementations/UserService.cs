@@ -4,7 +4,7 @@ using Entity.Dtos;
 using Entity.Models;
 using Entity.Requests;
 using Microsoft.EntityFrameworkCore;
-using AutoMapper;
+using AutoMapper; 
 using Repository.Interfaces;
 using Service.Interfaces;
 using Repository.Implementations;
@@ -52,7 +52,7 @@ namespace Service.Implementations
                 Password = user.Password,
                 PersonId = user.PersonId,
                 Code = user.Code,
-
+             
             };
         }
 
@@ -89,7 +89,7 @@ namespace Service.Implementations
                 Username = savedEntity.Username,
                 Password = savedEntity.Password,
                 PersonId = savedEntity.PersonId
-
+                 
             };
         }
 
@@ -104,3 +104,4 @@ namespace Service.Implementations
     }
 
 }
+

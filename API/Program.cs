@@ -1,4 +1,4 @@
-using API;
+﻿using API;
 using Microsoft.EntityFrameworkCore;
 using Entity.Context;
 using Repository.Interfaces;
@@ -11,9 +11,22 @@ using Utilities.JwtAuthentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuring the database context
+
+// SQL Server
 builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// MySQL
+/*builder.Services.AddDbContext<ApplicationContextMySQL>(options =>
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("MySqlConnection"),
+        new MySqlServerVersion(new Version(8, 0, 36))
+    )); */
+
+// PostgreSQL
+builder.Services.AddDbContext<ApplicationContextPostgres>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection")));
+
 
 // Add services to the container.
 builder.Services.AddControllers().AddJsonOptions(options =>
@@ -44,12 +57,26 @@ builder.Services.AddSingleton<IJwtAuthenticationService, JwtAuthenticationServic
 // Configuration for authenticating using JWT Bearer tokens
 AuthenticationExtensions.AddCustomAuthentication(builder.Services, builder.Configuration);
 
-// Configuring AutoMapper profiles
+// Configuring AutoMapper profiles  
 MapperExtension.ConfigureAutoMapper(builder.Services);
 
 
 
 var app = builder.Build();
+
+// 🔹 Aplicar migraciones automáticamente
+using (var scope = app.Services.CreateScope())
+{
+    var sqlServerContext = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
+    sqlServerContext.Database.Migrate();
+
+ //   var mySqlContext = scope.ServiceProvider.GetRequiredService<ApplicationContextMySQL>();
+  //  mySqlContext.Database.Migrate();
+
+    var postgresContext = scope.ServiceProvider.GetRequiredService<ApplicationContextPostgres>();
+    postgresContext.Database.Migrate();
+}
+
 
 // Configuring the HTTP Request Pipeline
 if (app.Environment.IsDevelopment())

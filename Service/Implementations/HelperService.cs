@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Entity.Dtos;
+using Entity.Enums;
 using Entity.Models;
 using Entity.Requests;
 using Repository.Interfaces;
@@ -67,5 +68,6 @@ namespace Service.Implementations
         {
             return await _repository.GetEnum(enumName);
         }
+
     }
 }

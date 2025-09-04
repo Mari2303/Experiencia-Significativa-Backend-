@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Repository.Interfaces;
 using Utilities.Helper;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace Repository.Implementations
 {
@@ -158,7 +160,6 @@ namespace Repository.Implementations
         }
 
 
-
         //  este AddAsync trabaja con ENTIDAD User
         public async Task AddAsync(User entity)
         {
@@ -166,8 +167,7 @@ namespace Repository.Implementations
             await _context.SaveChangesAsync();
         }
 
-
-
-
     }
+
 }
+

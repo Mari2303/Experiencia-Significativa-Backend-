@@ -3,6 +3,7 @@ using Entity.Context;
 using Entity.Dtos;
 using Entity.Models;
 using Entity.Requests;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Repository.Interfaces;
 using Utilities.Helper;
@@ -106,5 +107,6 @@ namespace Repository.Implementations
                 throw;
             }
         }
+
     }
 }

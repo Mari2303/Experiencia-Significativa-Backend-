@@ -17,13 +17,13 @@ namespace API.Controllers
             _userService = service;
             _mapper = mapper;
         }
-    
 
 
-    /// <summary>
-/// Registrar un nuevo usuario
-/// </summary>
-[HttpPost("register")]
+
+        /// <summary>
+        /// Registrar un nuevo usuario
+        /// </summary>
+        [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserRequest request)
         {
             try
@@ -37,7 +37,7 @@ namespace API.Controllers
             }
         }
 
-
+      
 
         /// <summary>
         /// Obtener un usuario por nombre
@@ -58,7 +58,5 @@ namespace API.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
-
     }
-
-    }
+}
