@@ -2,11 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using Entity.Context;
 using Repository.Interfaces;
-using Service.Implementations;
-using Service.Interfaces;
 using Repository.Implementations;
 using System.Text.Json.Serialization;
 using Utilities.JwtAuthentication;
+using Service.Implementations;
+using Service.Interfaces;
 
 
 var builder = WebApplication.CreateBuilder(args);

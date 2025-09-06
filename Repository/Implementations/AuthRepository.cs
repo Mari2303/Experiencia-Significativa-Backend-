@@ -6,7 +6,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Utilities.JwtAuthentication;
 
-namespace Repository.Interfaces
+namespace Repository.Implementations
 {
     /// <summary>
     /// Implementation of the authentication Repository for login, registration, and token validation handling.
@@ -124,7 +124,7 @@ namespace Repository.Interfaces
         /// </summary>
         /// <param name="token">The existing JWT token to renew.</param>
         /// <returns>A new JWT token with the same claims but a new expiration time, or an error message if the renewal fails.</returns>
-        public async Task<RenewTokenRequest> RenewTokenAsync(String token)
+        public async Task<RenewTokenRequest> RenewTokenAsync(string token)
         {
             var newToken = _jwtAuthentication.RenewToken(token);
             return new RenewTokenRequest

@@ -2,6 +2,7 @@
 using Entity.Dtos;
 using Entity.Models;
 using Entity.Requests;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.Interfaces;
 
@@ -57,6 +58,15 @@ namespace API.Controllers
             {
                 return BadRequest(new { message = ex.Message });
             }
+        }
+
+
+        [Authorize]
+        [HttpGet("{userId}/menu")]
+        public async Task<ActionResult<List<MenuRequest>>> GetMenu(int userId)
+        {
+            var menu = await _userService.GetMenuAsync(userId);
+            return Ok(menu);
         }
     }
 }

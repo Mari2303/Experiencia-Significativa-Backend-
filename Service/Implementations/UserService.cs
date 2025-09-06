@@ -4,7 +4,7 @@ using Entity.Dtos;
 using Entity.Models;
 using Entity.Requests;
 using Microsoft.EntityFrameworkCore;
-using AutoMapper; 
+using AutoMapper;
 using Repository.Interfaces;
 using Service.Interfaces;
 using Repository.Implementations;
@@ -54,11 +54,11 @@ namespace Service.Implementations
                 Password = user.Password,
                 PersonId = user.PersonId,
                 Code = user.Code,
-             
+
             };
         }
 
-        
+
         // Sobrescribimos AddAsync para registrar usuarios sin token
         public async Task<UserRequest> AddAsync(UserRequest request)
         {
@@ -120,7 +120,23 @@ namespace Service.Implementations
             var hashBytes = md5.ComputeHash(inputBytes);
             return Convert.ToHexString(hashBytes);
         }
-    }
 
+
+
+
+        public async Task<List<MenuRequest>> GetMenuAsync(int userId)
+        {
+            // Obtenemos el menú directo desde el UserRepository
+            var menuItems = await _userRepository.GetMenuAsync(userId);
+
+            // No necesitamos agrupar, solo devolvemos la lista tal cual
+            return menuItems;
+        }
+
+
+
+
+
+    }
 }
 
