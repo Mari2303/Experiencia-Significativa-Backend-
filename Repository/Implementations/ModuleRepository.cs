@@ -12,7 +12,7 @@ namespace Repository.Implementations
     /// <summary>
     /// Implementation of the repository for the modules.
     /// </summary>
-    public class ModuleRepository : BaseModelRepository<Module, ModuleDTO, ModuleRequest>, IModuleRepository
+    public class ModuleRepository : BaseModelRepository<Module, ModuleDTO, ModuleRequest>, IBaseModuleRepository
     {
         private readonly ApplicationContext _context;
         private readonly IMapper _mapper;

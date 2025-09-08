@@ -12,6 +12,6 @@ namespace Entity.Models.ModelosParametros
         public string Name { get; set; } = string.Empty;
         public string Code { get; set; } = string.Empty;
 
-        public ICollection<ExperiencePopulation> ExperiencePopulations { get; set; } = new List<ExperiencePopulation>();
+        public virtual ICollection<ExperiencePopulation> ExperiencePopulations { get; set; } = new List<ExperiencePopulation>();
     }
 }
