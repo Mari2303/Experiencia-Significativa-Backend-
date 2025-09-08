@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Entity.Models.ModuleOperation;
 
 namespace Entity.Models.ModelosParametros
 {
@@ -10,5 +11,8 @@ namespace Entity.Models.ModelosParametros
     {
         public string Name { get; set; } = string.Empty; 
         public string Code { get; set; } = string.Empty;
+        public virtual HistoryExperience? HistoryExperience { get; set; } = null;
+        public virtual ICollection<Evaluation> Evaluations { get; set; } = new List<Evaluation>();
+        public virtual ICollection<HistoryExperience> HistoryExperiences { get; set; } = new List<HistoryExperience>();
     }
 }

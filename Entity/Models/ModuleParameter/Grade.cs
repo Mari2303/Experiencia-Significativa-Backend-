@@ -9,6 +9,6 @@ namespace Entity.Models.ModelosParametros
         public string Name { get; set; } = string.Empty;
         public string Code { get; set; } = string.Empty;
 
-        public ICollection<ExperienceGrade> ExperienceGrades { get; set; } = new List<ExperienceGrade>();
+        public virtual ICollection<ExperienceGrade> ExperienceGrades { get; set; } = new List<ExperienceGrade>();
     }
 }

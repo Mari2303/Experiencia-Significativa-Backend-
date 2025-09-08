@@ -1,4 +1,6 @@
-﻿namespace Entity.Models
+﻿using Entity.Models.ModuleOperation;
+
+namespace Entity.Models
 {
     /// <summary>
     /// Represents a user in the security system
@@ -34,5 +36,9 @@
         /// Collection of roles assigned to this user
         /// </summary>
         public virtual ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
+        public virtual ICollection<Experience> Experiences { get; set; } = new List<Experience>();
+        public virtual ICollection<Evaluation> Evaluations { get; set; } = new List<Evaluation>();
+
+        public virtual ICollection<HistoryExperience> HistoryExperiences { get; set; } = new List<HistoryExperience>();
     }
 }

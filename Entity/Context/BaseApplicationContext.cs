@@ -6,10 +6,8 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using System.Data;
 using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Storage;
+using Entity.Models.ModuleOperation;
 
 namespace Entity.Context
 {
@@ -45,6 +43,22 @@ namespace Entity.Context
             modelBuilder.ApplyConfiguration<Criteria>(configuration);
             modelBuilder.ApplyConfiguration<LineThematic>(configuration);
             modelBuilder.ApplyConfiguration<PopulationGrade>(configuration);
+
+
+
+            modelBuilder.ApplyConfiguration<Document>(configuration);
+            modelBuilder.ApplyConfiguration<Verification>(configuration);
+            modelBuilder.ApplyConfiguration<Evaluation>(configuration);
+            modelBuilder.ApplyConfiguration<EvaluationCriteria>(configuration);
+            modelBuilder.ApplyConfiguration<Experience>(configuration);
+            modelBuilder.ApplyConfiguration<ExperienceGrade>(configuration);
+            modelBuilder.ApplyConfiguration<ExperienceLineThematic>(configuration);
+            modelBuilder.ApplyConfiguration<ExperiencePopulation>(configuration);
+            modelBuilder.ApplyConfiguration<HistoryExperience>(configuration);
+            modelBuilder.ApplyConfiguration<Institution>(configuration);
+            modelBuilder.ApplyConfiguration<Objective>(configuration);
+
+
 
             InitialData.Data(modelBuilder);
             base.OnModelCreating(modelBuilder);
@@ -126,6 +140,20 @@ namespace Entity.Context
         public DbSet<Grade> Grade { get; set; }
         public DbSet<LineThematic> LineThematics { get; set; }
         public DbSet<PopulationGrade> PopulationGrade { get; set; }
+
+      
+        public DbSet<Models.ModuleOperation.Document> Documents { get; set; }
+        public DbSet<Verification> verifications { get; set; }
+        public DbSet<Evaluation> Evaluations { get; set; }
+        public DbSet<EvaluationCriteria> EvaluationCriterias { get; set; }
+        public DbSet<Experience> Experiences { get; set; }
+        public DbSet<ExperienceGrade> ExperienceGrades { get; set; }
+        public DbSet<ExperienceLineThematic> ExperienceLineThematics { get; set; }
+        public DbSet<ExperiencePopulation> ExperiencePopulation { get; set; }
+        public DbSet<HistoryExperience> HistoryExperiences { get; set; }
+        public DbSet<Institution> Institutions { get; set; }
+        public DbSet<Objective> Objectives { get; set; }
+
     }
 
     // DbContext concreto para cada base de datos
