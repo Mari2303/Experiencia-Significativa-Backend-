@@ -33,4 +33,9 @@
     <ProjectReference Include="..\Entity\Entity.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\BaseModelController\" />
+    <Folder Include="Controllers\ModuleDomainController\" />
+  </ItemGroup>
+
 </Project>

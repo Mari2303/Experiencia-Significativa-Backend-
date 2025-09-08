@@ -1,6 +1,6 @@
-﻿using Service.Interfaces;
-using Repository.Interfaces;
+﻿using Repository.Interfaces;
 using Utilities.JwtAuthentication;
+using Service.Interfaces;
 
 namespace Service.Implementations
 {

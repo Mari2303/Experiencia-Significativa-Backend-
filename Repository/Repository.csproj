@@ -7,6 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Implementations\BaseModelRepository\**" />
+    <Compile Remove="Implementations\ModuleDomainRepository\**" />
+    <Compile Remove="Interfaces\IBaseModelRepository\**" />
+    <Compile Remove="Interfaces\IModuleDomainRepository\**" />
+    <EmbeddedResource Remove="Implementations\BaseModelRepository\**" />
+    <EmbeddedResource Remove="Implementations\ModuleDomainRepository\**" />
+    <EmbeddedResource Remove="Interfaces\IBaseModelRepository\**" />
+    <EmbeddedResource Remove="Interfaces\IModuleDomainRepository\**" />
+    <None Remove="Implementations\BaseModelRepository\**" />
+    <None Remove="Implementations\ModuleDomainRepository\**" />
+    <None Remove="Interfaces\IBaseModelRepository\**" />
+    <None Remove="Interfaces\IModuleDomainRepository\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="15.0.1" />
     <PackageReference Include="Dapper" Version="2.1.66" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.7" />
