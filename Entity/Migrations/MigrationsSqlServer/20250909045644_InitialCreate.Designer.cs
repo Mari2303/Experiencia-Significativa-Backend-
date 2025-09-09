@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entity.MigrationsSqlServer
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20250831135600_InitMigrationSqlServer")]
-    partial class InitMigrationSqlServer
+    [Migration("20250909045644_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -69,7 +69,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 8, 31, 8, 55, 59, 379, DateTimeKind.Utc).AddTicks(8624),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185),
                             Description = "Manages system modules, allowing users to define, modify, and assign modules available to them based on established roles and permissions.",
                             Icon = "fa-solid fa-window-maximize",
                             Name = "Modules",
@@ -80,7 +80,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 8, 31, 8, 55, 59, 379, DateTimeKind.Utc).AddTicks(8624),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185),
                             Description = "Manages the forms available in the system, allowing the creation, modification, and deletion of forms associated with different functionalities and modules.",
                             Icon = "fa-solid fa-window-restore",
                             Name = "Forms",
@@ -91,7 +91,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2025, 8, 31, 8, 55, 59, 379, DateTimeKind.Utc).AddTicks(8624),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185),
                             Description = "Allows you to assign specific permissions to users and roles, controlling access to functions, forms, and modules according to the system's needs and security policies.",
                             Icon = "fa-solid fa-user-lock",
                             Name = "Permissions",
@@ -102,7 +102,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2025, 8, 31, 8, 55, 59, 379, DateTimeKind.Utc).AddTicks(8624),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185),
                             Description = "Defines and manages roles within the system, allowing you to assign specific permissions to each role and control access to different application features and resources.",
                             Icon = "fa-solid fa-users-gear",
                             Name = "Roles",
@@ -113,7 +113,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2025, 8, 31, 8, 55, 59, 379, DateTimeKind.Utc).AddTicks(8624),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185),
                             Description = "It allows you to manage user information, including its creation, editing, and deletion. It facilitates the assignment of roles and permissions, ensuring controlled access to the system.",
                             Icon = "fa-solid fa-users",
                             Name = "Users",
@@ -124,7 +124,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2025, 8, 31, 8, 55, 59, 379, DateTimeKind.Utc).AddTicks(8624),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185),
                             Description = "It allows you to manage the information of people associated with the system, such as users, employees, or any other relevant entity. It facilitates the creation, editing, and deletion of records, allowing you to link people to specific roles, modules, and permissions as needed.",
                             Icon = "fa-solid fa-user",
                             Name = "Persons",
@@ -135,7 +135,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTime(2025, 8, 31, 8, 55, 59, 379, DateTimeKind.Utc).AddTicks(8624),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185),
                             Description = "This form allows the registration and management of customers within the system. It facilitates the creation, editing, and tracking of customer records, enabling the association of relevant operational data and interactions essential for service delivery and follow-up.",
                             Icon = "fa-solid fa-building-user",
                             Name = "Customers",
@@ -180,7 +180,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 8, 31, 8, 55, 59, 379, DateTimeKind.Utc).AddTicks(8624),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185),
                             FormId = 1,
                             ModuleId = 1,
                             State = true
@@ -188,7 +188,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 8, 31, 8, 55, 59, 379, DateTimeKind.Utc).AddTicks(8624),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185),
                             FormId = 2,
                             ModuleId = 1,
                             State = true
@@ -196,7 +196,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2025, 8, 31, 8, 55, 59, 379, DateTimeKind.Utc).AddTicks(8624),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185),
                             FormId = 3,
                             ModuleId = 1,
                             State = true
@@ -204,7 +204,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2025, 8, 31, 8, 55, 59, 379, DateTimeKind.Utc).AddTicks(8624),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185),
                             FormId = 4,
                             ModuleId = 1,
                             State = true
@@ -212,7 +212,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2025, 8, 31, 8, 55, 59, 379, DateTimeKind.Utc).AddTicks(8624),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185),
                             FormId = 5,
                             ModuleId = 1,
                             State = true
@@ -220,7 +220,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2025, 8, 31, 8, 55, 59, 379, DateTimeKind.Utc).AddTicks(8624),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185),
                             FormId = 6,
                             ModuleId = 1,
                             State = true
@@ -228,7 +228,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTime(2025, 8, 31, 8, 55, 59, 379, DateTimeKind.Utc).AddTicks(8624),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185),
                             FormId = 7,
                             ModuleId = 2,
                             State = true
@@ -418,7 +418,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 8, 31, 8, 55, 59, 379, DateTimeKind.Utc).AddTicks(8624),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185),
                             Description = "The security module manages authentication, roles, permissions, and access to the system's forms and modules, ensuring the control and protection of information.",
                             Name = "Security",
                             State = true
@@ -426,11 +426,474 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 8, 31, 8, 55, 59, 379, DateTimeKind.Utc).AddTicks(8624),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185),
                             Description = "The operational module manages the system's core functional forms, allowing users to execute day-to-day activities",
                             Name = "Operational",
                             State = true
                         });
+                });
+
+            modelBuilder.Entity("Entity.Models.ModuleOperation.Document", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ExperienceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("State")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UrlLink")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UrlPdf")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExperienceId");
+
+                    b.ToTable("Documents");
+                });
+
+            modelBuilder.Entity("Entity.Models.ModuleOperation.Evaluation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Comments")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ExperienceId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("State")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("StateId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TypeEvaluation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExperienceId");
+
+                    b.HasIndex("StateId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Evaluations");
+                });
+
+            modelBuilder.Entity("Entity.Models.ModuleOperation.EvaluationCriteria", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CriteriaId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EvaluationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Score")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("State")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CriteriaId");
+
+                    b.HasIndex("EvaluationId");
+
+                    b.ToTable("EvaluationCriterias");
+                });
+
+            modelBuilder.Entity("Entity.Models.ModuleOperation.Experience", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("InstitucionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Methodologias")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameExperiences")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("State")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Summary")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tranfer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InstitucionId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Experiences");
+                });
+
+            modelBuilder.Entity("Entity.Models.ModuleOperation.ExperienceGrade", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ExperienceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GradeId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("State")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExperienceId");
+
+                    b.HasIndex("GradeId");
+
+                    b.ToTable("ExperienceGrades");
+                });
+
+            modelBuilder.Entity("Entity.Models.ModuleOperation.ExperienceLineThematic", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ExperienceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LineThematicId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("State")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExperienceId");
+
+                    b.HasIndex("LineThematicId");
+
+                    b.ToTable("ExperienceLineThematics");
+                });
+
+            modelBuilder.Entity("Entity.Models.ModuleOperation.ExperiencePopulation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ExperienceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PopulationGradeId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("State")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExperienceId");
+
+                    b.HasIndex("PopulationGradeId");
+
+                    b.ToTable("ExperiencePopulation");
+                });
+
+            modelBuilder.Entity("Entity.Models.ModuleOperation.HistoryExperience", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Action")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ExperienceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StateId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TableName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExperienceId");
+
+                    b.HasIndex("StateId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("HistoryExperiences");
+                });
+
+            modelBuilder.Entity("Entity.Models.ModuleOperation.Institution", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Commune")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Departament")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EmailInstitucional")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Phone")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("State")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Institutions");
+                });
+
+            modelBuilder.Entity("Entity.Models.ModuleOperation.Objective", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DescriptionProblem")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Dissemination")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EnfoqueExperience")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ExperienceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("InnovationExperience")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MetaphoricalPhrase")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ObjectiveExperience")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ResulsExperience")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("State")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SustainabilityExperience")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Testimony")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExperienceId");
+
+                    b.ToTable("Objectives");
+                });
+
+            modelBuilder.Entity("Entity.Models.ModuleOperation.Verification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ExperienceId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ExperienceId1")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("State")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExperienceId");
+
+                    b.HasIndex("ExperienceId1")
+                        .IsUnique()
+                        .HasFilter("[ExperienceId1] IS NOT NULL");
+
+                    b.ToTable("verifications");
                 });
 
             modelBuilder.Entity("Entity.Models.Permission", b =>
@@ -471,7 +934,7 @@ namespace Entity.MigrationsSqlServer
                         {
                             Id = 1,
                             Code = "0001",
-                            CreatedAt = new DateTime(2025, 8, 31, 8, 55, 59, 379, DateTimeKind.Utc).AddTicks(8624),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185),
                             Description = "Allows the user to query, update, and delete records within the system, granting full access to the management of associated data.",
                             Name = "Reading and writing",
                             State = true
@@ -480,7 +943,7 @@ namespace Entity.MigrationsSqlServer
                         {
                             Id = 2,
                             Code = "0002",
-                            CreatedAt = new DateTime(2025, 8, 31, 8, 55, 59, 379, DateTimeKind.Utc).AddTicks(8624),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185),
                             Description = "Allows the user to only view records within the system, without permission to perform updates or deletions.",
                             Name = "Reading only",
                             State = true
@@ -549,7 +1012,7 @@ namespace Entity.MigrationsSqlServer
                         {
                             Id = 1,
                             CodeDane = "441001004839",
-                            CreatedAt = new DateTime(2025, 8, 31, 8, 55, 59, 379, DateTimeKind.Utc).AddTicks(8624),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185),
                             DocumentType = 1,
                             Email = "mariaalejan1080@gmail.com",
                             EmailInstitutional = "mariaa_marinh@soy.sena.com",
@@ -601,7 +1064,7 @@ namespace Entity.MigrationsSqlServer
                         {
                             Id = 1,
                             Code = "01",
-                            CreatedAt = new DateTime(2025, 8, 31, 8, 55, 59, 379, DateTimeKind.Utc).AddTicks(8624),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185),
                             Description = "",
                             Name = "SUPERADMIN",
                             State = true
@@ -648,7 +1111,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 8, 31, 8, 55, 59, 379, DateTimeKind.Utc).AddTicks(8624),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185),
                             FormId = 1,
                             PermissionId = 1,
                             RoleId = 1,
@@ -657,7 +1120,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 8, 31, 8, 55, 59, 379, DateTimeKind.Utc).AddTicks(8624),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185),
                             FormId = 2,
                             PermissionId = 1,
                             RoleId = 1,
@@ -666,7 +1129,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2025, 8, 31, 8, 55, 59, 379, DateTimeKind.Utc).AddTicks(8624),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185),
                             FormId = 3,
                             PermissionId = 1,
                             RoleId = 1,
@@ -675,7 +1138,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2025, 8, 31, 8, 55, 59, 379, DateTimeKind.Utc).AddTicks(8624),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185),
                             FormId = 4,
                             PermissionId = 1,
                             RoleId = 1,
@@ -684,7 +1147,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2025, 8, 31, 8, 55, 59, 379, DateTimeKind.Utc).AddTicks(8624),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185),
                             FormId = 5,
                             PermissionId = 1,
                             RoleId = 1,
@@ -693,7 +1156,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2025, 8, 31, 8, 55, 59, 379, DateTimeKind.Utc).AddTicks(8624),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185),
                             FormId = 6,
                             PermissionId = 1,
                             RoleId = 1,
@@ -702,7 +1165,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTime(2025, 8, 31, 8, 55, 59, 379, DateTimeKind.Utc).AddTicks(8624),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185),
                             FormId = 7,
                             PermissionId = 1,
                             RoleId = 1,
@@ -753,7 +1216,7 @@ namespace Entity.MigrationsSqlServer
                         {
                             Id = 1,
                             Code = "0001",
-                            CreatedAt = new DateTime(2025, 8, 31, 8, 55, 59, 379, DateTimeKind.Utc).AddTicks(8624),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185),
                             Password = "202CB962AC59075B964B07152D234B70",
                             PersonId = 1,
                             State = true,
@@ -796,7 +1259,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 8, 31, 8, 55, 59, 379, DateTimeKind.Utc).AddTicks(8624),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185),
                             RoleId = 1,
                             State = true,
                             UserId = 1
@@ -820,6 +1283,188 @@ namespace Entity.MigrationsSqlServer
                     b.Navigation("Form");
 
                     b.Navigation("Module");
+                });
+
+            modelBuilder.Entity("Entity.Models.ModuleOperation.Document", b =>
+                {
+                    b.HasOne("Entity.Models.ModuleOperation.Experience", "Experience")
+                        .WithMany("Documents")
+                        .HasForeignKey("ExperienceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Experience");
+                });
+
+            modelBuilder.Entity("Entity.Models.ModuleOperation.Evaluation", b =>
+                {
+                    b.HasOne("Entity.Models.ModuleOperation.Experience", "Experience")
+                        .WithMany("Evaluations")
+                        .HasForeignKey("ExperienceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entity.Models.ModelosParametros.State", null)
+                        .WithMany("Evaluations")
+                        .HasForeignKey("StateId");
+
+                    b.HasOne("Entity.Models.User", "User")
+                        .WithMany("Evaluations")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Experience");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Entity.Models.ModuleOperation.EvaluationCriteria", b =>
+                {
+                    b.HasOne("Entity.Models.ModelosParametros.Criteria", "Criteria")
+                        .WithMany("EvaluationCriterias")
+                        .HasForeignKey("CriteriaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entity.Models.ModuleOperation.Evaluation", "Evaluation")
+                        .WithMany("EvaluationCriterias")
+                        .HasForeignKey("EvaluationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Criteria");
+
+                    b.Navigation("Evaluation");
+                });
+
+            modelBuilder.Entity("Entity.Models.ModuleOperation.Experience", b =>
+                {
+                    b.HasOne("Entity.Models.ModuleOperation.Institution", "Institution")
+                        .WithMany("Experiences")
+                        .HasForeignKey("InstitucionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entity.Models.User", "User")
+                        .WithMany("Experiences")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Institution");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Entity.Models.ModuleOperation.ExperienceGrade", b =>
+                {
+                    b.HasOne("Entity.Models.ModuleOperation.Experience", "Experience")
+                        .WithMany("ExperienceGrades")
+                        .HasForeignKey("ExperienceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entity.Models.ModelosParametros.Grade", "Grade")
+                        .WithMany("ExperienceGrades")
+                        .HasForeignKey("GradeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Experience");
+
+                    b.Navigation("Grade");
+                });
+
+            modelBuilder.Entity("Entity.Models.ModuleOperation.ExperienceLineThematic", b =>
+                {
+                    b.HasOne("Entity.Models.ModuleOperation.Experience", "Experience")
+                        .WithMany("ExperienceLineThematics")
+                        .HasForeignKey("ExperienceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entity.Models.ModelosParametros.LineThematic", "LineThematic")
+                        .WithMany("ExperienceLineThematics")
+                        .HasForeignKey("LineThematicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Experience");
+
+                    b.Navigation("LineThematic");
+                });
+
+            modelBuilder.Entity("Entity.Models.ModuleOperation.ExperiencePopulation", b =>
+                {
+                    b.HasOne("Entity.Models.ModuleOperation.Experience", "Experience")
+                        .WithMany("ExperiencePopulations")
+                        .HasForeignKey("ExperienceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entity.Models.ModelosParametros.PopulationGrade", "PopulationGrade")
+                        .WithMany("ExperiencePopulations")
+                        .HasForeignKey("PopulationGradeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Experience");
+
+                    b.Navigation("PopulationGrade");
+                });
+
+            modelBuilder.Entity("Entity.Models.ModuleOperation.HistoryExperience", b =>
+                {
+                    b.HasOne("Entity.Models.ModuleOperation.Experience", "Experience")
+                        .WithMany("HistoryExperiences")
+                        .HasForeignKey("ExperienceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entity.Models.ModelosParametros.State", "State")
+                        .WithMany("HistoryExperiences")
+                        .HasForeignKey("StateId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Entity.Models.User", "User")
+                        .WithMany("HistoryExperiences")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Experience");
+
+                    b.Navigation("State");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Entity.Models.ModuleOperation.Objective", b =>
+                {
+                    b.HasOne("Entity.Models.ModuleOperation.Experience", "Experience")
+                        .WithMany("Objectives")
+                        .HasForeignKey("ExperienceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Experience");
+                });
+
+            modelBuilder.Entity("Entity.Models.ModuleOperation.Verification", b =>
+                {
+                    b.HasOne("Entity.Models.ModuleOperation.Experience", "Experience")
+                        .WithMany("verifications")
+                        .HasForeignKey("ExperienceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entity.Models.ModuleOperation.Experience", null)
+                        .WithOne("Verification")
+                        .HasForeignKey("Entity.Models.ModuleOperation.Verification", "ExperienceId1");
+
+                    b.Navigation("Experience");
                 });
 
             modelBuilder.Entity("Entity.Models.RoleFormPermission", b =>
@@ -886,9 +1531,67 @@ namespace Entity.MigrationsSqlServer
                     b.Navigation("RoleFormPermissions");
                 });
 
+            modelBuilder.Entity("Entity.Models.ModelosParametros.Criteria", b =>
+                {
+                    b.Navigation("EvaluationCriterias");
+                });
+
+            modelBuilder.Entity("Entity.Models.ModelosParametros.Grade", b =>
+                {
+                    b.Navigation("ExperienceGrades");
+                });
+
+            modelBuilder.Entity("Entity.Models.ModelosParametros.LineThematic", b =>
+                {
+                    b.Navigation("ExperienceLineThematics");
+                });
+
+            modelBuilder.Entity("Entity.Models.ModelosParametros.PopulationGrade", b =>
+                {
+                    b.Navigation("ExperiencePopulations");
+                });
+
+            modelBuilder.Entity("Entity.Models.ModelosParametros.State", b =>
+                {
+                    b.Navigation("Evaluations");
+
+                    b.Navigation("HistoryExperiences");
+                });
+
             modelBuilder.Entity("Entity.Models.Module", b =>
                 {
                     b.Navigation("FormModules");
+                });
+
+            modelBuilder.Entity("Entity.Models.ModuleOperation.Evaluation", b =>
+                {
+                    b.Navigation("EvaluationCriterias");
+                });
+
+            modelBuilder.Entity("Entity.Models.ModuleOperation.Experience", b =>
+                {
+                    b.Navigation("Documents");
+
+                    b.Navigation("Evaluations");
+
+                    b.Navigation("ExperienceGrades");
+
+                    b.Navigation("ExperienceLineThematics");
+
+                    b.Navigation("ExperiencePopulations");
+
+                    b.Navigation("HistoryExperiences");
+
+                    b.Navigation("Objectives");
+
+                    b.Navigation("Verification");
+
+                    b.Navigation("verifications");
+                });
+
+            modelBuilder.Entity("Entity.Models.ModuleOperation.Institution", b =>
+                {
+                    b.Navigation("Experiences");
                 });
 
             modelBuilder.Entity("Entity.Models.Permission", b =>
@@ -910,6 +1613,12 @@ namespace Entity.MigrationsSqlServer
 
             modelBuilder.Entity("Entity.Models.User", b =>
                 {
+                    b.Navigation("Evaluations");
+
+                    b.Navigation("Experiences");
+
+                    b.Navigation("HistoryExperiences");
+
                     b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618

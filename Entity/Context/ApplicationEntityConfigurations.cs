@@ -187,8 +187,10 @@ namespace Entity.Context
                 .HasForeignKey(rfp => rfp.ExperienceId);
 
             builder.HasOne(rfp => rfp.User)
-                .WithMany(r => r.Evaluations)
-                .HasForeignKey(rfp => rfp.UserId);
+        .WithMany(r => r.Evaluations)
+        .HasForeignKey(rfp => rfp.UserId)
+        .OnDelete(DeleteBehavior.Restrict); // Evita cascada automática
+
         }
 
 
@@ -257,13 +259,22 @@ namespace Entity.Context
 
         public void Configure(EntityTypeBuilder<HistoryExperience> builder)
         {
-            builder.HasOne(e => e.Experience)
-                .WithMany(u => u.historyExperiences)
-                .HasForeignKey(e => e.ExperienceId);
+            builder.HasOne(h => h.User)
+        .WithMany(u => u.HistoryExperiences)
+        .HasForeignKey(h => h.UserId)
+        .OnDelete(DeleteBehavior.Restrict); // Evita cascada
 
-            builder.HasOne(e => e.User)
-                .WithMany(i => i.HistoryExperiences)
-                .HasForeignKey(e => e.UserId);
+            builder.HasOne(h => h.Experience)
+                   .WithMany(e => e.HistoryExperiences)
+                   .HasForeignKey(h => h.ExperienceId)
+                   .OnDelete(DeleteBehavior.Cascade); // Solo esta puede ser cascade
+
+            builder.HasOne(h => h.State)
+                   .WithMany(s => s.HistoryExperiences)
+                   .HasForeignKey(h => h.StateId)
+                   .OnDelete(DeleteBehavior.Restrict); // Evita cascada
+
+
         }
         public void Configure(EntityTypeBuilder<Verification> builder)
         {

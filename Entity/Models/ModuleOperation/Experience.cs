@@ -22,7 +22,7 @@ namespace Entity.Models.ModuleOperation
         public ICollection<Objective> Objectives { get; set; } = new List<Objective>();
         public ICollection<ExperiencePopulation> ExperiencePopulations { get; set;} = new List<ExperiencePopulation>();
         public ICollection<Evaluation>  Evaluations { get; set; } = new List<Evaluation>();
-        public ICollection<HistoryExperience> historyExperiences { get; set; } = new List<HistoryExperience>();
+        public ICollection<HistoryExperience> HistoryExperiences { get; set; } = new List<HistoryExperience>();
         public ICollection<Verification> verifications { get; set; } = new List<Verification>();
 
     } 
