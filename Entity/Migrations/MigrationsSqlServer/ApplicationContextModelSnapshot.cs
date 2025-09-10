@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Entity.MigrationsSqlServer
+namespace Entity.Migrations.MigrationsSqlServer
 {
     [DbContext(typeof(ApplicationContext))]
     partial class ApplicationContextModelSnapshot : ModelSnapshot
@@ -66,41 +66,41 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 8, 31, 11, 48, 3, 315, DateTimeKind.Utc).AddTicks(3913),
-                            Description = "Manages system modules, allowing users to define, modify, and assign modules available to them based on established roles and permissions.",
-                            Icon = "fa-solid fa-window-maximize",
-                            Name = "Modules",
+                            CreatedAt = new DateTime(2025, 9, 10, 2, 24, 25, 639, DateTimeKind.Utc).AddTicks(3453),
+                            Description = "Vista principal del sistema.",
+                            Icon = "fa-solid fa-house",
+                            Name = "Inicio",
                             Order = 1,
-                            Path = "security/modules",
+                            Path = "dashboard",
                             State = true
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 8, 31, 11, 48, 3, 315, DateTimeKind.Utc).AddTicks(3913),
-                            Description = "Manages the forms available in the system, allowing the creation, modification, and deletion of forms associated with different functionalities and modules.",
-                            Icon = "fa-solid fa-window-restore",
-                            Name = "Forms",
+                            CreatedAt = new DateTime(2025, 9, 10, 2, 24, 25, 639, DateTimeKind.Utc).AddTicks(3453),
+                            Description = "Gestión de experiencias significativas.",
+                            Icon = "fa-solid fa-star",
+                            Name = "Experiencia",
                             Order = 2,
-                            Path = "security/forms",
+                            Path = "experiencias",
                             State = true
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2025, 8, 31, 11, 48, 3, 315, DateTimeKind.Utc).AddTicks(3913),
-                            Description = "Allows you to assign specific permissions to users and roles, controlling access to functions, forms, and modules according to the system's needs and security policies.",
-                            Icon = "fa-solid fa-user-lock",
-                            Name = "Permissions",
+                            CreatedAt = new DateTime(2025, 9, 10, 2, 24, 25, 639, DateTimeKind.Utc).AddTicks(3453),
+                            Description = "Gestión de evaluaciones.",
+                            Icon = "fa-solid fa-clipboard-check",
+                            Name = "Evaluación",
                             Order = 3,
-                            Path = "security/permissions",
+                            Path = "evaluacion",
                             State = true
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2025, 8, 31, 11, 48, 3, 315, DateTimeKind.Utc).AddTicks(3913),
-                            Description = "Defines and manages roles within the system, allowing you to assign specific permissions to each role and control access to different application features and resources.",
+                            CreatedAt = new DateTime(2025, 9, 10, 2, 24, 25, 639, DateTimeKind.Utc).AddTicks(3453),
+                            Description = "Gestión de roles del sistema.",
                             Icon = "fa-solid fa-users-gear",
                             Name = "Roles",
                             Order = 4,
@@ -110,8 +110,8 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2025, 8, 31, 11, 48, 3, 315, DateTimeKind.Utc).AddTicks(3913),
-                            Description = "It allows you to manage user information, including its creation, editing, and deletion. It facilitates the assignment of roles and permissions, ensuring controlled access to the system.",
+                            CreatedAt = new DateTime(2025, 9, 10, 2, 24, 25, 639, DateTimeKind.Utc).AddTicks(3453),
+                            Description = "Gestión de usuarios.",
                             Icon = "fa-solid fa-users",
                             Name = "Users",
                             Order = 5,
@@ -121,8 +121,8 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2025, 8, 31, 11, 48, 3, 315, DateTimeKind.Utc).AddTicks(3913),
-                            Description = "It allows you to manage the information of people associated with the system, such as users, employees, or any other relevant entity. It facilitates the creation, editing, and deletion of records, allowing you to link people to specific roles, modules, and permissions as needed.",
+                            CreatedAt = new DateTime(2025, 9, 10, 2, 24, 25, 639, DateTimeKind.Utc).AddTicks(3453),
+                            Description = "Gestión de personas.",
                             Icon = "fa-solid fa-user",
                             Name = "Persons",
                             Order = 6,
@@ -132,12 +132,12 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTime(2025, 8, 31, 11, 48, 3, 315, DateTimeKind.Utc).AddTicks(3913),
-                            Description = "This form allows the registration and management of customers within the system. It facilitates the creation, editing, and tracking of customer records, enabling the association of relevant operational data and interactions essential for service delivery and follow-up.",
+                            CreatedAt = new DateTime(2025, 9, 10, 2, 24, 25, 639, DateTimeKind.Utc).AddTicks(3453),
+                            Description = "Formulario de seguimiento.",
                             Icon = "fa-solid fa-building-user",
-                            Name = "Customers",
+                            Name = "Seguimiento",
                             Order = 1,
-                            Path = "operational/customers",
+                            Path = "seguimiento",
                             State = true
                         });
                 });
@@ -177,7 +177,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 8, 31, 11, 48, 3, 315, DateTimeKind.Utc).AddTicks(3913),
+                            CreatedAt = new DateTime(2025, 9, 10, 2, 24, 25, 639, DateTimeKind.Utc).AddTicks(3453),
                             FormId = 1,
                             ModuleId = 1,
                             State = true
@@ -185,7 +185,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 8, 31, 11, 48, 3, 315, DateTimeKind.Utc).AddTicks(3913),
+                            CreatedAt = new DateTime(2025, 9, 10, 2, 24, 25, 639, DateTimeKind.Utc).AddTicks(3453),
                             FormId = 2,
                             ModuleId = 1,
                             State = true
@@ -193,7 +193,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2025, 8, 31, 11, 48, 3, 315, DateTimeKind.Utc).AddTicks(3913),
+                            CreatedAt = new DateTime(2025, 9, 10, 2, 24, 25, 639, DateTimeKind.Utc).AddTicks(3453),
                             FormId = 3,
                             ModuleId = 1,
                             State = true
@@ -201,7 +201,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2025, 8, 31, 11, 48, 3, 315, DateTimeKind.Utc).AddTicks(3913),
+                            CreatedAt = new DateTime(2025, 9, 10, 2, 24, 25, 639, DateTimeKind.Utc).AddTicks(3453),
                             FormId = 4,
                             ModuleId = 1,
                             State = true
@@ -209,7 +209,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2025, 8, 31, 11, 48, 3, 315, DateTimeKind.Utc).AddTicks(3913),
+                            CreatedAt = new DateTime(2025, 9, 10, 2, 24, 25, 639, DateTimeKind.Utc).AddTicks(3453),
                             FormId = 5,
                             ModuleId = 1,
                             State = true
@@ -217,7 +217,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2025, 8, 31, 11, 48, 3, 315, DateTimeKind.Utc).AddTicks(3913),
+                            CreatedAt = new DateTime(2025, 9, 10, 2, 24, 25, 639, DateTimeKind.Utc).AddTicks(3453),
                             FormId = 6,
                             ModuleId = 1,
                             State = true
@@ -225,7 +225,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTime(2025, 8, 31, 11, 48, 3, 315, DateTimeKind.Utc).AddTicks(3913),
+                            CreatedAt = new DateTime(2025, 9, 10, 2, 24, 25, 639, DateTimeKind.Utc).AddTicks(3453),
                             FormId = 7,
                             ModuleId = 2,
                             State = true
@@ -415,16 +415,16 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 8, 31, 11, 48, 3, 315, DateTimeKind.Utc).AddTicks(3913),
-                            Description = "The security module manages authentication, roles, permissions, and access to the system's forms and modules, ensuring the control and protection of information.",
+                            CreatedAt = new DateTime(2025, 9, 10, 2, 24, 25, 639, DateTimeKind.Utc).AddTicks(3453),
+                            Description = "El módulo de seguridad gestiona autenticación, roles, permisos y acceso a los formularios del sistema.",
                             Name = "Security",
                             State = true
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 8, 31, 11, 48, 3, 315, DateTimeKind.Utc).AddTicks(3913),
-                            Description = "The operational module manages the system's core functional forms, allowing users to execute day-to-day activities",
+                            CreatedAt = new DateTime(2025, 9, 10, 2, 24, 25, 639, DateTimeKind.Utc).AddTicks(3453),
+                            Description = "El módulo operativo gestiona los formularios funcionales principales del sistema.",
                             Name = "Operational",
                             State = true
                         });
@@ -468,7 +468,7 @@ namespace Entity.MigrationsSqlServer
                         {
                             Id = 1,
                             Code = "0001",
-                            CreatedAt = new DateTime(2025, 8, 31, 11, 48, 3, 315, DateTimeKind.Utc).AddTicks(3913),
+                            CreatedAt = new DateTime(2025, 9, 10, 2, 24, 25, 639, DateTimeKind.Utc).AddTicks(3453),
                             Description = "Allows the user to query, update, and delete records within the system, granting full access to the management of associated data.",
                             Name = "Reading and writing",
                             State = true
@@ -477,7 +477,7 @@ namespace Entity.MigrationsSqlServer
                         {
                             Id = 2,
                             Code = "0002",
-                            CreatedAt = new DateTime(2025, 8, 31, 11, 48, 3, 315, DateTimeKind.Utc).AddTicks(3913),
+                            CreatedAt = new DateTime(2025, 9, 10, 2, 24, 25, 639, DateTimeKind.Utc).AddTicks(3453),
                             Description = "Allows the user to only view records within the system, without permission to perform updates or deletions.",
                             Name = "Reading only",
                             State = true
@@ -546,7 +546,7 @@ namespace Entity.MigrationsSqlServer
                         {
                             Id = 1,
                             CodeDane = "441001004839",
-                            CreatedAt = new DateTime(2025, 8, 31, 11, 48, 3, 315, DateTimeKind.Utc).AddTicks(3913),
+                            CreatedAt = new DateTime(2025, 9, 10, 2, 24, 25, 639, DateTimeKind.Utc).AddTicks(3453),
                             DocumentType = 1,
                             Email = "mariaalejan1080@gmail.com",
                             EmailInstitutional = "mariaa_marinh@soy.sena.com",
@@ -598,7 +598,7 @@ namespace Entity.MigrationsSqlServer
                         {
                             Id = 1,
                             Code = "01",
-                            CreatedAt = new DateTime(2025, 8, 31, 11, 48, 3, 315, DateTimeKind.Utc).AddTicks(3913),
+                            CreatedAt = new DateTime(2025, 9, 10, 2, 24, 25, 639, DateTimeKind.Utc).AddTicks(3453),
                             Description = "",
                             Name = "SUPERADMIN",
                             State = true
@@ -645,7 +645,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 8, 31, 11, 48, 3, 315, DateTimeKind.Utc).AddTicks(3913),
+                            CreatedAt = new DateTime(2025, 9, 10, 2, 24, 25, 639, DateTimeKind.Utc).AddTicks(3453),
                             FormId = 1,
                             PermissionId = 1,
                             RoleId = 1,
@@ -654,7 +654,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 8, 31, 11, 48, 3, 315, DateTimeKind.Utc).AddTicks(3913),
+                            CreatedAt = new DateTime(2025, 9, 10, 2, 24, 25, 639, DateTimeKind.Utc).AddTicks(3453),
                             FormId = 2,
                             PermissionId = 1,
                             RoleId = 1,
@@ -663,7 +663,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2025, 8, 31, 11, 48, 3, 315, DateTimeKind.Utc).AddTicks(3913),
+                            CreatedAt = new DateTime(2025, 9, 10, 2, 24, 25, 639, DateTimeKind.Utc).AddTicks(3453),
                             FormId = 3,
                             PermissionId = 1,
                             RoleId = 1,
@@ -672,7 +672,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2025, 8, 31, 11, 48, 3, 315, DateTimeKind.Utc).AddTicks(3913),
+                            CreatedAt = new DateTime(2025, 9, 10, 2, 24, 25, 639, DateTimeKind.Utc).AddTicks(3453),
                             FormId = 4,
                             PermissionId = 1,
                             RoleId = 1,
@@ -681,7 +681,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2025, 8, 31, 11, 48, 3, 315, DateTimeKind.Utc).AddTicks(3913),
+                            CreatedAt = new DateTime(2025, 9, 10, 2, 24, 25, 639, DateTimeKind.Utc).AddTicks(3453),
                             FormId = 5,
                             PermissionId = 1,
                             RoleId = 1,
@@ -690,7 +690,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2025, 8, 31, 11, 48, 3, 315, DateTimeKind.Utc).AddTicks(3913),
+                            CreatedAt = new DateTime(2025, 9, 10, 2, 24, 25, 639, DateTimeKind.Utc).AddTicks(3453),
                             FormId = 6,
                             PermissionId = 1,
                             RoleId = 1,
@@ -699,7 +699,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTime(2025, 8, 31, 11, 48, 3, 315, DateTimeKind.Utc).AddTicks(3913),
+                            CreatedAt = new DateTime(2025, 9, 10, 2, 24, 25, 639, DateTimeKind.Utc).AddTicks(3453),
                             FormId = 7,
                             PermissionId = 1,
                             RoleId = 1,
@@ -750,7 +750,7 @@ namespace Entity.MigrationsSqlServer
                         {
                             Id = 1,
                             Code = "0001",
-                            CreatedAt = new DateTime(2025, 8, 31, 11, 48, 3, 315, DateTimeKind.Utc).AddTicks(3913),
+                            CreatedAt = new DateTime(2025, 9, 10, 2, 24, 25, 639, DateTimeKind.Utc).AddTicks(3453),
                             Password = "202CB962AC59075B964B07152D234B70",
                             PersonId = 1,
                             State = true,
@@ -793,7 +793,7 @@ namespace Entity.MigrationsSqlServer
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 8, 31, 11, 48, 3, 315, DateTimeKind.Utc).AddTicks(3913),
+                            CreatedAt = new DateTime(2025, 9, 10, 2, 24, 25, 639, DateTimeKind.Utc).AddTicks(3453),
                             RoleId = 1,
                             State = true,
                             UserId = 1
