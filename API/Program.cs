@@ -73,8 +73,8 @@ using (var scope = app.Services.CreateScope())
  //   var mySqlContext = scope.ServiceProvider.GetRequiredService<ApplicationContextMySQL>();
   //  mySqlContext.Database.Migrate();
 
-    var postgresContext = scope.ServiceProvider.GetRequiredService<ApplicationContextPostgres>();
-    postgresContext.Database.Migrate();
+  //  var postgresContext = scope.ServiceProvider.GetRequiredService<ApplicationContextPostgres>();
+  //  postgresContext.Database.Migrate();
 }
 
 

@@ -7,9 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\SqlServer\**" />
-    <EmbeddedResource Remove="Migrations\SqlServer\**" />
-    <None Remove="Migrations\SqlServer\**" />
+    <Compile Remove="MigrationsPostgres\**" />
+    <Compile Remove="Migrations\**" />
+    <EmbeddedResource Remove="MigrationsPostgres\**" />
+    <EmbeddedResource Remove="Migrations\**" />
+    <None Remove="MigrationsPostgres\**" />
+    <None Remove="Migrations\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,9 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="MigrationsPostgres\" />
     <Folder Include="MigrationsSqlServer\" />
-    <Folder Include="Migrations\MySQL\" />
   </ItemGroup>
 
 </Project>

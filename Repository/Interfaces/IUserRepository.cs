@@ -26,7 +26,6 @@ namespace Repository.Interfaces
 
     
         Task AddAsync(User entity);
-
-
+        Task<List<string>> GetRolesByUserId(int id);
     }
 }

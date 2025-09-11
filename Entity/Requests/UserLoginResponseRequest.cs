@@ -39,5 +39,9 @@ namespace Entity.Requests
         /// List of menu that have access the user
         /// </summary>
         public List<MenuRequest> Menu { get; set; } = new();
+        /// <summary>
+        /// User's role name
+        /// </summary>
+        public List<string> Role { get; set; } = new();
     }
 }

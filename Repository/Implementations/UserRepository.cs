@@ -167,6 +167,19 @@ namespace Repository.Implementations
             await _context.SaveChangesAsync();
         }
 
+
+        public async Task<List<string>> GetRolesByUserId(int userId)
+        {
+            var roles = await _context.Users
+               .Where(u => u.Id == userId)
+               .Include(u => u.UserRoles)
+                   .ThenInclude(ur => ur.Role)
+               .SelectMany(u => u.UserRoles.Select(ur => ur.Role.Name))
+               .ToListAsync();
+
+            return roles;
+        }
+
     }
 
 }

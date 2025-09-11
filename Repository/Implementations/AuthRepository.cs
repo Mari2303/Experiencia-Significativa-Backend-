@@ -51,6 +51,7 @@ namespace Repository.Implementations
             }
 
             UserRequest user = await _userRepository.GetByName(username);
+            List<string> roles = await _userRepository.GetRolesByUserId(user.Id);
 
             if (user == null)
             {
@@ -76,7 +77,8 @@ namespace Repository.Implementations
                 PersonId = user.PersonId,
                 Token = token,
                 ExpirationDate = DateTime.UtcNow.AddHours(-3),
-                Menu = menu
+                Menu = menu,
+                Role = roles
             };
 
         }
