@@ -2,11 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using Entity.Context;
 using Repository.Interfaces;
-using Service.Implementations;
-using Service.Interfaces;
 using Repository.Implementations;
 using System.Text.Json.Serialization;
 using Utilities.JwtAuthentication;
+using Service.Implementations;
+using Service.Interfaces;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -73,8 +73,8 @@ using (var scope = app.Services.CreateScope())
  //   var mySqlContext = scope.ServiceProvider.GetRequiredService<ApplicationContextMySQL>();
   //  mySqlContext.Database.Migrate();
 
-   // var postgresContext = scope.ServiceProvider.GetRequiredService<ApplicationContextPostgres>();
-   // postgresContext.Database.Migrate();
+    //var postgresContext = scope.ServiceProvider.GetRequiredService<ApplicationContextPostgres>();
+    //postgresContext.Database.Migrate();
 }
 
 

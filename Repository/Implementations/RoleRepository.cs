@@ -3,6 +3,7 @@ using Entity.Context;
 using Entity.Dtos;
 using Entity.Models;
 using Entity.Requests;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Repository.Interfaces;
 using Utilities.Helper;
@@ -27,7 +28,10 @@ namespace Repository.Implementations
             _helperRepository = helperRepository;
         }
 
-
+        public async Task<Role> GetByNameRol(string roleName)
+        {
+            return await _context.Roles.FirstOrDefaultAsync(r => r.Name == roleName);
+        }
 
 
 

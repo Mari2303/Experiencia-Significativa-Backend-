@@ -5,6 +5,7 @@
     /// </summary>
     public class Role : GenericModel
     {
+
         /// <summary>
         /// Description of the role's purpose and scope
         /// </summary>
@@ -17,5 +18,6 @@
         /// Collection of permissions assigned to this role for specific forms
         /// </summary>
         public virtual ICollection<RoleFormPermission> RoleFormPermissions { get; set; } = new List<RoleFormPermission>();
+        public string Path { get; internal set; }
     }
 }

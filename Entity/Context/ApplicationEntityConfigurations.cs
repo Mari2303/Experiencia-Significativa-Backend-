@@ -1,5 +1,7 @@
-﻿using Entity.Models;
+﻿using System.Reflection.Metadata;
+using Entity.Models;
 using Entity.Models.ModelosParametros;
+using Entity.Models.ModuleOperation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -23,7 +25,19 @@ namespace Entity.Context
          IEntityTypeConfiguration<State>,
          IEntityTypeConfiguration<Grade>,
          IEntityTypeConfiguration<LineThematic>,
-         IEntityTypeConfiguration<PopulationGrade>
+         IEntityTypeConfiguration<PopulationGrade>,
+
+        IEntityTypeConfiguration<Models.ModuleOperation.Document>,
+        IEntityTypeConfiguration<Experience>,
+        IEntityTypeConfiguration<ExperienceLineThematic>,
+        IEntityTypeConfiguration<ExperienceGrade>,
+        IEntityTypeConfiguration<Objective>,
+        IEntityTypeConfiguration<ExperiencePopulation>,
+        IEntityTypeConfiguration<Evaluation>,
+        IEntityTypeConfiguration<HistoryExperience>,
+        IEntityTypeConfiguration<Verification>,
+        IEntityTypeConfiguration<Institution>,
+        IEntityTypeConfiguration<EvaluationCriteria>
 
 
 
@@ -156,5 +170,127 @@ namespace Entity.Context
                 .WithMany(r => r.RoleFormPermissions)
                 .HasForeignKey(rfp => rfp.PermissionId); //PermissionId
         }
+
+
+        public void Configure(EntityTypeBuilder<Models.ModuleOperation.Document> builder)
+        {
+            builder.HasOne(rfp => rfp.Experience)
+                .WithMany(r => r.Documents)
+                .HasForeignKey(rfp => rfp.ExperienceId);
+        }
+
+
+        public void Configure(EntityTypeBuilder<Evaluation> builder)
+        {
+            builder.HasOne(rfp => rfp.Experience)
+                .WithMany(r => r.Evaluations)
+                .HasForeignKey(rfp => rfp.ExperienceId);
+
+            builder.HasOne(rfp => rfp.User)
+        .WithMany(r => r.Evaluations)
+        .HasForeignKey(rfp => rfp.UserId)
+        .OnDelete(DeleteBehavior.Restrict); // Evita cascada automática
+
+        }
+
+
+        public void Configure(EntityTypeBuilder<EvaluationCriteria> builder)
+        {
+            builder.HasOne(rfp => rfp.Evaluation)
+                .WithMany(r => r.EvaluationCriterias)
+                .HasForeignKey(rfp => rfp.EvaluationId);
+
+            builder.HasOne(rfp => rfp.Criteria)
+                .WithMany(r => r.EvaluationCriterias)
+                .HasForeignKey(rfp => rfp.CriteriaId);
+        }
+
+        public void Configure(EntityTypeBuilder<Experience> builder)
+        {
+
+            builder.HasOne(e => e.User)
+                .WithMany(u => u.Experiences)
+                .HasForeignKey(e => e.UserId);
+
+            builder.HasOne(e => e.Institution)
+                .WithMany(i => i.Experiences)
+                .HasForeignKey(e => e.InstitucionId);
+        }
+
+        public void Configure(EntityTypeBuilder<ExperienceLineThematic> builder)
+        {
+            builder.HasOne(e => e.Experience)
+                .WithMany(u => u.ExperienceLineThematics)
+                .HasForeignKey(e => e.ExperienceId);
+
+            builder.HasOne(e => e.LineThematic)
+                .WithMany(i => i.ExperienceLineThematics)
+                .HasForeignKey(e => e.LineThematicId);
+        }
+
+        public void Configure(EntityTypeBuilder<ExperienceGrade> builder)
+        {
+            builder.HasOne(e => e.Experience)
+                .WithMany(u => u.ExperienceGrades)
+                .HasForeignKey(e => e.ExperienceId);
+
+            builder.HasOne(e => e.Grade)
+                .WithMany(i => i.ExperienceGrades)
+                .HasForeignKey(e => e.GradeId);
+        }
+
+        public void Configure(EntityTypeBuilder<Objective> builder)
+        {
+            builder.HasOne(e => e.Experience)
+                .WithMany(u => u.Objectives)
+                .HasForeignKey(e => e.ExperienceId);
+        }
+
+        public void Configure(EntityTypeBuilder<ExperiencePopulation> builder)
+        {
+            builder.HasOne(e => e.Experience)
+                .WithMany(u => u.ExperiencePopulations)
+                .HasForeignKey(e => e.ExperienceId);
+
+            builder.HasOne(e => e.PopulationGrade)
+                .WithMany(i => i.ExperiencePopulations)
+                .HasForeignKey(e => e.PopulationGradeId);
+        }
+
+        public void Configure(EntityTypeBuilder<HistoryExperience> builder)
+        {
+            builder.HasOne(h => h.User)
+        .WithMany(u => u.HistoryExperiences)
+        .HasForeignKey(h => h.UserId)
+        .OnDelete(DeleteBehavior.Restrict); // Evita cascada
+
+            builder.HasOne(h => h.Experience)
+                   .WithMany(e => e.HistoryExperiences)
+                   .HasForeignKey(h => h.ExperienceId)
+                   .OnDelete(DeleteBehavior.Cascade); // Solo esta puede ser cascade
+
+            builder.HasOne(h => h.State)
+                   .WithMany(s => s.HistoryExperiences)
+                   .HasForeignKey(h => h.StateId)
+                   .OnDelete(DeleteBehavior.Restrict); // Evita cascada
+
+
+        }
+        public void Configure(EntityTypeBuilder<Verification> builder)
+        {
+            builder.HasOne(e => e.Experience)
+                .WithMany(u => u.verifications)
+                .HasForeignKey(e => e.ExperienceId);
+
+
+        }
+        public void Configure(EntityTypeBuilder<Institution> builder)
+        {
+            builder.HasKey(s => s.Id); // Primary key
+
+
+
+        }
+
     }
 }

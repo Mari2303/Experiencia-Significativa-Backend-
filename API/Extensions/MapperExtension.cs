@@ -1,5 +1,6 @@
 using Utilities.JwtAuthentication;
 using Utilities.Mappers;
+using Utilities.Mappers.ModuleOperation;
 using Utilities.Mappers.ModulesParamer;
 
 namespace API
@@ -29,6 +30,20 @@ namespace API
             var lineThematicProfiles = new LineThematicProfiles();
             var populationGradeProfiles = new PopulationGradeProfiles();
 
+            var documentProfiles = new DocumentProfiles();
+            var evaluationProfiles = new EvaluationProfiles();
+            var evaluationCriteriaProfiles = new EvaluationCriteriaProfiles();
+            var experienceGradeProfiles = new ExperienceGradeProfiles();
+            var experienceProfiles = new ExperienceProfiles();
+            var experienceLineThematicProfiles = new ExperienceLineThematicProfiles();
+            var experiencePopulationProfiles = new ExperiencePopulationProfiles();
+            var historyExperienceProfiles = new HistoryExperienceProfiles();
+            var objectiveProfiles = new ObjectiveProfiles();
+            var verificationProfiles = new VerificationProfiles();
+            var InstitutionProfiles = new InstitutionProfiles();
+
+
+
             // Register AutoMapper with the AutoMapperProfiles instance
             services.AddAutoMapper(_ => _.AddProfile(formProfiles));
             services.AddAutoMapper(_ => _.AddProfile(formModuleProfiles));
@@ -44,6 +59,18 @@ namespace API
             services.AddAutoMapper(_=>_.AddProfile(stateProfiles));
             services.AddAutoMapper(_ => _.AddProfile(populationGradeProfiles));
             services.AddAutoMapper(_=>_.AddProfile(lineThematicProfiles));
+
+            services.AddAutoMapper(_ => _.AddProfile(documentProfiles));
+            services.AddAutoMapper(_ => _.AddProfile(evaluationProfiles));
+            services.AddAutoMapper(_ => _.AddProfile(evaluationCriteriaProfiles));
+            services.AddAutoMapper(_ => _.AddProfile(experienceGradeProfiles));
+            services.AddAutoMapper(_ => _.AddProfile(experienceProfiles));
+            services.AddAutoMapper(_ => _.AddProfile(experienceLineThematicProfiles));
+            services.AddAutoMapper(_ => _.AddProfile(experiencePopulationProfiles));
+            services.AddAutoMapper(_ => _.AddProfile(historyExperienceProfiles));
+            services.AddAutoMapper(_ => _.AddProfile(objectiveProfiles));
+            services.AddAutoMapper(_ => _.AddProfile(verificationProfiles));
+            services.AddAutoMapper(_ => _.AddProfile(InstitutionProfiles));
 
 
         }

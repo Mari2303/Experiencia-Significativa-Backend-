@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Entity.Models.ModuleOperation;
+
+namespace Entity.Models.ModelosParametros
+{
+    public class PopulationGrade : BaseModel
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Code { get; set; } = string.Empty;
+
+        public virtual ICollection<ExperiencePopulation> ExperiencePopulations { get; set; } = new List<ExperiencePopulation>();
+    }
+}

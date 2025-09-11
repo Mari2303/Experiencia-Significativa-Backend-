@@ -30,7 +30,7 @@ namespace API.Controllers
         public async Task<ActionResult> LoginAsync([FromBody] AuthenticationRequest auth)
         {
             try
-            {
+                {
                 UserLoginResponseRequest data = await _authService.LoginAsync(auth.Username, auth.Password);
                 return Ok(new ApiResponseRequest<UserLoginResponseRequest>(data, true, "Session started successfully"));
             }

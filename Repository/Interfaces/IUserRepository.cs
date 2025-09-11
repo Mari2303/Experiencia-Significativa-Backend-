@@ -17,15 +17,17 @@ namespace Repository.Interfaces
         /// <returns>A task representing the asynchronous operation, with a <see cref="User"/> result.</returns>
         Task<UserRequest?> GetByName(string name);
 
-                /// <summary>
-                /// Retrieves an access menus that have access for the userId
-                /// </summary>
-                /// <param name="nameId">The userID of the entity to retrieve.</param>
-                /// <returns>A task that represents the asynchronous operation, containing the menus that have access.</returns>
+        /// <summary>
+        /// Retrieves an access menus that have access for the userId
+        /// </summary>
+        /// <param name="nameId">The userID of the entity to retrieve.</param>
+        /// <returns>A task that represents the asynchronous operation, containing the menus that have access.</returns>
         Task<List<MenuRequest>> GetMenuAsync(int userId);
 
-    
+
         Task AddAsync(User entity);
+
+        Task<List<string>> GetRolesByUserId(int userId);
 
 
     }

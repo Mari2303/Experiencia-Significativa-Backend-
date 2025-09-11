@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Entity.Models.ModelosParametros;
+using Entity.Models.ModuleOperation;
+
+namespace Entity.Requests.ModuleOperation
+{
+    public class ExperienceGradeRequest : BaseRequest
+    {
+        public int GradeId { get; set; }
+        public int ExperienceId { get; set; }
+        public string? Grade { get; set; } = null!;
+        public string? Experience { get; set; } = null!;
+    }
+}

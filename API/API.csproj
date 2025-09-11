@@ -11,6 +11,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\BaseModelController\**" />
+    <Compile Remove="Controllers\ModuleDomainController\**" />
+    <Content Remove="Controllers\BaseModelController\**" />
+    <Content Remove="Controllers\ModuleDomainController\**" />
+    <EmbeddedResource Remove="Controllers\BaseModelController\**" />
+    <EmbeddedResource Remove="Controllers\ModuleDomainController\**" />
+    <None Remove="Controllers\BaseModelController\**" />
+    <None Remove="Controllers\ModuleDomainController\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.66" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.7" />

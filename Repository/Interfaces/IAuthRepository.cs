@@ -32,6 +32,8 @@ namespace Repository.Interfaces
         /// Renews an existing JWT token by creating a new token with the same claims but a new expiration time.
         /// </summary>
         /// <param name="token">The existing JWT token to renew.</param>
-        Task<RenewTokenRequest> RenewTokenAsync(String token);
+        Task<RenewTokenRequest> RenewTokenAsync(string token);
+
+        
     }
 }

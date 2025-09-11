@@ -11,13 +11,13 @@ namespace Service.Implementations
     /// </summary>
     public class ModuleService : BaseModelService<Module, ModuleDTO, ModuleRequest>, IModuleService
     {
-        private readonly IModuleRepository _moduleRepository;
+        private readonly IBaseModuleRepository _moduleRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ModuleService"/> class.
         /// </summary>
         /// <param name="moduleRepository">The repository for managing modules.</param>
-        public ModuleService(IModuleRepository moduleRepository) : base(moduleRepository)
+        public ModuleService(IBaseModuleRepository moduleRepository) : base(moduleRepository)
         {
             _moduleRepository = moduleRepository;
         }

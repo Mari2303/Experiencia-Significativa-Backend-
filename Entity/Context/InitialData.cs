@@ -10,17 +10,29 @@ namespace Entity.Context
             DateTime currentDate = DateTime.UtcNow.AddHours(-5);
 
             // Roles
-            var role = new Role()
+            var roleAdmin = new Role()
             {
                 Id = 1,
                 Code = "01",
                 Name = "SUPERADMIN",
+                Path = "dashboard",
                 Description = "",
                 State = true,
                 CreatedAt = currentDate,
                 DeletedAt = null!
             };
-            modelBuilder.Entity<Role>().HasData(role);
+            var roleTeacher = new Role()
+            {
+                Id = 2,
+                Code = "0002",
+                Name = "Profesor",
+                Path = "dashboardTeacher",
+                Description = "Rol para profesores",
+                State = true,
+                CreatedAt = currentDate,
+                DeletedAt = null!
+            };
+            modelBuilder.Entity<Role>().HasData(roleAdmin, roleTeacher);
 
             // Persons
             var leader = new Person()
@@ -39,7 +51,23 @@ namespace Entity.Context
                 Phone = 3243652328,
                 State = true,
             };
-            modelBuilder.Entity<Person>().HasData(leader);
+            var teacherPerson = new Person()
+            {
+                Id = 2,
+                DocumentType = 1,
+                IdentificationNumber = "2000000000",
+                FirstName = "JUAN",
+                MiddleName = "CARLOS",
+                FirstLastName = "PEREZ",
+                SecondLastName = "GOMEZ",
+                Email = "juan.perez@correo.com",
+                EmailInstitutional = "juan_perez@soy.sena.com",
+                CodeDane = "441001004840",
+                CreatedAt = currentDate,
+                Phone = 3123456789,
+                State = true,
+            };
+            modelBuilder.Entity<Person>().HasData(leader, teacherPerson);
 
             // Users
             var userleader = new User()
@@ -53,19 +81,39 @@ namespace Entity.Context
                 CreatedAt = currentDate,
                 DeletedAt = null!
             };
-            modelBuilder.Entity<User>().HasData(userleader);
+            var teacherUser = new User()
+            {
+                Id = 2,
+                Code = "0002",
+                Username = "juan.perez@correo.com",
+                PersonId = 2,
+                Password = "202CB962AC59075B964B07152D234B70", // 123
+                State = true,
+                CreatedAt = currentDate,
+                DeletedAt = null!
+            };
+            modelBuilder.Entity<User>().HasData(userleader, teacherUser);
 
             // Users - Roles
             var userRolLeader = new UserRole()
             {
                 Id = 1,
                 UserId = userleader.Id,
-                RoleId = role.Id,
+                RoleId = roleAdmin.Id,
                 State = true,
                 CreatedAt = currentDate,
                 DeletedAt = null!
             };
-            modelBuilder.Entity<UserRole>().HasData(userRolLeader);
+            var userRoleTeacher = new UserRole()
+            {
+                Id = 2,
+                UserId = teacherUser.Id,
+                RoleId = roleTeacher.Id,
+                State = true,
+                CreatedAt = currentDate,
+                DeletedAt = null!
+            };
+            modelBuilder.Entity<UserRole>().HasData(userRolLeader, userRoleTeacher);
 
             // Modules
             var moduleSecurity = new Module()
@@ -264,7 +312,7 @@ namespace Entity.Context
             };
             modelBuilder.Entity<Permission>().HasData(permissionReadWrite, permissionReadOnly);
 
-            // Roles - Forms - Permissions
+            // Roles - Forms - Permissions (SUPERADMIN)
             var RoleFormPermissionInicio = new RoleFormPermission()
             {
                 Id = 1,
@@ -335,6 +383,29 @@ namespace Entity.Context
                 CreatedAt = currentDate,
                 DeletedAt = null!
             };
+
+            // Roles - Forms - Permissions (PROFESOR: solo Inicio y Experiencia)
+            var RoleFormPermissionTeacherInicio = new RoleFormPermission()
+            {
+                Id = 100,
+                RoleId = 2,
+                FormId = 1, // Inicio
+                PermissionId = 2, // Solo lectura
+                State = true,
+                CreatedAt = currentDate,
+                DeletedAt = null!
+            };
+            var RoleFormPermissionTeacherExperiencia = new RoleFormPermission()
+            {
+                Id = 101,
+                RoleId = 2,
+                FormId = 2, // Experiencia
+                PermissionId = 2, // Solo lectura
+                State = true,
+                CreatedAt = currentDate,
+                DeletedAt = null!
+            };
+
             modelBuilder.Entity<RoleFormPermission>().HasData(
                 RoleFormPermissionInicio,
                 RoleFormPermissionExperiencia,
@@ -342,7 +413,9 @@ namespace Entity.Context
                 RoleFormPermissionRoles,
                 RoleFormPermissionUsers,
                 RoleFormPermissionPersons,
-                RoleFormPermissionSeguimiento
+                RoleFormPermissionSeguimiento,
+                RoleFormPermissionTeacherInicio,
+                RoleFormPermissionTeacherExperiencia
             );
         }
     }
