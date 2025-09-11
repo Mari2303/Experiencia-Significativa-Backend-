@@ -6,5 +6,6 @@ namespace Repository.Interfaces.IModuleOperationRepository
 {
     public interface IExperienceRepository : IBaseModelRepository<Experience, ExperienceDTO, ExperienceRequest>
     {
+        Task<Experience> AddAsync(Experience experience);
     }
 }

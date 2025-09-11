@@ -2,14 +2,12 @@
 
 using System.Text.Json.Serialization;
 
-namespace Entity.Models.ModuleOperation
+namespace Entity.Dtos.RegisterExperience
 {
-    public class Document : BaseModel
+    public class DocumentCreateDTO
     {
         public string Name { get; set; } = string.Empty;
         public string UrlPdf { get; set; } = string.Empty;
         public string UrlLink { get; set; } = string.Empty;
-        public int ExperienceId { get; set; }
-        public virtual Experience Experience { get; set; } = null!;
     }
 }

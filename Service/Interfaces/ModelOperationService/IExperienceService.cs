@@ -6,5 +6,8 @@ namespace Service.Interfaces.ModelOperationService
 {
     public interface IExperienceService : IBaseModelService<Experience, ExperienceDTO,ExperienceRequest>
     {
+
+
+        Task<Experience> RegisterExperienceAsync(ExperienceRegisterDTO dto);
     }
 }

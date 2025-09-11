@@ -23,5 +23,15 @@ namespace Repository.Implementations.ModuleOperationRepository
             _helperRepository = helperRepository;
             _configuration = configuration;
         }
+
+
+        public async Task<Experience> AddAsync(Experience experience)
+        {
+            _context.Experiences.Add(experience);
+            await _context.SaveChangesAsync();
+            return experience;
+        }
+
+
     }
 }

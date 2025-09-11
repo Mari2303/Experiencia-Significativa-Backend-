@@ -215,6 +215,11 @@ namespace Entity.Context
             builder.HasOne(e => e.Institution)
                 .WithMany(i => i.Experiences)
                 .HasForeignKey(e => e.InstitucionId);
+
+            builder.HasOne(e => e.State)
+                .WithMany(i => i.Experiences)
+                .HasForeignKey(e => e.StateId);
+
         }
 
         public void Configure(EntityTypeBuilder<ExperienceLineThematic> builder)

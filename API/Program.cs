@@ -24,8 +24,8 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
     )); */
 
 // PostgreSQL
-//builder.Services.AddDbContext<ApplicationContextPostgres>(options =>
-//    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection")));
+builder.Services.AddDbContext<ApplicationContextPostgres>(options =>
+   options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection")));
 
 
 // Add services to the container.
@@ -73,8 +73,8 @@ using (var scope = app.Services.CreateScope())
  //   var mySqlContext = scope.ServiceProvider.GetRequiredService<ApplicationContextMySQL>();
   //  mySqlContext.Database.Migrate();
 
-    //var postgresContext = scope.ServiceProvider.GetRequiredService<ApplicationContextPostgres>();
-    //postgresContext.Database.Migrate();
+    var postgresContext = scope.ServiceProvider.GetRequiredService<ApplicationContextPostgres>();
+    postgresContext.Database.Migrate();
 }
 
 

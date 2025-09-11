@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Entity.MigrationsSqlServer
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class IprimerMigrations : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -318,10 +318,18 @@ namespace Entity.MigrationsSqlServer
                     Summary = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Methodologias = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Tranfer = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Developmenttime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Recognition = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Socialization = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ThemeExperienceArea = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CoordinationTransversalProjects = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PedagogicalStrategies = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Coverage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ExperiencesCovidPandemic = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StateId = table.Column<int>(type: "int", nullable: false),
                     Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     InstitucionId = table.Column<int>(type: "int", nullable: false),
-                    State = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -332,6 +340,12 @@ namespace Entity.MigrationsSqlServer
                         name: "FK_Experiences_Institutions_InstitucionId",
                         column: x => x.InstitucionId,
                         principalTable: "Institutions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Experiences_State_StateId",
+                        column: x => x.StateId,
+                        principalTable: "State",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -653,13 +667,13 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "CreatedAt", "DeletedAt", "Description", "Icon", "Name", "Order", "Path", "State" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185), null, "Manages system modules, allowing users to define, modify, and assign modules available to them based on established roles and permissions.", "fa-solid fa-window-maximize", "Modules", 1, "security/modules", true },
-                    { 2, new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185), null, "Manages the forms available in the system, allowing the creation, modification, and deletion of forms associated with different functionalities and modules.", "fa-solid fa-window-restore", "Forms", 2, "security/forms", true },
-                    { 3, new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185), null, "Allows you to assign specific permissions to users and roles, controlling access to functions, forms, and modules according to the system's needs and security policies.", "fa-solid fa-user-lock", "Permissions", 3, "security/permissions", true },
-                    { 4, new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185), null, "Defines and manages roles within the system, allowing you to assign specific permissions to each role and control access to different application features and resources.", "fa-solid fa-users-gear", "Roles", 4, "security/roles", true },
-                    { 5, new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185), null, "It allows you to manage user information, including its creation, editing, and deletion. It facilitates the assignment of roles and permissions, ensuring controlled access to the system.", "fa-solid fa-users", "Users", 5, "security/users", true },
-                    { 6, new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185), null, "It allows you to manage the information of people associated with the system, such as users, employees, or any other relevant entity. It facilitates the creation, editing, and deletion of records, allowing you to link people to specific roles, modules, and permissions as needed.", "fa-solid fa-user", "Persons", 6, "security/persons", true },
-                    { 7, new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185), null, "This form allows the registration and management of customers within the system. It facilitates the creation, editing, and tracking of customer records, enabling the association of relevant operational data and interactions essential for service delivery and follow-up.", "fa-solid fa-building-user", "Customers", 1, "operational/customers", true }
+                    { 1, new DateTime(2025, 9, 10, 3, 0, 32, 700, DateTimeKind.Utc).AddTicks(439), null, "Manages system modules, allowing users to define, modify, and assign modules available to them based on established roles and permissions.", "fa-solid fa-window-maximize", "Modules", 1, "security/modules", true },
+                    { 2, new DateTime(2025, 9, 10, 3, 0, 32, 700, DateTimeKind.Utc).AddTicks(439), null, "Manages the forms available in the system, allowing the creation, modification, and deletion of forms associated with different functionalities and modules.", "fa-solid fa-window-restore", "Forms", 2, "security/forms", true },
+                    { 3, new DateTime(2025, 9, 10, 3, 0, 32, 700, DateTimeKind.Utc).AddTicks(439), null, "Allows you to assign specific permissions to users and roles, controlling access to functions, forms, and modules according to the system's needs and security policies.", "fa-solid fa-user-lock", "Permissions", 3, "security/permissions", true },
+                    { 4, new DateTime(2025, 9, 10, 3, 0, 32, 700, DateTimeKind.Utc).AddTicks(439), null, "Defines and manages roles within the system, allowing you to assign specific permissions to each role and control access to different application features and resources.", "fa-solid fa-users-gear", "Roles", 4, "security/roles", true },
+                    { 5, new DateTime(2025, 9, 10, 3, 0, 32, 700, DateTimeKind.Utc).AddTicks(439), null, "It allows you to manage user information, including its creation, editing, and deletion. It facilitates the assignment of roles and permissions, ensuring controlled access to the system.", "fa-solid fa-users", "Users", 5, "security/users", true },
+                    { 6, new DateTime(2025, 9, 10, 3, 0, 32, 700, DateTimeKind.Utc).AddTicks(439), null, "It allows you to manage the information of people associated with the system, such as users, employees, or any other relevant entity. It facilitates the creation, editing, and deletion of records, allowing you to link people to specific roles, modules, and permissions as needed.", "fa-solid fa-user", "Persons", 6, "security/persons", true },
+                    { 7, new DateTime(2025, 9, 10, 3, 0, 32, 700, DateTimeKind.Utc).AddTicks(439), null, "This form allows the registration and management of customers within the system. It facilitates the creation, editing, and tracking of customer records, enabling the association of relevant operational data and interactions essential for service delivery and follow-up.", "fa-solid fa-building-user", "Customers", 1, "operational/customers", true }
                 });
 
             migrationBuilder.InsertData(
@@ -667,8 +681,8 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "CreatedAt", "DeletedAt", "Description", "Name", "State" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185), null, "The security module manages authentication, roles, permissions, and access to the system's forms and modules, ensuring the control and protection of information.", "Security", true },
-                    { 2, new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185), null, "The operational module manages the system's core functional forms, allowing users to execute day-to-day activities", "Operational", true }
+                    { 1, new DateTime(2025, 9, 10, 3, 0, 32, 700, DateTimeKind.Utc).AddTicks(439), null, "The security module manages authentication, roles, permissions, and access to the system's forms and modules, ensuring the control and protection of information.", "Security", true },
+                    { 2, new DateTime(2025, 9, 10, 3, 0, 32, 700, DateTimeKind.Utc).AddTicks(439), null, "The operational module manages the system's core functional forms, allowing users to execute day-to-day activities", "Operational", true }
                 });
 
             migrationBuilder.InsertData(
@@ -676,32 +690,32 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "Code", "CreatedAt", "DeletedAt", "Description", "Name", "State" },
                 values: new object[,]
                 {
-                    { 1, "0001", new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185), null, "Allows the user to query, update, and delete records within the system, granting full access to the management of associated data.", "Reading and writing", true },
-                    { 2, "0002", new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185), null, "Allows the user to only view records within the system, without permission to perform updates or deletions.", "Reading only", true }
+                    { 1, "0001", new DateTime(2025, 9, 10, 3, 0, 32, 700, DateTimeKind.Utc).AddTicks(439), null, "Allows the user to query, update, and delete records within the system, granting full access to the management of associated data.", "Reading and writing", true },
+                    { 2, "0002", new DateTime(2025, 9, 10, 3, 0, 32, 700, DateTimeKind.Utc).AddTicks(439), null, "Allows the user to only view records within the system, without permission to perform updates or deletions.", "Reading only", true }
                 });
 
             migrationBuilder.InsertData(
                 table: "Persons",
                 columns: new[] { "Id", "CodeDane", "CreatedAt", "DeletedAt", "DocumentType", "Email", "EmailInstitutional", "FirstLastName", "FirstName", "IdentificationNumber", "MiddleName", "Phone", "SecondLastName", "State" },
-                values: new object[] { 1, "441001004839", new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185), null, 1, "mariaalejan1080@gmail.com", "mariaa_marinh@soy.sena.com", "MARIN", "MARIA", "1000000000", "ALEJANDRA", 3243652328L, "HENRIQUEZ", true });
+                values: new object[] { 1, "441001004839", new DateTime(2025, 9, 10, 3, 0, 32, 700, DateTimeKind.Utc).AddTicks(439), null, 1, "mariaalejan1080@gmail.com", "mariaa_marinh@soy.sena.com", "MARIN", "MARIA", "1000000000", "ALEJANDRA", 3243652328L, "HENRIQUEZ", true });
 
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "Code", "CreatedAt", "DeletedAt", "Description", "Name", "State" },
-                values: new object[] { 1, "01", new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185), null, "", "SUPERADMIN", true });
+                values: new object[] { 1, "01", new DateTime(2025, 9, 10, 3, 0, 32, 700, DateTimeKind.Utc).AddTicks(439), null, "", "SUPERADMIN", true });
 
             migrationBuilder.InsertData(
                 table: "FormModules",
                 columns: new[] { "Id", "CreatedAt", "DeletedAt", "FormId", "ModuleId", "State" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185), null, 1, 1, true },
-                    { 2, new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185), null, 2, 1, true },
-                    { 3, new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185), null, 3, 1, true },
-                    { 4, new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185), null, 4, 1, true },
-                    { 5, new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185), null, 5, 1, true },
-                    { 6, new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185), null, 6, 1, true },
-                    { 7, new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185), null, 7, 2, true }
+                    { 1, new DateTime(2025, 9, 10, 3, 0, 32, 700, DateTimeKind.Utc).AddTicks(439), null, 1, 1, true },
+                    { 2, new DateTime(2025, 9, 10, 3, 0, 32, 700, DateTimeKind.Utc).AddTicks(439), null, 2, 1, true },
+                    { 3, new DateTime(2025, 9, 10, 3, 0, 32, 700, DateTimeKind.Utc).AddTicks(439), null, 3, 1, true },
+                    { 4, new DateTime(2025, 9, 10, 3, 0, 32, 700, DateTimeKind.Utc).AddTicks(439), null, 4, 1, true },
+                    { 5, new DateTime(2025, 9, 10, 3, 0, 32, 700, DateTimeKind.Utc).AddTicks(439), null, 5, 1, true },
+                    { 6, new DateTime(2025, 9, 10, 3, 0, 32, 700, DateTimeKind.Utc).AddTicks(439), null, 6, 1, true },
+                    { 7, new DateTime(2025, 9, 10, 3, 0, 32, 700, DateTimeKind.Utc).AddTicks(439), null, 7, 2, true }
                 });
 
             migrationBuilder.InsertData(
@@ -709,24 +723,24 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "CreatedAt", "DeletedAt", "FormId", "PermissionId", "RoleId", "State" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185), null, 1, 1, 1, true },
-                    { 2, new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185), null, 2, 1, 1, true },
-                    { 3, new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185), null, 3, 1, 1, true },
-                    { 4, new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185), null, 4, 1, 1, true },
-                    { 5, new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185), null, 5, 1, 1, true },
-                    { 6, new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185), null, 6, 1, 1, true },
-                    { 7, new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185), null, 7, 1, 1, true }
+                    { 1, new DateTime(2025, 9, 10, 3, 0, 32, 700, DateTimeKind.Utc).AddTicks(439), null, 1, 1, 1, true },
+                    { 2, new DateTime(2025, 9, 10, 3, 0, 32, 700, DateTimeKind.Utc).AddTicks(439), null, 2, 1, 1, true },
+                    { 3, new DateTime(2025, 9, 10, 3, 0, 32, 700, DateTimeKind.Utc).AddTicks(439), null, 3, 1, 1, true },
+                    { 4, new DateTime(2025, 9, 10, 3, 0, 32, 700, DateTimeKind.Utc).AddTicks(439), null, 4, 1, 1, true },
+                    { 5, new DateTime(2025, 9, 10, 3, 0, 32, 700, DateTimeKind.Utc).AddTicks(439), null, 5, 1, 1, true },
+                    { 6, new DateTime(2025, 9, 10, 3, 0, 32, 700, DateTimeKind.Utc).AddTicks(439), null, 6, 1, 1, true },
+                    { 7, new DateTime(2025, 9, 10, 3, 0, 32, 700, DateTimeKind.Utc).AddTicks(439), null, 7, 1, 1, true }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Code", "CreatedAt", "DeletedAt", "Password", "PersonId", "State", "Username" },
-                values: new object[] { 1, "0001", new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185), null, "202CB962AC59075B964B07152D234B70", 1, true, "mariaalejan1080@gmail.com" });
+                values: new object[] { 1, "0001", new DateTime(2025, 9, 10, 3, 0, 32, 700, DateTimeKind.Utc).AddTicks(439), null, "202CB962AC59075B964B07152D234B70", 1, true, "mariaalejan1080@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "UserRoles",
                 columns: new[] { "Id", "CreatedAt", "DeletedAt", "RoleId", "State", "UserId" },
-                values: new object[] { 1, new DateTime(2025, 9, 8, 23, 56, 43, 946, DateTimeKind.Utc).AddTicks(9185), null, 1, true, 1 });
+                values: new object[] { 1, new DateTime(2025, 9, 10, 3, 0, 32, 700, DateTimeKind.Utc).AddTicks(439), null, 1, true, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Documents_ExperienceId",
@@ -792,6 +806,11 @@ namespace Entity.MigrationsSqlServer
                 name: "IX_Experiences_InstitucionId",
                 table: "Experiences",
                 column: "InstitucionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Experiences_StateId",
+                table: "Experiences",
+                column: "StateId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Experiences_UserId",
@@ -938,10 +957,10 @@ namespace Entity.MigrationsSqlServer
                 name: "Experiences");
 
             migrationBuilder.DropTable(
-                name: "State");
+                name: "Institutions");
 
             migrationBuilder.DropTable(
-                name: "Institutions");
+                name: "State");
 
             migrationBuilder.DropTable(
                 name: "Users");

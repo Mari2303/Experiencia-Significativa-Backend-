@@ -15,7 +15,7 @@ namespace Utilities.Mappers.ModulesParamer
         public StateProfiles() { 
         
         
-        CreateMap<State, State>().ReverseMap();
+        CreateMap<StateDTO, State>().ReverseMap();
 
             CreateMap<StateRequest, State>().ReverseMap();
         

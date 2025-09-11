@@ -2,6 +2,8 @@
 using Entity.Dtos.ModuleOperational;
 using Entity.Models.ModuleOperation;
 using Entity.Requests.ModuleOperation;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Service.Interfaces;
 using Service.Interfaces.ModelOperationService;
 
@@ -16,5 +18,29 @@ namespace API.Controllers.ModuleOperationController
             _experienceService = experienceService;
             _mapper = mapper;
         }
+
+
+        [Authorize]
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] ExperienceRegisterDTO dto)
+        {
+            if (dto == null)
+                return BadRequest("El DTO no puede estar vacío.");
+
+            try
+            {
+                var experience = await _experienceService.RegisterExperienceAsync(dto);
+                return Ok(experience);
+            }
+            catch (Exception ex)
+            {
+                
+                return StatusCode(500, $"Ocurrió un error al registrar la experiencia: {ex.Message}");
+            }
+        }
     }
 }
+
+
+    
+

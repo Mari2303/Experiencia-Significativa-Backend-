@@ -1,5 +1,6 @@
 ﻿
 
+using System.Text.Json.Serialization;
 using Entity.Models;
 
 namespace Entity.Dtos.ModuleOperational
