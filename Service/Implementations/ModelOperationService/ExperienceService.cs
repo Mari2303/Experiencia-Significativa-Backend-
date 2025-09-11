@@ -26,30 +26,28 @@ namespace Service.Implementations.ModelOperationService
                 experience.Objectives = BuildObjectives(dto.Objectives);
                 experience.HistoryExperiences = BuildHistoryExperiences(dto.HistoryExperiences, dto.UserId);
                 experience.ExperienceLineThematics = BuildThematics(dto.ThematicLineIds);
+                experience.Institution = BuildInstitution(dto.Institution);
                 experience.ExperienceGrades = BuildGrades(dto.GradeIds);
                 experience.ExperiencePopulations = BuildPopulations(dto.PopulationGradeIds);
 
-
+                // 🚩 Aquí se crea siempre la institución
+                experience.Institution = BuildInstitution(dto.Institution);
 
                 await _experienceRepository.AddAsync(experience);
-
                 return experience;
             }
             catch (DbUpdateException dbEx)
             {
-                // Captura errores relacionados con la base de datos (FK, UNIQUE, NOT NULL, etc.)
                 var innerMessage = dbEx.InnerException?.Message ?? dbEx.Message;
                 throw new Exception($"Error al registrar la experiencia (DB): {innerMessage}", dbEx);
             }
             catch (Exception ex)
             {
-                // Captura errores generales
                 throw new Exception($"Error general al registrar la experiencia: {ex.Message}", ex);
             }
         }
 
         private const int DefaultStateId = 1;
-
 
         private Experience BuildExperience(ExperienceRegisterDTO dto) => new Experience
         {
@@ -67,8 +65,26 @@ namespace Service.Implementations.ModelOperationService
             Coverage = dto.Coverage,
             ExperiencesCovidPandemic = dto.ExperiencesCovidPandemic,
             UserId = dto.UserId,
-            InstitucionId = dto.InstitucionId,
             StateId = DefaultStateId,
+            CreatedAt = DateTime.UtcNow
+        };
+
+        // 🚩 Método adaptado: solo 1 institución, no lista
+        private Institution BuildInstitution(InstitutionCreateDTO dto) => new Institution
+        {
+            Name = dto.Name,
+            Address = dto.Address,
+            Phone = dto.Phone,
+            EmailInstitucional = dto.EmailInstitucional,
+            Departament = dto.Departament,
+            Commune = dto.Commune,
+            Municipality = dto.Municipality,
+            NameRector = dto.NameRector,
+            EZone = dto.EZone,
+            Caracteristic = dto.Caracteristic,
+            TerritorialEntity = dto.TerritorialEntity,
+            TestsKnow = dto.TestsKnow,
+            State = true,
             CreatedAt = DateTime.UtcNow
         };
 
@@ -99,12 +115,12 @@ namespace Service.Implementations.ModelOperationService
             }).ToList();
 
         private List<ExperienceLineThematic> BuildThematics(IEnumerable<int> thematicLineIds) =>
-        thematicLineIds.Select(id => new ExperienceLineThematic
-       {
-         LineThematicId = id,
-            State = true,
-         CreatedAt = DateTime.UtcNow
-         }).ToList();
+            thematicLineIds.Select(id => new ExperienceLineThematic
+            {
+                LineThematicId = id,
+                State = true,
+                CreatedAt = DateTime.UtcNow
+            }).ToList();
 
         private List<ExperienceGrade> BuildGrades(IEnumerable<int> gradeIds) =>
             gradeIds.Select(id => new ExperienceGrade
@@ -122,9 +138,9 @@ namespace Service.Implementations.ModelOperationService
                 CreatedAt = DateTime.UtcNow
             }).ToList();
 
-     private List<HistoryExperience> BuildHistoryExperiences( IEnumerable<HistoryExperienceCreateDTO> historyExperiences,
-                  int userId,
-                  int stateId = DefaultStateId) // opcional, usa DefaultStateId si no se pasa
+        private List<HistoryExperience> BuildHistoryExperiences(IEnumerable<HistoryExperienceCreateDTO> historyExperiences,
+                 int userId,
+                 int stateId = DefaultStateId)
         {
             if (historyExperiences == null)
                 return new List<HistoryExperience>();
@@ -138,6 +154,7 @@ namespace Service.Implementations.ModelOperationService
                 CreatedAt = DateTime.UtcNow
             }).ToList();
         }
+
 
 
 

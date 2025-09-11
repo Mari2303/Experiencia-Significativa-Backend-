@@ -24,7 +24,7 @@ public class ExperienceRegisterDTO
 
 
     public int UserId { get; set; }
-    public int InstitucionId { get; set; }
+    public InstitutionCreateDTO Institution { get; set; } = null!;
     public int StateId { get; set; }
 
     public List<int> ThematicLineIds { get; set; } = new();
