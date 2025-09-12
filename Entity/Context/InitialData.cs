@@ -10,6 +10,9 @@ namespace Entity.Context
         {
             DateTime currentDate = DateTime.UtcNow.AddHours(-5);
             InitialDataLineThematic.Seed(modelBuilder, currentDate);
+            InitialDataState.Seed(modelBuilder, currentDate);
+            InitialDataCriteria.Seed(modelBuilder, currentDate);
+            InitialDataPopulationGrade.Seed(modelBuilder, currentDate);
 
             // Roles
             var roleAdmin = new Role()
@@ -399,7 +402,7 @@ namespace Entity.Context
             };
             var RoleFormPermissionTeacherExperiencia = new RoleFormPermission()
             {
-                Id = 101,
+                Id = 1001,
                 RoleId = 2,
                 FormId = 2, // Experiencia
                 PermissionId = 2, // Solo lectura
