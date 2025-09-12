@@ -1,5 +1,6 @@
 ﻿using Entity.Dtos.ModuleOperational;
 using Entity.Dtos.RegisterExperience;
+using Entity.Dtos.UpdateExperience;
 using Entity.Models.ModuleOperation;
 using Entity.Requests.ModuleOperation;
 using Microsoft.EntityFrameworkCore;
@@ -154,6 +155,30 @@ namespace Service.Implementations.ModelOperationService
                 CreatedAt = DateTime.UtcNow
             }).ToList();
         }
+
+
+
+        public async Task<ExperienceDetailDTO?> GetDetailByIdAsync(int id)
+        {
+            return await _experienceRepository.GetDetailByIdAsync(id);
+        }
+
+
+        public async Task<bool> UpdateAsync(ExperienceDetailDTO dto)
+        {
+            var experience = await _experienceRepository.GetByIdAsync(dto.ExperienceId);
+            if (experience == null) return false;
+
+            // 🔹 Actualizamos solo los campos editables
+            experience.NameExperiences = dto.NameExperiences;
+            experience.Developmenttime = dto.Developmenttime;
+
+            // Aquí podrías mapear criterios/evaluaciones si lo necesitas
+
+            await _experienceRepository.UpdateAsync(experience);
+            return true;
+        }
+
 
 
 

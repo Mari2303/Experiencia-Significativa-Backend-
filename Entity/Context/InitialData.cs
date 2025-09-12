@@ -1,4 +1,5 @@
-﻿using Entity.Models;
+﻿using Entity.Context.Seed;
+using Entity.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Entity.Context
@@ -8,6 +9,7 @@ namespace Entity.Context
         public static void Data(ModelBuilder modelBuilder)
         {
             DateTime currentDate = DateTime.UtcNow.AddHours(-5);
+            InitialDataLineThematic.Seed(modelBuilder, currentDate);
 
             // Roles
             var roleAdmin = new Role()

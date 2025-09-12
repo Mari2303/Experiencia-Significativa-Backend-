@@ -7,10 +7,9 @@ using Entity.Models.ModuleOperation;
 
 namespace Entity.Models.ModelosParametros
 {
-    public class State : BaseModel
+    public class State : GenericModel
     {
-        public string Name { get; set; } = string.Empty; 
-        public string Code { get; set; } = string.Empty;
+        
 
         public virtual ICollection<Evaluation> Evaluations { get; set; } = new List<Evaluation>();
         public virtual ICollection<HistoryExperience> HistoryExperiences { get; set; } = new List<HistoryExperience>();

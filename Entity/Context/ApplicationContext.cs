@@ -73,6 +73,7 @@ namespace Entity.Context
 
             InitialData.Data(modelBuilder);
             base.OnModelCreating(modelBuilder);
+
         }
 
         /// <summary>

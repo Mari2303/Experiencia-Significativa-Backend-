@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Entity.Dtos.ModuleOperational;
+using Entity.Dtos.UpdateExperience;
 using Entity.Models.ModuleOperation;
 using Entity.Requests.ModuleOperation;
 using Microsoft.AspNetCore.Authorization;
@@ -37,7 +38,36 @@ namespace API.Controllers.ModuleOperationController
                 
                 return StatusCode(500, $"Ocurrió un error al registrar la experiencia: {ex.Message}");
             }
+
         }
+
+        [Authorize]
+        // ✅ GET: api/experience/5
+        [HttpGet("{id}/detail")]
+        public async Task<IActionResult> Detail(int id)
+        {
+            var dto = await _experienceService.GetDetailByIdAsync(id);
+            if (dto == null) return NotFound();
+
+            return Ok(dto); // 🔥 devuelve JSON al frontend
+        }
+
+        [Authorize(Roles = "SUPERADMIN")] // 🔒 solo Admin edita
+        // ✅ PUT: api/experience/update
+        [HttpPut("update")]
+        
+        public async Task<IActionResult> Update([FromBody] ExperienceDetailDTO dto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var success = await _experienceService.UpdateAsync(dto);
+            if (!success) return NotFound();
+
+            return Ok(new { message = "Experience updated successfully" });
+        }
+
+
+
     }
 }
 

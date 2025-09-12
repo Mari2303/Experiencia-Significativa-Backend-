@@ -11,7 +11,7 @@ namespace Utilities.JwtAuthentication
         /// <param name="user">The username of the user.</param>
         /// <param name="password">The password of the user.</param>
         /// <returns>A JWT token if the authentication is successful.</returns>
-        string Authenticate(string user, string password);
+        string Authenticate(string user, string password, string role);
 
         /// <summary>
         /// Encrypts a password using the MD5 algorithm.

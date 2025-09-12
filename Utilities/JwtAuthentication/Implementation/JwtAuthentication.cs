@@ -1,3 +1,4 @@
+using Entity.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -30,29 +31,29 @@ namespace Utilities.JwtAuthentication
         /// <param name="user">The username of the user.</param>
         /// <param name="password">The password of the user.</param>
         /// <returns>A JWT token if the credentials are valid, otherwise null.</returns>
-        public string Authenticate(string user, string password)
+        public string Authenticate(string user, string password, string role)
         {
             if (string.IsNullOrEmpty(user) || string.IsNullOrEmpty(password))
-            {
                 return null!;
-            }
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenKey = Encoding.UTF8.GetBytes(this._key);
+
             var tokenDescription = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user)
+            new Claim(ClaimTypes.Name, user),
+            new Claim(ClaimTypes.Role, role) // ? Aquí agregas el rol
                 }),
                 Expires = DateTime.UtcNow.AddHours(2),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
             };
 
             var token = tokenHandler.CreateToken(tokenDescription);
-
             return tokenHandler.WriteToken(token);
         }
+
 
         /// <summary>
         /// Encrypts a password using the MD5 hashing algorithm.
