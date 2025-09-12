@@ -64,7 +64,7 @@ namespace Repository.Implementations
             }
 
             // If the credentials are valid, generate the JWT token
-            var token = _jwtAuthentication.Authenticate(username, encodePassword, roles.FirstOrDefault());
+            var token = _jwtAuthentication.Authenticate(username, encodePassword,roles.FirstOrDefault(), user.Id);
 
             //Give the menus to which the user has access.
             var menu = await _userRepository.GetMenuAsync(user.Id);

@@ -31,7 +31,7 @@ namespace Utilities.JwtAuthentication
         /// <param name="user">The username of the user.</param>
         /// <param name="password">The password of the user.</param>
         /// <returns>A JWT token if the credentials are valid, otherwise null.</returns>
-        public string Authenticate(string user, string password, string role)
+        public string Authenticate(string user, string password, string role, int userId)
         {
             if (string.IsNullOrEmpty(user) || string.IsNullOrEmpty(password))
                 return null!;
@@ -43,8 +43,9 @@ namespace Utilities.JwtAuthentication
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
+            new Claim("id", userId.ToString()),
             new Claim(ClaimTypes.Name, user),
-            new Claim(ClaimTypes.Role, role) // ? Aquí agregas el rol
+            new Claim(ClaimTypes.Role, role) 
                 }),
                 Expires = DateTime.UtcNow.AddHours(2),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)

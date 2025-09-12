@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Security.Claims;
+using AutoMapper;
 using Entity.Dtos.ModuleOperational;
 using Entity.Dtos.UpdateExperience;
 using Entity.Models.ModuleOperation;
@@ -41,21 +42,24 @@ namespace API.Controllers.ModuleOperationController
 
         }
 
+
+
+
         [Authorize]
-        // ✅ GET: api/experience/5
         [HttpGet("{id}/detail")]
         public async Task<IActionResult> Detail(int id)
         {
             var dto = await _experienceService.GetDetailByIdAsync(id);
             if (dto == null) return NotFound();
 
-            return Ok(dto); // 🔥 devuelve JSON al frontend
+            return Ok(dto); // devuelve JSON
         }
 
-        [Authorize(Roles = "SUPERADMIN")] // 🔒 solo Admin edita
-        // ✅ PUT: api/experience/update
+
+
+
+        [Authorize(Roles = "SUPERADMIN")]
         [HttpPut("update")]
-        
         public async Task<IActionResult> Update([FromBody] ExperienceDetailDTO dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -66,6 +70,21 @@ namespace API.Controllers.ModuleOperationController
             return Ok(new { message = "Experience updated successfully" });
         }
 
+
+
+
+
+
+        [Authorize]
+        [HttpGet("List")]
+        public async Task<IActionResult> GetExperiences()
+        {
+            var userId = int.Parse(User.Claims.First(c => c.Type == "id").Value);
+            var role = User.Claims.First(c => c.Type == ClaimTypes.Role).Value;
+
+            var experiences = await _experienceService.GetExperiencesAsync(role, userId);
+            return Ok(experiences);
+        }
 
 
     }

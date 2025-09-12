@@ -25,9 +25,9 @@ namespace Service.Implementations
         /// </summary>
         /// <param name="user">The username of the user.</param>
         /// <param name="password">The password of the user.</param>
-        public string Authenticate(string user, string password, string role)
+        public string Authenticate(string user, string password, string role, int userId)
         {
-            return _jwtAuthentication.Authenticate(user, password, role);
+            return _jwtAuthentication.Authenticate(user, password, role, userId);
         }
 
         /// <summary>

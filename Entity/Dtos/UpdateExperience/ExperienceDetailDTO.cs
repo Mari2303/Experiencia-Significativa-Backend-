@@ -13,7 +13,7 @@ namespace Entity.Dtos.UpdateExperience
             public DateTime Developmenttime { get; set; } 
 
             // De Institution
-            public string InstitutionName { get; set; } = string.Empty;
+            public string Name { get; set; } = string.Empty;
             public string Department { get; set; } = string.Empty;
             public string Municipality { get; set; } = string.Empty;
 

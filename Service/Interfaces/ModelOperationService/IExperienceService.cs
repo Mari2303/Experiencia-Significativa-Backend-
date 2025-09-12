@@ -11,7 +11,7 @@ namespace Service.Interfaces.ModelOperationService
         Task<bool> UpdateAsync(ExperienceDetailDTO dto);
         Task<ExperienceDetailDTO?> GetDetailByIdAsync(int id);
         Task<Experience> RegisterExperienceAsync(ExperienceRegisterDTO dto);
-       
 
+        Task<IEnumerable<Experience>> GetExperiencesAsync(string role, int userId);
     }
 }

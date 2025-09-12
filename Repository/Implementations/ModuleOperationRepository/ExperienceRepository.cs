@@ -36,60 +36,77 @@ namespace Repository.Implementations.ModuleOperationRepository
         }
 
 
-        public async Task<ExperienceDetailDTO?> GetDetailByIdAsync(int id)
+        public async Task<Experience?> GetByIdWithDetailsAsync(int id)
         {
-            var experience = await _context.Experiences
+            return await _context.Experiences
                 .Include(e => e.Institution)
                 .Include(e => e.User)
                     .ThenInclude(u => u.Person)
-                .Include(e => e.Evaluations)                           // Incluye evaluaciones
-                    .ThenInclude(ev => ev.EvaluationCriterias)         // Incluye tabla pivote
-                        .ThenInclude(ec => ec.Criteria)                // Incluye criterios
+                .Include(e => e.Evaluations)
+                    .ThenInclude(ev => ev.EvaluationCriterias)
+                        .ThenInclude(ec => ec.Criteria)
                 .FirstOrDefaultAsync(e => e.Id == id);
+        }
 
-
-
+        public async Task<ExperienceDetailDTO?> GetDetailByIdAsync(int id)
+        {
+            var experience = await GetByIdWithDetailsAsync(id);
             if (experience == null) return null;
 
             return new ExperienceDetailDTO
             {
                 ExperienceId = experience.Id,
                 NameExperiences = experience.NameExperiences,
-                Developmenttime = experience.Developmenttime, // ojo: revisa el nombre exacto de la propiedad en tu entidad
-                InstitutionName = experience.Institution?.Name ?? string.Empty,
+                Developmenttime = experience.Developmenttime,
+                Name = experience.Institution?.Name ?? string.Empty,
                 Department = experience.Institution?.Departament ?? string.Empty,
                 Municipality = experience.Institution?.Commune ?? string.Empty,
                 FullName = experience.User?.Person != null
-           ? $"{experience.User.Person.FirstName} {experience.User.Person.FirstLastName}"
-           : string.Empty,
+                    ? $"{experience.User.Person.FirstName} {experience.User.Person.FirstLastName}"
+                    : string.Empty,
                 CodeDane = experience.User?.Person?.CodeDane ?? string.Empty,
-
                 Criterias = experience.Evaluations
-           .SelectMany(ev => ev.EvaluationCriterias)   // 🔹 pivot
-           .Select(ec => new CriteriaDTO
-           {
-               Id = ec.Criteria.Id,
-               Name = ec.Criteria.Name,
-               EvaluationValue = ec.Evaluation.Comments // 🔹 puedes traer Comments, Value, etc. de la Evaluation
-           })
-           .DistinctBy(c => c.Id)  // evita duplicados por la relación N:M
-           .ToList()
+                    .SelectMany(ev => ev.EvaluationCriterias)
+                    .Select(ec => new CriteriaDTO
+                    {
+                        Id = ec.Criteria.Id,
+                        Name = ec.Criteria.Name,
+                        EvaluationValue = ec.Evaluation.Comments
+                    })
+                    .DistinctBy(c => c.Id)
+                    .ToList()
             };
-
         }
-        
 
-             public async Task UpdateAsync(Experience experience)
+
+        public async Task UpdateAsync(Experience experience)
         {
             _context.Experiences.Update(experience);
             await _context.SaveChangesAsync();
-
         }
+
+
 
         public async Task<Experience?> GetByIdAsync(int id)
         {
             return await _context.Experiences
                 .FirstOrDefaultAsync(e => e.Id == id);
+        }
+
+
+
+        public async Task<IEnumerable<Experience>> GetAllAsync()
+        {
+            return await _context.Experiences.ToListAsync();
+        }
+
+
+
+        public async Task<IEnumerable<Experience>> GetByUserIdAsync(int userId)
+        {
+            return await _context.Experiences
+                .Where(e => e.UserId == userId)
+                .ToListAsync();
         }
 
 

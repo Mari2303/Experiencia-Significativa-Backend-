@@ -70,7 +70,7 @@ namespace Service.Implementations.ModelOperationService
             CreatedAt = DateTime.UtcNow
         };
 
-        // 🚩 Método adaptado: solo 1 institución, no lista
+       
         private Institution BuildInstitution(InstitutionCreateDTO dto) => new Institution
         {
             Name = dto.Name,
@@ -166,41 +166,63 @@ namespace Service.Implementations.ModelOperationService
 
         public async Task<bool> UpdateAsync(ExperienceDetailDTO dto)
         {
-            var experience = await _experienceRepository.GetByIdAsync(dto.ExperienceId);
+            var experience = await _experienceRepository.GetByIdWithDetailsAsync(dto.ExperienceId);
             if (experience == null) return false;
 
-            // 🔹 Actualizamos solo los campos editables
+            // 🔹 Actualizar Experience
             experience.NameExperiences = dto.NameExperiences;
             experience.Developmenttime = dto.Developmenttime;
 
-            // Aquí podrías mapear criterios/evaluaciones si lo necesitas
+            // 🔹 Actualizar Institution
+            if (experience.Institution != null)
+            {
+                experience.Institution.Name = dto.Name;
+                experience.Institution.Departament = dto.Department;
+                experience.Institution.Commune = dto.Municipality;
+            }
+
+            // Campos de la persona (FullName y CodeDane)
+            if (experience.User?.Person != null)
+            {
+                var parts = dto.FullName?.Split(' ', 2); // separa nombre y apellido
+                if (parts != null && parts.Length == 2)
+                {
+                    experience.User.Person.FirstName = parts[0];
+                    experience.User.Person.FirstLastName = parts[1];
+                }
+
+                experience.User.Person.CodeDane = dto.CodeDane;
+            }
+
+            // 🔹 Actualizar criterios (si evaluación ya realizada)
+            if (dto.Criterias != null && experience.Evaluations != null)
+            {
+                foreach (var criteriaDto in dto.Criterias)
+                {
+                    var evaluationCriteria = experience.Evaluations
+                        .SelectMany(ev => ev.EvaluationCriterias)
+                        .FirstOrDefault(ec => ec.Criteria.Id == criteriaDto.Id && ec.Evaluation.State == true);
+
+                    if (evaluationCriteria != null)
+                    {
+                        evaluationCriteria.Evaluation.Comments = criteriaDto.EvaluationValue;
+                    }
+                }
+            }
 
             await _experienceRepository.UpdateAsync(experience);
             return true;
         }
 
 
+        public async Task<IEnumerable<Experience>> GetExperiencesAsync(string role, int userId)
+        {
+            if (role == "Profesor")
+                return await _experienceRepository.GetByUserIdAsync(userId);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            
+            return await _experienceRepository.GetAllAsync();
+        }
 
 
     }

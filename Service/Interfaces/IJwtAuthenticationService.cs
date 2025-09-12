@@ -11,7 +11,7 @@
         /// <param name="user">The username of the user.</param>
         /// <param name="password">The password of the user.</param>
         /// <returns>A JWT token if the authentication is successful.</returns>
-        string Authenticate(string user, string password, string role);
+        string Authenticate(string user, string password, string role, int userId);
 
         /// <summary>
         /// Encrypts a password using the MD5 algorithm.
