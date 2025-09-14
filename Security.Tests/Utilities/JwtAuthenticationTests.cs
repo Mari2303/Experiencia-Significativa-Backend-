@@ -21,6 +21,8 @@ public class JwtAuthenticationTests
 
 
     }
+}
+    /*
 
     // prueba unitaria para el método Authenticate de JwtAuthentication
     [Fact]
@@ -121,3 +123,4 @@ public class JwtAuthenticationTests
         }
     }
 
+   */

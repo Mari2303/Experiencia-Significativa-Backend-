@@ -6,6 +6,8 @@ namespace Entity.Models.ModuleOperation
     {
         public string TypeEvaluation { get; set; } = string.Empty;
         public string Comments { get; set; } = string.Empty;
+        public string AccompanimentRole { get; set; } = string.Empty;
+        public string EvaluationResult { get; set; } = string.Empty;
         public int UserId { get; set; }
         public virtual User User { get; set; } = null!;
         public int ExperienceId { get; set; }

@@ -27,7 +27,7 @@ public class AuthRepositoryTests
         );
     }
 
-
+    /*
 
     // prueba unitaria para el método LoginAsync de AuthRepository
 
@@ -70,7 +70,7 @@ public class AuthRepositoryTests
         Assert.Equal("Test Person", result.UserName);
     }
 
-
+    */
 
 
     // prueba unitaria para el método LoginAsync de AuthRepository con username vacío

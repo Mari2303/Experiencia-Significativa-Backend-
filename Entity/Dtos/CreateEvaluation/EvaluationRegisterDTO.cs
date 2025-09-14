@@ -1,12 +1,12 @@
 ﻿
 
-using System.Text.Json.Serialization;
-using Entity.Models;
+using Entity.Dtos.ModelosParametro;
 
-namespace Entity.Dtos.ModuleOperational
+namespace Entity.Dtos.CreateEvaluation
 {
-    public class EvaluationDTO : GenericDTO
+    public  class EvaluationRegisterDTO
     {
+        // --- Campos propios de Evaluation ---
         public string TypeEvaluation { get; set; } = string.Empty;
         public string AccompanimentRole { get; set; } = string.Empty;
         public string Comments { get; set; } = string.Empty;
@@ -14,5 +14,14 @@ namespace Entity.Dtos.ModuleOperational
 
         public int UserId { get; set; }
         public int ExperienceId { get; set; }
+
+        // --- Criterios a evaluar ---
+        public List<EvaluationCriteriaInputDTO> CriteriaEvaluations { get; set; } = new();
+     
+
+
+
+
+
     }
 }
