@@ -40,6 +40,7 @@ namespace Repository.Implementations.ModuleOperationRepository
         {
             return await _context.Experiences
                 .Include(e => e.Institution)
+                .Include(e => e.Documents)
                 .Include(e => e.User)
                     .ThenInclude(u => u.Person)
                 .Include(e => e.Evaluations)
@@ -58,13 +59,18 @@ namespace Repository.Implementations.ModuleOperationRepository
                 ExperienceId = experience.Id,
                 NameExperiences = experience.NameExperiences,
                 Developmenttime = experience.Developmenttime,
+                NameFirstLeader = experience.NameFirstLeader,
+                StateId = experience.StateId,
+
                 Name = experience.Institution?.Name ?? string.Empty,
                 Department = experience.Institution?.Departament ?? string.Empty,
                 Municipality = experience.Institution?.Commune ?? string.Empty,
-                FullName = experience.User?.Person != null
-                    ? $"{experience.User.Person.FirstName} {experience.User.Person.FirstLastName}"
-                    : string.Empty,
-                CodeDane = experience.User?.Person?.CodeDane ?? string.Empty,
+                CodeDane = experience.Institution?.CodeDane ?? string.Empty,
+
+                UrlPdf = experience.Documents?.FirstOrDefault()?.UrlPdf ?? string.Empty,
+                UrlLink = experience.Documents?.FirstOrDefault()?.UrlLink ?? string.Empty,
+
+
                 Criterias = experience.Evaluations
                     .SelectMany(ev => ev.EvaluationCriterias)
                     .Select(ec => new CriteriaDTO

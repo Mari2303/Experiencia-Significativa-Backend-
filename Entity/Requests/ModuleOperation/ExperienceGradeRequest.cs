@@ -12,6 +12,7 @@ namespace Entity.Requests.ModuleOperation
     {
         public int GradeId { get; set; }
         public int ExperienceId { get; set; }
+        public string Description { get; set; } = string.Empty;
         public string? Grade { get; set; } = null!;
         public string? Experience { get; set; } = null!;
     }

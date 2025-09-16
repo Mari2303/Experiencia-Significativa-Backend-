@@ -59,16 +59,17 @@ namespace API.Controllers.ModuleOperationController
 
 
         [Authorize(Roles = "SUPERADMIN")]
-        [HttpPut("update")]
-        public async Task<IActionResult> Update([FromBody] ExperienceDetailDTO dto)
+        [HttpPatch("patch")]
+        public async Task<IActionResult> Patch([FromBody] ExperienceDetailDTO dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var success = await _experienceService.UpdateAsync(dto);
+            var success = await _experienceService.PatchAsync(dto);
             if (!success) return NotFound();
 
-            return Ok(new { message = "Experience updated successfully" });
+            return Ok(new { message = "Experience patched successfully" });
         }
+
 
 
 

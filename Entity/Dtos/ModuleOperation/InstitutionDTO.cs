@@ -10,11 +10,10 @@ namespace Entity.Dtos.ModuleOperational
     {
         public string Address { get; set; } = string.Empty;
         public uint Phone { get; set; }
+        public string CodeDane { get; set; } = string.Empty;
         public string EmailInstitucional { get; set; } = string.Empty;
         public string Departament { get; set; } = string.Empty;
         public string Commune { get; set; } = string.Empty;
-
-
         public string Municipality { get; set; } = string.Empty;
         public string NameRector { get; set; } = string.Empty;
         public string EZone { get; set; } = string.Empty;

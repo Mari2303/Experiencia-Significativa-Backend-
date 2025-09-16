@@ -10,6 +10,6 @@ namespace Entity.Dtos.CreateEvaluation
                                              // 🔹 Nuevos campos que el user llena
         // campos de criteria 
         public string DescriptionContribution { get; set; } = string.Empty;
-        public string DescruotionType { get; set; } = string.Empty;
+    
     }
 }

@@ -8,7 +8,7 @@ namespace Service.Interfaces.ModelOperationService
     public interface IExperienceService : IBaseModelService<Experience, ExperienceDTO,ExperienceRequest>
     {
 
-        Task<bool> UpdateAsync(ExperienceDetailDTO dto);
+        Task<bool> PatchAsync(ExperienceDetailDTO dto);
         Task<ExperienceDetailDTO?> GetDetailByIdAsync(int id);
         Task<Experience> RegisterExperienceAsync(ExperienceRegisterDTO dto);
 

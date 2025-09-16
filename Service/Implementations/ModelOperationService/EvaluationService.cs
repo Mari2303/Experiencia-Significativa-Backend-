@@ -54,12 +54,11 @@ namespace Service.Implementations.ModelOperationService
                 };
                 await _evaluationRepository.AddEvaluationCriteriaAsync(evalCriteria);
 
-                // 🔹 Actualizamos campos de Criteria
+                // Actualizamos campos de Criteria
                 var criteria = await _evaluationRepository.GetCriteriaByIdAsync(c.CriteriaId);
                 if (criteria != null)
                 {
                     criteria.DescriptionContribution = c.DescriptionContribution;
-                    criteria.DescruotionType = c.DescruotionType;
                     await _evaluationRepository.UpdateCriteriaAsync(criteria);
                 }
 

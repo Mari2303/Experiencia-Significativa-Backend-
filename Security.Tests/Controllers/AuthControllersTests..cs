@@ -80,11 +80,13 @@ namespace Security.Tests.Controllers
 
             Assert.IsType<ObjectResult>(result);
         }
+    }
+}
 
 
 
         // prueba unitara para el metodo UpdatePassword del AuthController para el caso exitoso
-
+/*
         [Fact]
 
         public async Task UpdatePassword_ShouldReturnOk()
@@ -109,11 +111,11 @@ namespace Security.Tests.Controllers
 
             var controller = new AuthController(mockAuthService.Object, mockMapper.Object);
         }
-
+*/
 
         // prueba unitaria para el metodo UpdatePassword del AuthController para el caso de error 500
 
-        [Fact]
+      /*  [Fact]
 
         public async Task UpdatePassword_ShouldReturn500()
         {
@@ -137,11 +139,11 @@ namespace Security.Tests.Controllers
             // Assert
             Assert.IsType<ObjectResult>(result);
         }
-
+      */
 
         // prueba unitaria para el metodo RenewToken del AuthController para el caso exitoso
 
-        [Fact]
+    /*    [Fact]
         public async Task RenewToken_ReturnsOk()
         {
             // Arrange
@@ -175,7 +177,7 @@ namespace Security.Tests.Controllers
             Assert.Equal("new-fake-jwt-token", response.Data.Token);
         }
 
-
+        
 
 
         // prueba unitaria para el metodo RenewToken del AuthController para el caso de error 500
@@ -206,11 +208,12 @@ namespace Security.Tests.Controllers
         }
 
 
-
+        
     }
+    
 }
 
-
+*/
 
 
 

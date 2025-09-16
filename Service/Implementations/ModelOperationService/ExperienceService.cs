@@ -1,4 +1,5 @@
-﻿using Entity.Dtos.ModuleOperational;
+﻿using Entity.Dtos.ModelosParametro;
+using Entity.Dtos.ModuleOperational;
 using Entity.Dtos.RegisterExperience;
 using Entity.Dtos.UpdateExperience;
 using Entity.Models.ModuleOperation;
@@ -28,7 +29,7 @@ namespace Service.Implementations.ModelOperationService
                 experience.HistoryExperiences = BuildHistoryExperiences(dto.HistoryExperiences, dto.UserId);
                 experience.ExperienceLineThematics = BuildThematics(dto.ThematicLineIds);
                 experience.Institution = BuildInstitution(dto.Institution);
-                experience.ExperienceGrades = BuildGrades(dto.GradeIds);
+                experience.ExperienceGrades = BuildGrades(dto.Grades);
                 experience.ExperiencePopulations = BuildPopulations(dto.PopulationGradeIds);
 
                 // 🚩 Aquí se crea siempre la institución
@@ -53,21 +54,30 @@ namespace Service.Implementations.ModelOperationService
         private Experience BuildExperience(ExperienceRegisterDTO dto) => new Experience
         {
             NameExperiences = dto.NameExperiences,
-            Summary = dto.Summary,
-            Methodologias = dto.Methodologias,
-            Tranfer = dto.Tranfer,
             Code = dto.Code,
+            NameFirstLeader = dto.NameFirstLeader,
+            FirstIdentityDocument = dto.FirstIdentityDocument,
+            FirdtEmail = dto.FirdtEmail,
+            FirstPosition = dto.FirstPosition,
+            FirstPhone = dto.FirstPhone,
+            NameSecondLeader = dto.NameSecondLeader,
+            SecondIdentityDocument = dto.SecondIdentityDocument,
+            SecondEmail = dto.SecondEmail,
+            SecondPosition = dto.SecondPosition,
+            SecondPhone = dto.SecondPhone,
             Developmenttime = dto.Developmenttime,
             Recognition = dto.Recognition,
             Socialization = dto.Socialization,
-            ThemeExperienceArea = dto.ThemeExperienceArea,
             CoordinationTransversalProjects = dto.CoordinationTransversalProjects,
+            Population = dto.Population,
             PedagogicalStrategies = dto.PedagogicalStrategies,
             Coverage = dto.Coverage,
             ExperiencesCovidPandemic = dto.ExperiencesCovidPandemic,
+            ThematicLocation = dto.ThematicLocation,
             UserId = dto.UserId,
             StateId = DefaultStateId,
             CreatedAt = DateTime.UtcNow
+           
         };
 
        
@@ -76,6 +86,7 @@ namespace Service.Implementations.ModelOperationService
             Name = dto.Name,
             Address = dto.Address,
             Phone = dto.Phone,
+            CodeDane = dto.CodeDane,
             EmailInstitucional = dto.EmailInstitucional,
             Departament = dto.Departament,
             Commune = dto.Commune,
@@ -105,12 +116,15 @@ namespace Service.Implementations.ModelOperationService
                 DescriptionProblem = o.DescriptionProblem,
                 ObjectiveExperience = o.ObjectiveExperience,
                 EnfoqueExperience = o.EnfoqueExperience,
+                Methodologias = o.Methodologias,
                 InnovationExperience = o.InnovationExperience,
                 ResulsExperience = o.ResulsExperience,
                 SustainabilityExperience = o.SustainabilityExperience,
+                Tranfer = o.Tranfer,
+                Summary = o.Summary,
                 MetaphoricalPhrase = o.MetaphoricalPhrase,
                 Testimony = o.Testimony,
-                Dissemination = o.Dissemination,
+                FollowEvaluation = o.FollowEvaluation,
                 State = true,
                 CreatedAt = DateTime.UtcNow
             }).ToList();
@@ -123,13 +137,16 @@ namespace Service.Implementations.ModelOperationService
                 CreatedAt = DateTime.UtcNow
             }).ToList();
 
-        private List<ExperienceGrade> BuildGrades(IEnumerable<int> gradeIds) =>
-            gradeIds.Select(id => new ExperienceGrade
-            {
-                GradeId = id,
-                State = true,
-                CreatedAt = DateTime.UtcNow
-            }).ToList();
+        private List<ExperienceGrade> BuildGrades(IEnumerable<GradeRegisterDTO> gradeDtos) =>
+        gradeDtos.Select(g => new ExperienceGrade
+        {
+            GradeId = g.GradeId,
+            Description = g.Description,
+            State = true,
+            CreatedAt = DateTime.UtcNow
+        }).ToList();
+
+
 
         private List<ExperiencePopulation> BuildPopulations(IEnumerable<int> populationGradeIds) =>
             populationGradeIds.Select(id => new ExperiencePopulation
@@ -164,37 +181,43 @@ namespace Service.Implementations.ModelOperationService
         }
 
 
-        public async Task<bool> UpdateAsync(ExperienceDetailDTO dto)
+
+
+        public async Task<bool> PatchAsync(ExperienceDetailDTO dto)
         {
             var experience = await _experienceRepository.GetByIdWithDetailsAsync(dto.ExperienceId);
             if (experience == null) return false;
 
-            // 🔹 Actualizar Experience
-            experience.NameExperiences = dto.NameExperiences;
-            experience.Developmenttime = dto.Developmenttime;
+            // 🔹 Solo actualizamos si el campo viene con valor (no null ni vacío)
+            if (!string.IsNullOrEmpty(dto.NameExperiences))
+                experience.NameExperiences = dto.NameExperiences;
 
-            // 🔹 Actualizar Institution
+            if (dto.Developmenttime != default)
+                experience.Developmenttime = dto.Developmenttime;
+
+            if (!string.IsNullOrEmpty(dto.NameFirstLeader))
+                experience.NameFirstLeader = dto.NameFirstLeader;
+
+            if (dto.StateId != 0)
+                experience.StateId = dto.StateId;
+
+            // 🔹 Institution
             if (experience.Institution != null)
             {
-                experience.Institution.Name = dto.Name;
-                experience.Institution.Departament = dto.Department;
-                experience.Institution.Commune = dto.Municipality;
+                if (!string.IsNullOrEmpty(dto.Name))
+                    experience.Institution.Name = dto.Name;
+
+                if (!string.IsNullOrEmpty(dto.Department))
+                    experience.Institution.Departament = dto.Department;
+
+                if (!string.IsNullOrEmpty(dto.Municipality))
+                    experience.Institution.Commune = dto.Municipality;
+
+                if (!string.IsNullOrEmpty(dto.CodeDane))
+                    experience.Institution.CodeDane = dto.CodeDane;
             }
 
-            // Campos de la persona (FullName y CodeDane)
-            if (experience.User?.Person != null)
-            {
-                var parts = dto.FullName?.Split(' ', 2); // separa nombre y apellido
-                if (parts != null && parts.Length == 2)
-                {
-                    experience.User.Person.FirstName = parts[0];
-                    experience.User.Person.FirstLastName = parts[1];
-                }
-
-                experience.User.Person.CodeDane = dto.CodeDane;
-            }
-
-            // 🔹 Actualizar criterios (si evaluación ya realizada)
+            // 🔹 Actualizar criterios solo si vienen en el dto
             if (dto.Criterias != null && experience.Evaluations != null)
             {
                 foreach (var criteriaDto in dto.Criterias)
@@ -203,7 +226,7 @@ namespace Service.Implementations.ModelOperationService
                         .SelectMany(ev => ev.EvaluationCriterias)
                         .FirstOrDefault(ec => ec.Criteria.Id == criteriaDto.Id && ec.Evaluation.State == true);
 
-                    if (evaluationCriteria != null)
+                    if (evaluationCriteria != null && !string.IsNullOrEmpty(criteriaDto.EvaluationValue))
                     {
                         evaluationCriteria.Evaluation.Comments = criteriaDto.EvaluationValue;
                     }
@@ -213,6 +236,7 @@ namespace Service.Implementations.ModelOperationService
             await _experienceRepository.UpdateAsync(experience);
             return true;
         }
+
 
 
         public async Task<IEnumerable<Experience>> GetExperiencesAsync(string role, int userId)

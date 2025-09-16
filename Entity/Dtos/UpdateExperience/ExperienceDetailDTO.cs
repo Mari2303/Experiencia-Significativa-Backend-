@@ -10,19 +10,26 @@ namespace Entity.Dtos.UpdateExperience
 
             // De Experience
             public string NameExperiences { get; set; } = string.Empty;
-            public DateTime Developmenttime { get; set; } 
+            public DateTime Developmenttime { get; set; }
+            public string NameFirstLeader {  get; set; } = string.Empty;
+            public int StateId { get; set; }
+           
 
-            // De Institution
+
+             // De Institution
             public string Name { get; set; } = string.Empty;
             public string Department { get; set; } = string.Empty;
             public string Municipality { get; set; } = string.Empty;
-
-            // De Person
-            public string FullName { get; set; } = string.Empty;
             public string CodeDane { get; set; } = string.Empty;
 
-            // De Criteria (relación con Evaluation → inicialmente vacío)
-            public List<CriteriaDTO> Criterias { get; set; } = new();
+
+        // documento de las experiencias 
+        public string UrlPdf { get; set; } = string.Empty;
+        public string UrlLink { get; set; } = string.Empty;
+
+
+        // De Criteria (relación con Evaluation → inicialmente vacío)
+        public List<CriteriaDTO> Criterias { get; set; } = new();
         }
 
        

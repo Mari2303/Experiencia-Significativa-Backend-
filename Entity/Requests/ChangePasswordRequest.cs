@@ -12,7 +12,7 @@ namespace Entity.Requests
         /// <summary>
         /// User's current password for verification
         /// </summary>
-        public string CurrentPassword { get; set; } = string.Empty;
+     //   public string CurrentPassword { get; set; } = string.Empty;
 
         /// <summary>
         /// User's new password

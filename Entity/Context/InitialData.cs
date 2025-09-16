@@ -13,6 +13,7 @@ namespace Entity.Context
             InitialDataState.Seed(modelBuilder, currentDate);
             InitialDataCriteria.Seed(modelBuilder, currentDate);
             InitialDataPopulationGrade.Seed(modelBuilder, currentDate);
+            InitialDataGrade.Seed(modelBuilder, currentDate);
 
             // Roles
             var roleAdmin = new Role()

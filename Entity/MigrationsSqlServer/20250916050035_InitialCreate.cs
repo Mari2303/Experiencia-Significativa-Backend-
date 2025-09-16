@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Entity.MigrationsSqlServer
 {
     /// <inheritdoc />
-    public partial class PrimerCreate : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -58,6 +58,7 @@ namespace Entity.MigrationsSqlServer
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     State = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -77,15 +78,16 @@ namespace Entity.MigrationsSqlServer
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<long>(type: "bigint", nullable: false),
+                    CodeDane = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmailInstitucional = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Departament = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Commune = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Municipality = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NameRector = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EZone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Caracteristic = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TerritorialEntity = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TestsKnow = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EmailInstitucional = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Departament = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Commune = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     State = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -324,19 +326,27 @@ namespace Entity.MigrationsSqlServer
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NameExperiences = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Summary = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Methodologias = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Tranfer = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NameFirstLeader = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstIdentityDocument = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirdtEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstPosition = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstPhone = table.Column<long>(type: "bigint", nullable: false),
+                    NameSecondLeader = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SecondIdentityDocument = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SecondEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SecondPosition = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SecondPhone = table.Column<long>(type: "bigint", nullable: false),
+                    ThematicLocation = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Developmenttime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Recognition = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Socialization = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ThemeExperienceArea = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CoordinationTransversalProjects = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Population = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PedagogicalStrategies = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Coverage = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ExperiencesCovidPandemic = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StateId = table.Column<int>(type: "int", nullable: false),
-                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     InstitucionId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -466,6 +476,7 @@ namespace Entity.MigrationsSqlServer
                         .Annotation("SqlServer:Identity", "1, 1"),
                     GradeId = table.Column<int>(type: "int", nullable: false),
                     ExperienceId = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     State = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -591,12 +602,15 @@ namespace Entity.MigrationsSqlServer
                     DescriptionProblem = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ObjectiveExperience = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EnfoqueExperience = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Methodologias = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     InnovationExperience = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ResulsExperience = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SustainabilityExperience = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Tranfer = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Summary = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MetaphoricalPhrase = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Testimony = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Dissemination = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FollowEvaluation = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ExperienceId = table.Column<int>(type: "int", nullable: false),
                     State = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -678,15 +692,15 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "Code", "CreatedAt", "DeletedAt", "DescriptionContribution", "DescruotionType", "Name", "State" },
                 values: new object[,]
                 {
-                    { 1, "01", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "", "", "Pertinencia", true },
-                    { 2, "02", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "", "", "Fundamentación", true },
-                    { 3, "03", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "", "", "Innovación", true },
-                    { 4, "04", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "", "", "Resultados", true },
-                    { 5, "05", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "", "", "Empoderamiento", true },
-                    { 6, "06", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "", "", "Seguimiento y valoración", true },
-                    { 7, "07", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "", "", "Transformación", true },
-                    { 8, "08", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "", "", "Sostenibilidad", true },
-                    { 9, "09", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "", "", "Transferencia", true }
+                    { 1, "01", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "", "", "Pertinencia", true },
+                    { 2, "02", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "", "", "Fundamentación", true },
+                    { 3, "03", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "", "", "Innovación", true },
+                    { 4, "04", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "", "", "Resultados", true },
+                    { 5, "05", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "", "", "Empoderamiento", true },
+                    { 6, "06", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "", "", "Seguimiento y valoración", true },
+                    { 7, "07", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "", "", "Transformación", true },
+                    { 8, "08", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "", "", "Sostenibilidad", true },
+                    { 9, "09", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "", "", "Transferencia", true }
                 });
 
             migrationBuilder.InsertData(
@@ -694,13 +708,23 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "CreatedAt", "DeletedAt", "Description", "Icon", "Name", "Order", "Path", "State" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "Vista principal del sistema.", "fa-solid fa-house", "Inicio", 1, "dashboard", true },
-                    { 2, new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "Gestión de experiencias significativas.", "fa-solid fa-star", "Experiencia", 2, "experiencias", true },
-                    { 3, new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "Gestión de evaluaciones.", "fa-solid fa-clipboard-check", "Evaluación", 3, "evaluacion", true },
-                    { 4, new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "Gestión de roles del sistema.", "fa-solid fa-users-gear", "Roles", 4, "security/roles", true },
-                    { 5, new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "Gestión de usuarios.", "fa-solid fa-users", "Users", 5, "security/users", true },
-                    { 6, new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "Gestión de personas.", "fa-solid fa-user", "Persons", 6, "security/persons", true },
-                    { 7, new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "Formulario de seguimiento.", "fa-solid fa-building-user", "Seguimiento", 1, "seguimiento", true }
+                    { 1, new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "Vista principal del sistema.", "fa-solid fa-house", "Inicio", 1, "dashboard", true },
+                    { 2, new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "Gestión de experiencias significativas.", "fa-solid fa-star", "Experiencia", 2, "experiencias", true },
+                    { 3, new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "Gestión de evaluaciones.", "fa-solid fa-clipboard-check", "Evaluación", 3, "evaluacion", true },
+                    { 4, new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "Gestión de roles del sistema.", "fa-solid fa-users-gear", "Roles", 4, "security/roles", true },
+                    { 5, new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "Gestión de usuarios.", "fa-solid fa-users", "Users", 5, "security/users", true },
+                    { 6, new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "Gestión de personas.", "fa-solid fa-user", "Persons", 6, "security/persons", true },
+                    { 7, new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "Formulario de seguimiento.", "fa-solid fa-building-user", "Seguimiento", 1, "seguimiento", true }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Grade",
+                columns: new[] { "Id", "Code", "CreatedAt", "DeletedAt", "Description", "Name", "State" },
+                values: new object[,]
+                {
+                    { 1, "01", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "", "Primaria", true },
+                    { 2, "02", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "", "Secundaria", true },
+                    { 3, "03", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "", "Media", true }
                 });
 
             migrationBuilder.InsertData(
@@ -708,15 +732,15 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "Code", "CreatedAt", "DeletedAt", "Name", "State" },
                 values: new object[,]
                 {
-                    { 1, "01", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "Ciencia y Tecnología", true },
-                    { 2, "02", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "Educación Ambiental", true },
-                    { 3, "03", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "Interculturalidad Bilingüismo", true },
-                    { 4, "04", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "Arte, Cultura y Patrimonio", true },
-                    { 5, "05", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "Habilidades Comunicativas", true },
-                    { 6, "06", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "Academica Curricular", true },
-                    { 7, "07", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "Inclusion Diversidad", true },
-                    { 8, "08", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "Convivencia Escolar (Ciencias Sociales y Políticas)", true },
-                    { 9, "09", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "Danza, Deporte y Recreación", true }
+                    { 1, "01", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "Ciencia y Tecnología", true },
+                    { 2, "02", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "Educación Ambiental", true },
+                    { 3, "03", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "Interculturalidad Bilingüismo", true },
+                    { 4, "04", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "Arte, Cultura y Patrimonio", true },
+                    { 5, "05", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "Habilidades Comunicativas", true },
+                    { 6, "06", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "Academica Curricular", true },
+                    { 7, "07", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "Inclusion Diversidad", true },
+                    { 8, "08", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "Convivencia Escolar (Ciencias Sociales y Políticas)", true },
+                    { 9, "09", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "Danza, Deporte y Recreación", true }
                 });
 
             migrationBuilder.InsertData(
@@ -724,8 +748,8 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "CreatedAt", "DeletedAt", "Description", "Name", "State" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "El módulo de seguridad gestiona autenticación, roles, permisos y acceso a los formularios del sistema.", "Security", true },
-                    { 2, new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "El módulo operativo gestiona los formularios funcionales principales del sistema.", "Operational", true }
+                    { 1, new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "El módulo de seguridad gestiona autenticación, roles, permisos y acceso a los formularios del sistema.", "Security", true },
+                    { 2, new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "El módulo operativo gestiona los formularios funcionales principales del sistema.", "Operational", true }
                 });
 
             migrationBuilder.InsertData(
@@ -733,8 +757,8 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "Code", "CreatedAt", "DeletedAt", "Description", "Name", "State" },
                 values: new object[,]
                 {
-                    { 1, "0001", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "Allows the user to query, update, and delete records within the system, granting full access to the management of associated data.", "Reading and writing", true },
-                    { 2, "0002", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "Allows the user to only view records within the system, without permission to perform updates or deletions.", "Reading only", true }
+                    { 1, "0001", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "Allows the user to query, update, and delete records within the system, granting full access to the management of associated data.", "Reading and writing", true },
+                    { 2, "0002", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "Allows the user to only view records within the system, without permission to perform updates or deletions.", "Reading only", true }
                 });
 
             migrationBuilder.InsertData(
@@ -742,8 +766,8 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "CodeDane", "CreatedAt", "DeletedAt", "DocumentType", "Email", "EmailInstitutional", "FirstLastName", "FirstName", "IdentificationNumber", "MiddleName", "Phone", "SecondLastName", "State" },
                 values: new object[,]
                 {
-                    { 1, "441001004839", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, 1, "mariaalejan1080@gmail.com", "mariaa_marinh@soy.sena.com", "MARIN", "MARIA", "1000000000", "ALEJANDRA", 3243652328L, "HENRIQUEZ", true },
-                    { 2, "441001004840", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, 1, "juan.perez@correo.com", "juan_perez@soy.sena.com", "PEREZ", "JUAN", "2000000000", "CARLOS", 3123456789L, "GOMEZ", true }
+                    { 1, "441001004839", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, 1, "mariaalejan1080@gmail.com", "mariaa_marinh@soy.sena.com", "MARIN", "MARIA", "1000000000", "ALEJANDRA", 3243652328L, "HENRIQUEZ", true },
+                    { 2, "441001004840", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, 1, "juan.perez@correo.com", "juan_perez@soy.sena.com", "PEREZ", "JUAN", "2000000000", "CARLOS", 3123456789L, "GOMEZ", true }
                 });
 
             migrationBuilder.InsertData(
@@ -751,13 +775,13 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "Code", "CreatedAt", "DeletedAt", "Name", "State" },
                 values: new object[,]
                 {
-                    { 1, "01", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "Indigenas", true },
-                    { 2, "02", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "Afrocolombianos", true },
-                    { 3, "03", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "Mestizos", true },
-                    { 4, "04", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "Palenqueros", true },
-                    { 5, "05", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "Pequeños Productores", true },
-                    { 6, "06", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "Raizales", true },
-                    { 7, "07", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "Rom", true }
+                    { 1, "01", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "Indigenas", true },
+                    { 2, "02", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "Afrocolombianos", true },
+                    { 3, "03", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "Mestizos", true },
+                    { 4, "04", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "Palenqueros", true },
+                    { 5, "05", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "Pequeños Productores", true },
+                    { 6, "06", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "Raizales", true },
+                    { 7, "07", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "Rom", true }
                 });
 
             migrationBuilder.InsertData(
@@ -765,8 +789,8 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "Code", "CreatedAt", "DeletedAt", "Description", "Name", "Path", "State" },
                 values: new object[,]
                 {
-                    { 1, "01", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "", "SUPERADMIN", "dashboard", true },
-                    { 2, "0002", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "Rol para profesores", "Profesor", "dashboardTeacher", true }
+                    { 1, "01", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "", "SUPERADMIN", "dashboard", true },
+                    { 2, "0002", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "Rol para profesores", "Profesor", "dashboardTeacher", true }
                 });
 
             migrationBuilder.InsertData(
@@ -774,9 +798,9 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "Code", "CreatedAt", "DeletedAt", "Name", "State" },
                 values: new object[,]
                 {
-                    { 1, "01", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "Naciente", true },
-                    { 2, "02", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "Creciente", true },
-                    { 3, "03", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "Inspiradora", true }
+                    { 1, "01", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "Naciente", true },
+                    { 2, "02", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "Creciente", true },
+                    { 3, "03", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "Inspiradora", true }
                 });
 
             migrationBuilder.InsertData(
@@ -784,13 +808,13 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "CreatedAt", "DeletedAt", "FormId", "ModuleId", "State" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, 1, 1, true },
-                    { 2, new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, 2, 1, true },
-                    { 3, new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, 3, 1, true },
-                    { 4, new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, 4, 1, true },
-                    { 5, new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, 5, 1, true },
-                    { 6, new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, 6, 1, true },
-                    { 7, new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, 7, 2, true }
+                    { 1, new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, 1, 1, true },
+                    { 2, new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, 2, 1, true },
+                    { 3, new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, 3, 1, true },
+                    { 4, new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, 4, 1, true },
+                    { 5, new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, 5, 1, true },
+                    { 6, new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, 6, 1, true },
+                    { 7, new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, 7, 2, true }
                 });
 
             migrationBuilder.InsertData(
@@ -798,15 +822,15 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "CreatedAt", "DeletedAt", "FormId", "PermissionId", "RoleId", "State" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, 1, 1, 1, true },
-                    { 2, new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, 2, 1, 1, true },
-                    { 3, new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, 3, 1, 1, true },
-                    { 4, new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, 4, 1, 1, true },
-                    { 5, new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, 5, 1, 1, true },
-                    { 6, new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, 6, 1, 1, true },
-                    { 7, new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, 7, 1, 1, true },
-                    { 100, new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, 1, 2, 2, true },
-                    { 1001, new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, 2, 2, 2, true }
+                    { 1, new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, 1, 1, 1, true },
+                    { 2, new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, 2, 1, 1, true },
+                    { 3, new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, 3, 1, 1, true },
+                    { 4, new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, 4, 1, 1, true },
+                    { 5, new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, 5, 1, 1, true },
+                    { 6, new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, 6, 1, 1, true },
+                    { 7, new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, 7, 1, 1, true },
+                    { 100, new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, 1, 2, 2, true },
+                    { 1001, new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, 2, 2, 2, true }
                 });
 
             migrationBuilder.InsertData(
@@ -814,8 +838,8 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "Code", "CreatedAt", "DeletedAt", "Password", "PersonId", "State", "Username" },
                 values: new object[,]
                 {
-                    { 1, "0001", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "202CB962AC59075B964B07152D234B70", 1, true, "mariaalejan1080@gmail.com" },
-                    { 2, "0002", new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, "202CB962AC59075B964B07152D234B70", 2, true, "juan.perez@correo.com" }
+                    { 1, "0001", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "202CB962AC59075B964B07152D234B70", 1, true, "mariaalejan1080@gmail.com" },
+                    { 2, "0002", new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, "202CB962AC59075B964B07152D234B70", 2, true, "juan.perez@correo.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -823,8 +847,8 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "CreatedAt", "DeletedAt", "RoleId", "State", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, 1, true, 1 },
-                    { 2, new DateTime(2025, 9, 14, 1, 2, 52, 595, DateTimeKind.Utc).AddTicks(8461), null, 2, true, 2 }
+                    { 1, new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, 1, true, 1 },
+                    { 2, new DateTime(2025, 9, 16, 0, 0, 34, 148, DateTimeKind.Utc).AddTicks(6707), null, 2, true, 2 }
                 });
 
             migrationBuilder.CreateIndex(
