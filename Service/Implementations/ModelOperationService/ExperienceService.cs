@@ -6,6 +6,7 @@ using Entity.Models.ModuleOperation;
 using Entity.Requests.ModuleOperation;
 using Microsoft.EntityFrameworkCore;
 using Repository.Interfaces.IModuleOperationRepository;
+using Service.Builders;
 using Service.Interfaces.ModelOperationService;
 
 namespace Service.Implementations.ModelOperationService
@@ -22,18 +23,16 @@ namespace Service.Implementations.ModelOperationService
         {
             try
             {
-                var experience = BuildExperience(dto);
-
-                experience.Documents = BuildDocuments(dto.Documents);
-                experience.Objectives = BuildObjectives(dto.Objectives);
-                experience.HistoryExperiences = BuildHistoryExperiences(dto.HistoryExperiences, dto.UserId);
-                experience.ExperienceLineThematics = BuildThematics(dto.ThematicLineIds);
-                experience.Institution = BuildInstitution(dto.Institution);
-                experience.ExperienceGrades = BuildGrades(dto.Grades);
-                experience.ExperiencePopulations = BuildPopulations(dto.PopulationGradeIds);
-
-                // 🚩 Aquí se crea siempre la institución
-                experience.Institution = BuildInstitution(dto.Institution);
+                var experience = new ExperienceBuilder()
+                    .WithBasicInfo(dto)
+                    .WithInstitution(dto.Institution)
+                    .WithDocuments(dto.Documents)
+                    .WithObjectives(dto.Objectives)
+                    .WithThematics(dto.ThematicLineIds)
+                    .WithGrades(dto.Grades)
+                    .WithPopulations(dto.PopulationGradeIds)
+                    .WithHistory(dto.HistoryExperiences, dto.UserId)
+                    .Build();
 
                 await _experienceRepository.AddAsync(experience);
                 return experience;
@@ -49,129 +48,6 @@ namespace Service.Implementations.ModelOperationService
             }
         }
 
-        private const int DefaultStateId = 1;
-
-        private Experience BuildExperience(ExperienceRegisterDTO dto) => new Experience
-        {
-            NameExperiences = dto.NameExperiences,
-            Code = dto.Code,
-            NameFirstLeader = dto.NameFirstLeader,
-            FirstIdentityDocument = dto.FirstIdentityDocument,
-            FirdtEmail = dto.FirdtEmail,
-            FirstPosition = dto.FirstPosition,
-            FirstPhone = dto.FirstPhone,
-            NameSecondLeader = dto.NameSecondLeader,
-            SecondIdentityDocument = dto.SecondIdentityDocument,
-            SecondEmail = dto.SecondEmail,
-            SecondPosition = dto.SecondPosition,
-            SecondPhone = dto.SecondPhone,
-            Developmenttime = dto.Developmenttime,
-            Recognition = dto.Recognition,
-            Socialization = dto.Socialization,
-            CoordinationTransversalProjects = dto.CoordinationTransversalProjects,
-            Population = dto.Population,
-            PedagogicalStrategies = dto.PedagogicalStrategies,
-            Coverage = dto.Coverage,
-            ExperiencesCovidPandemic = dto.ExperiencesCovidPandemic,
-            ThematicLocation = dto.ThematicLocation,
-            UserId = dto.UserId,
-            StateId = DefaultStateId,
-            CreatedAt = DateTime.UtcNow
-           
-        };
-
-       
-        private Institution BuildInstitution(InstitutionCreateDTO dto) => new Institution
-        {
-            Name = dto.Name,
-            Address = dto.Address,
-            Phone = dto.Phone,
-            CodeDane = dto.CodeDane,
-            EmailInstitucional = dto.EmailInstitucional,
-            Departament = dto.Departament,
-            Commune = dto.Commune,
-            Municipality = dto.Municipality,
-            NameRector = dto.NameRector,
-            EZone = dto.EZone,
-            Caracteristic = dto.Caracteristic,
-            TerritorialEntity = dto.TerritorialEntity,
-            TestsKnow = dto.TestsKnow,
-            State = true,
-            CreatedAt = DateTime.UtcNow
-        };
-
-        private List<Document> BuildDocuments(IEnumerable<DocumentCreateDTO> docs) =>
-            docs.Select(d => new Document
-            {
-                Name = d.Name,
-                UrlPdf = d.UrlPdf,
-                UrlLink = d.UrlLink,
-                State = true,
-                CreatedAt = DateTime.UtcNow
-            }).ToList();
-
-        private List<Objective> BuildObjectives(IEnumerable<ObjectiveCreateDTO> objectives) =>
-            objectives.Select(o => new Objective
-            {
-                DescriptionProblem = o.DescriptionProblem,
-                ObjectiveExperience = o.ObjectiveExperience,
-                EnfoqueExperience = o.EnfoqueExperience,
-                Methodologias = o.Methodologias,
-                InnovationExperience = o.InnovationExperience,
-                ResulsExperience = o.ResulsExperience,
-                SustainabilityExperience = o.SustainabilityExperience,
-                Tranfer = o.Tranfer,
-                Summary = o.Summary,
-                MetaphoricalPhrase = o.MetaphoricalPhrase,
-                Testimony = o.Testimony,
-                FollowEvaluation = o.FollowEvaluation,
-                State = true,
-                CreatedAt = DateTime.UtcNow
-            }).ToList();
-
-        private List<ExperienceLineThematic> BuildThematics(IEnumerable<int> thematicLineIds) =>
-            thematicLineIds.Select(id => new ExperienceLineThematic
-            {
-                LineThematicId = id,
-                State = true,
-                CreatedAt = DateTime.UtcNow
-            }).ToList();
-
-        private List<ExperienceGrade> BuildGrades(IEnumerable<GradeRegisterDTO> gradeDtos) =>
-        gradeDtos.Select(g => new ExperienceGrade
-        {
-            GradeId = g.GradeId,
-            Description = g.Description,
-            State = true,
-            CreatedAt = DateTime.UtcNow
-        }).ToList();
-
-
-
-        private List<ExperiencePopulation> BuildPopulations(IEnumerable<int> populationGradeIds) =>
-            populationGradeIds.Select(id => new ExperiencePopulation
-            {
-                PopulationGradeId = id,
-                State = true,
-                CreatedAt = DateTime.UtcNow
-            }).ToList();
-
-        private List<HistoryExperience> BuildHistoryExperiences(IEnumerable<HistoryExperienceCreateDTO> historyExperiences,
-                 int userId,
-                 int stateId = DefaultStateId)
-        {
-            if (historyExperiences == null)
-                return new List<HistoryExperience>();
-
-            return historyExperiences.Select(h => new HistoryExperience
-            {
-                Action = h.Action,
-                TableName = h.TableName,
-                UserId = userId,
-                StateId = stateId,
-                CreatedAt = DateTime.UtcNow
-            }).ToList();
-        }
 
 
 

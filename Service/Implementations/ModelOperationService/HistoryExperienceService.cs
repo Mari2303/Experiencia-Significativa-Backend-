@@ -1,5 +1,6 @@
 ﻿using Entity.Dtos.ModuleOperational;
 using Entity.Models.ModuleOperation;
+using Entity.Requests;
 using Entity.Requests.ModuleOperation;
 using Repository.Interfaces.IModuleOperationRepository;
 using Service.Interfaces.ModelOperationService;
@@ -14,5 +15,22 @@ namespace Service.Implementations.ModelOperationService
         {
             _historyExperienceRepository = historyExperienceRepository;
         }
+
+
+        public async Task<TrackingSummaryRequest> GetTrackingSummaryAsync(QueryFilterRequest filters)
+        {
+            try
+            {
+                return await _historyExperienceRepository.GetTrackingSummaryAsync(filters);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Error en {nameof(GetTrackingSummaryAsync)}: {ex.Message}");
+                throw;
+            }
+        }
+
+
+
     }
 }

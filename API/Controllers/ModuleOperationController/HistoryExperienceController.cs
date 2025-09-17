@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Entity.Dtos.ModuleOperational;
 using Entity.Models.ModuleOperation;
+using Entity.Requests;
 using Entity.Requests.ModuleOperation;
+using Microsoft.AspNetCore.Mvc;
 using Service.Interfaces;
 using Service.Interfaces.ModelOperationService;
 
@@ -16,5 +18,15 @@ namespace API.Controllers.ModuleOperationController
             _historyExperienceService = historyExperienceService;
             _mapper = mapper;
         }
+
+
+        [HttpPost("tracking-summary")]
+        public async Task<IActionResult> GetTrackingSummary([FromBody] QueryFilterRequest filters)
+        {
+            var result = await _historyExperienceService.GetTrackingSummaryAsync(filters);
+            return Ok(result);
+        }
+
+
     }
 }

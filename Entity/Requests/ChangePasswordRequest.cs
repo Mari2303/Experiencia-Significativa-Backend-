@@ -10,7 +10,7 @@ namespace Entity.Requests
         /// </summary>
         public int UserId { get; set; }
         /// <summary>
-        /// User's current password for verification
+        /// User's current password for verification        
         /// </summary>
      //   public string CurrentPassword { get; set; } = string.Empty;
 
