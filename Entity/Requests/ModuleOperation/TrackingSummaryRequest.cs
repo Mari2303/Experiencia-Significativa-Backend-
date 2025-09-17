@@ -17,7 +17,7 @@ namespace Entity.Requests.ModuleOperation
         public int TotalExperiencesCreadas { get; set; }
 
         public int TotalInstitutionsWithExperiences { get; set; }
-        public int TotalTeachersWithExperiences { get; set; }
+        public int TotalTeachersRegistered { get; set; }
 
         public int TotalExperiencesWithComments { get; set; }
         public int TotalExperiencesTestsKnow { get; set; }
