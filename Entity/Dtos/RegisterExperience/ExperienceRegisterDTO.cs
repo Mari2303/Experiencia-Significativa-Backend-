@@ -1,67 +1,107 @@
-﻿using System.Collections.Generic;
-using Entity.Dtos;
-using Entity.Dtos.ModuleOperational;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Entity.Dtos.RegisterExperience;
-using static Dapper.SqlMapper;
 
-public class ExperienceRegisterDTO 
+public class ExperienceRegisterDTO
 {
+    [Required(ErrorMessage = "El nombre de la experiencia es obligatorio")]
+    [MaxLength(100, ErrorMessage = "El nombre no puede superar los 150 caracteres")]
     public string NameExperiences { get; set; } = string.Empty;
+
+
+    [Required(ErrorMessage = "El código es obligatorio")]
+    [MaxLength(3, ErrorMessage = "El código no puede superar los 50 caracteres")]
     public string Code { get; set; } = string.Empty;
 
 
-    // Datos del lider primer campo 
-    public string NameFirstLeader {  get; set; } = string.Empty;
-    public string FirstIdentityDocument {  get; set; } = string.Empty;
+    // 🔹 Datos del primer líder
+    [Required(ErrorMessage = "El nombre del primer líder es obligatorio")]
+    [MaxLength(100)]
+    public string NameFirstLeader { get; set; } = string.Empty;
+
+    [Required(ErrorMessage = "El documento del primer líder es obligatorio")]
+    [MaxLength(10)]
+    public string FirstIdentityDocument { get; set; } = string.Empty;
+
+    [Required]
+    [EmailAddress(ErrorMessage = "El correo del primer líder no es válido")]
     public string FirdtEmail { get; set; } = string.Empty;
+
+    [Required]
+    [MaxLength(50)]
     public string FirstPosition { get; set; } = string.Empty;
+
+    [Required]
+    [Phone(ErrorMessage = "El teléfono del primer líder no es válido")]
     public uint FirstPhone { get; set; }
 
 
-    // Datos del lider segundo campo 
+    // 🔹 Datos del segundo líder (pueden ser opcionales si no siempre se registran)
+    [MaxLength(100)]
     public string NameSecondLeader { get; set; } = string.Empty;
+
+    [MaxLength(10)]
     public string SecondIdentityDocument { get; set; } = string.Empty;
+
+    [EmailAddress(ErrorMessage = "El correo del segundo líder no es válido")]
     public string SecondEmail { get; set; } = string.Empty;
+
+    [MaxLength(50)]
     public string SecondPosition { get; set; } = string.Empty;
+
+    [Phone]
     public uint SecondPhone { get; set; }
 
 
-    // identificacion de la experiencia significativa 
-    // ubicacion tematica 
+    // 🔹 Identificación de la experiencia significativa
+    [Required]
+    [MaxLength(50)]
     public string ThematicLocation { get; set; } = string.Empty;
-    // estado
+
+    [Required]
     public int StateId { get; set; }
 
 
-    // tematica y desarrollo 
+    // 🔹 Temática y desarrollo
+    [Required(ErrorMessage = "Debe seleccionar al menos una línea temática")]
     public List<int> ThematicLineIds { get; set; } = new();
+
+    [MaxLength(10)]
     public string CoordinationTransversalProjects { get; set; } = string.Empty;
+
+    [MaxLength(100)]
     public string Population { get; set; } = string.Empty;
+
+    [MaxLength(100)]
     public string PedagogicalStrategies { get; set; } = string.Empty;
+
+    [MaxLength(100)]
     public string Coverage { get; set; } = string.Empty;
+
+    [MaxLength(100)]
     public string ExperiencesCovidPandemic { get; set; } = string.Empty;
 
 
-
-
-    // Grado en el desarrollo de la experiencia
+    // 🔹 Grados en el desarrollo
+    [Required]
     public List<GradeRegisterDTO> Grades { get; set; } = new();
 
 
-
-
-    // grupo poblacionar 
+    // 🔹 Grupo poblacional
+    [Required(ErrorMessage = "Debe seleccionar al menos un grupo poblacional")]
     public List<int> PopulationGradeIds { get; set; } = new();
 
 
+    // 🔹 Tiempo de desarrollo
+    [Required(ErrorMessage = "Debe indicar la fecha de desarrollo")]
+    public DateTime Developmenttime { get; set; }
 
-
-    // tiempo de desarrollo 
-    public DateTime Developmenttime { get; set; } = DateTime.Now;
+    [MaxLength(10)]
     public string Recognition { get; set; } = string.Empty;
+
+    [MaxLength(50)]
     public string Socialization { get; set; } = string.Empty;
-
-
 
 
 

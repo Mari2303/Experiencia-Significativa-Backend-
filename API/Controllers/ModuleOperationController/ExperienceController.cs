@@ -60,7 +60,7 @@ namespace API.Controllers.ModuleOperationController
 
         [Authorize(Roles = "SUPERADMIN")]
         [HttpPatch("patch")]
-        public async Task<IActionResult> Patch([FromBody] ExperienceDetailDTO dto)
+        public async Task<IActionResult> Patch([FromBody] ExperiencePatchDTO dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
@@ -69,10 +69,6 @@ namespace API.Controllers.ModuleOperationController
 
             return Ok(new { message = "Experience patched successfully" });
         }
-
-
-
-
 
 
 

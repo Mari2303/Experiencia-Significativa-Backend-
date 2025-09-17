@@ -71,16 +71,16 @@ namespace Repository.Implementations.ModuleOperationRepository
                 UrlLink = experience.Documents?.FirstOrDefault()?.UrlLink ?? string.Empty,
 
 
+                //Solo devuelve el Name del criterio
                 Criterias = experience.Evaluations
-                    .SelectMany(ev => ev.EvaluationCriterias)
-                    .Select(ec => new CriteriaDTO
-                    {
-                        Id = ec.Criteria.Id,
-                        Name = ec.Criteria.Name,
-                        EvaluationValue = ec.Evaluation.Comments
-                    })
-                    .DistinctBy(c => c.Id)
-                    .ToList()
+            .SelectMany(ev => ev.EvaluationCriterias)
+            .Where(ec => ec.Criteria != null) 
+            .Select(ec => new CriteriaNameDTO
+            {
+                Name = ec.Criteria.Name
+            })
+            .DistinctBy(c => c.Name)
+            .ToList()
             };
         }
 

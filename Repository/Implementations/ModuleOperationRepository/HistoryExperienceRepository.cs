@@ -40,7 +40,11 @@ namespace Repository.Implementations.ModuleOperationRepository
                 SUM(CASE WHEN e.StateId = 1 THEN 1 ELSE 0 END) AS ExperiencesRegistradas,
                 SUM(CASE WHEN e.StateId = 2 THEN 1 ELSE 0 END) AS ExperiencesCreadas,
                 COUNT(DISTINCT i.Id) AS TotalInstitutionsWithExperiences,
-                COUNT(DISTINCT CASE WHEN r.Name = 'Profesor' THEN u.Id END) AS TotalTeachersWithExperiences,
+               (SELECT COUNT(DISTINCT u2.Id)
+             FROM [Users] u2
+             INNER JOIN UserRoles ur2 ON u2.Id = ur2.UserId
+             INNER JOIN Roles r2 ON ur2.RoleId = r2.Id
+             WHERE r2.Name = 'Profesor') AS TotalTeachersRegistered,
                 COUNT(DISTINCT CASE WHEN ev.Comments IS NOT NULL AND ev.Comments <> '' THEN e.Id END) AS TotalExperiencesWithComments,
                 COUNT(DISTINCT CASE WHEN i.TestsKnow = 'SI' THEN e.Id END) AS TotalExperiencesTestsKnow
             FROM Experiences e

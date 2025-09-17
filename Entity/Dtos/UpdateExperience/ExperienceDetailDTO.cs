@@ -29,7 +29,7 @@ namespace Entity.Dtos.UpdateExperience
 
 
         // De Criteria (relación con Evaluation → inicialmente vacío)
-        public List<CriteriaDTO> Criterias { get; set; } = new();
+        public List<CriteriaNameDTO> Criterias { get; set; } = new();
         }
 
        

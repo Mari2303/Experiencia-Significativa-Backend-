@@ -56,28 +56,25 @@ namespace Service.Implementations.ModelOperationService
             return await _experienceRepository.GetDetailByIdAsync(id);
         }
 
-
-
-
-        public async Task<bool> PatchAsync(ExperienceDetailDTO dto)
+        public async Task<bool> PatchAsync(ExperiencePatchDTO dto)
         {
             var experience = await _experienceRepository.GetByIdWithDetailsAsync(dto.ExperienceId);
             if (experience == null) return false;
 
-            // 🔹 Solo actualizamos si el campo viene con valor (no null ni vacío)
+            // Experience
             if (!string.IsNullOrEmpty(dto.NameExperiences))
                 experience.NameExperiences = dto.NameExperiences;
 
-            if (dto.Developmenttime != default)
-                experience.Developmenttime = dto.Developmenttime;
+            if (dto.Developmenttime.HasValue)
+                experience.Developmenttime = dto.Developmenttime.Value;
 
             if (!string.IsNullOrEmpty(dto.NameFirstLeader))
                 experience.NameFirstLeader = dto.NameFirstLeader;
 
-            if (dto.StateId != 0)
-                experience.StateId = dto.StateId;
+            if (dto.StateId.HasValue && dto.StateId.Value != 0)
+                experience.StateId = dto.StateId.Value;
 
-            // 🔹 Institution
+            // Institution
             if (experience.Institution != null)
             {
                 if (!string.IsNullOrEmpty(dto.Name))
@@ -93,7 +90,7 @@ namespace Service.Implementations.ModelOperationService
                     experience.Institution.CodeDane = dto.CodeDane;
             }
 
-            // 🔹 Actualizar criterios solo si vienen en el dto
+            // Criteria updates
             if (dto.Criterias != null && experience.Evaluations != null)
             {
                 foreach (var criteriaDto in dto.Criterias)
@@ -112,7 +109,6 @@ namespace Service.Implementations.ModelOperationService
             await _experienceRepository.UpdateAsync(experience);
             return true;
         }
-
 
 
         public async Task<IEnumerable<Experience>> GetExperiencesAsync(string role, int userId)
