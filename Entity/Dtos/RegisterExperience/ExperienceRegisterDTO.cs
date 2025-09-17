@@ -6,18 +6,18 @@ using Entity.Dtos.RegisterExperience;
 public class ExperienceRegisterDTO
 {
     [Required(ErrorMessage = "El nombre de la experiencia es obligatorio")]
-    [MaxLength(100, ErrorMessage = "El nombre no puede superar los 150 caracteres")]
+    [MaxLength(100, ErrorMessage = "El nombre no puede superar los 100 caracteres")]
     public string NameExperiences { get; set; } = string.Empty;
 
 
     [Required(ErrorMessage = "El código es obligatorio")]
-    [MaxLength(3, ErrorMessage = "El código no puede superar los 50 caracteres")]
+    [MaxLength(3, ErrorMessage = "El código no puede superar los 10 caracteres")]
     public string Code { get; set; } = string.Empty;
 
 
-    // 🔹 Datos del primer líder
+    // Datos del primer líder
     [Required(ErrorMessage = "El nombre del primer líder es obligatorio")]
-    [MaxLength(100)]
+    [MaxLength(50)]
     public string NameFirstLeader { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "El documento del primer líder es obligatorio")]
@@ -29,7 +29,7 @@ public class ExperienceRegisterDTO
     public string FirdtEmail { get; set; } = string.Empty;
 
     [Required]
-    [MaxLength(50)]
+    [MaxLength(20)]
     public string FirstPosition { get; set; } = string.Empty;
 
     [Required]
@@ -37,8 +37,8 @@ public class ExperienceRegisterDTO
     public uint FirstPhone { get; set; }
 
 
-    // 🔹 Datos del segundo líder (pueden ser opcionales si no siempre se registran)
-    [MaxLength(100)]
+    // Datos del segundo líder (pueden ser opcionales si no siempre se registran)
+    [MaxLength(50)]
     public string NameSecondLeader { get; set; } = string.Empty;
 
     [MaxLength(10)]
@@ -54,7 +54,7 @@ public class ExperienceRegisterDTO
     public uint SecondPhone { get; set; }
 
 
-    // 🔹 Identificación de la experiencia significativa
+    //  Identificación de la experiencia significativa
     [Required]
     [MaxLength(50)]
     public string ThematicLocation { get; set; } = string.Empty;
@@ -63,37 +63,37 @@ public class ExperienceRegisterDTO
     public int StateId { get; set; }
 
 
-    // 🔹 Temática y desarrollo
+    // Temática y desarrollo
     [Required(ErrorMessage = "Debe seleccionar al menos una línea temática")]
     public List<int> ThematicLineIds { get; set; } = new();
 
     [MaxLength(10)]
     public string CoordinationTransversalProjects { get; set; } = string.Empty;
 
-    [MaxLength(100)]
+    [MaxLength(50)]
     public string Population { get; set; } = string.Empty;
 
-    [MaxLength(100)]
+    [MaxLength(50)]
     public string PedagogicalStrategies { get; set; } = string.Empty;
 
-    [MaxLength(100)]
+    [MaxLength(50)]
     public string Coverage { get; set; } = string.Empty;
 
-    [MaxLength(100)]
+    [MaxLength(50)]
     public string ExperiencesCovidPandemic { get; set; } = string.Empty;
 
 
-    // 🔹 Grados en el desarrollo
+    //  Grados 
     [Required]
     public List<GradeRegisterDTO> Grades { get; set; } = new();
 
 
-    // 🔹 Grupo poblacional
+    //  Grupo poblacional
     [Required(ErrorMessage = "Debe seleccionar al menos un grupo poblacional")]
     public List<int> PopulationGradeIds { get; set; } = new();
 
 
-    // 🔹 Tiempo de desarrollo
+    //  Tiempo de desarrollo
     [Required(ErrorMessage = "Debe indicar la fecha de desarrollo")]
     public DateTime Developmenttime { get; set; }
 

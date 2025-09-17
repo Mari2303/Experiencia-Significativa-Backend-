@@ -21,10 +21,11 @@ namespace Entity.Dtos.CreateEvaluation
         public int StateId { get; set; }
 
 
-         // Linea Tematic 
-         public int ThematicLineId { get; set; }
+        // Linea Tematic 
+       
 
-        
+
+
 
 
         // 🔹 Traído de Institution
@@ -33,5 +34,6 @@ namespace Entity.Dtos.CreateEvaluation
 
         // 🔹 Lista de criterios evaluados
         public List<EvaluationCriteriaDTO> CriteriaEvaluations { get; set; } = new();
+        public List<string> ThematicLineNames { get; set; } = new();
     }
 }

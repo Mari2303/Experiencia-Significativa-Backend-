@@ -30,6 +30,7 @@ namespace Service.Implementations.ModelOperationService
                 TypeEvaluation = dto.TypeEvaluation,
                 AccompanimentRole = dto.AccompanimentRole,
                 Comments = dto.Comments,
+
                 UserId = dto.UserId,
                 ExperienceId = dto.ExperienceId,
                 State = true,
@@ -43,7 +44,7 @@ namespace Service.Implementations.ModelOperationService
 
             foreach (var c in dto.CriteriaEvaluations)
             {
-                // 🔹 Guardamos Score en la pivote
+                //  Guardamos Score en la pivote
                 var evalCriteria = new EvaluationCriteria
                 {
                     EvaluationId = evaluation.Id,
@@ -81,6 +82,10 @@ namespace Service.Implementations.ModelOperationService
                 ExperienceName = experience.NameExperiences,
                 StateId = experience.StateId,
                 InstitutionName = experience.Institution?.Name ?? string.Empty,
+                ThematicLineNames = experience.ExperienceLineThematics?
+               .Where(x => x.LineThematic != null)
+                .Select(x => x.LineThematic.Name)
+               .ToList() ?? new List<string>(),
                 CriteriaEvaluations = dto.CriteriaEvaluations
                     .Select(c => new EvaluationCriteriaDTO
                     {

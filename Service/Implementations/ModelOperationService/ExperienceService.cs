@@ -90,7 +90,7 @@ namespace Service.Implementations.ModelOperationService
                     experience.Institution.CodeDane = dto.CodeDane;
             }
 
-            // Criteria updates
+            // Criteria 
             if (dto.Criterias != null && experience.Evaluations != null)
             {
                 foreach (var criteriaDto in dto.Criterias)

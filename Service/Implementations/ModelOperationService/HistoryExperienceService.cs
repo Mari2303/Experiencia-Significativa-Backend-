@@ -25,7 +25,7 @@ namespace Service.Implementations.ModelOperationService
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"❌ Error en {nameof(GetTrackingSummaryAsync)}: {ex.Message}");
+                Console.WriteLine($" Error en {nameof(GetTrackingSummaryAsync)}: {ex.Message}");
                 throw;
             }
         }
