@@ -20,19 +20,11 @@ namespace Entity.Dtos.CreateEvaluation
         public string ExperienceName { get; set; } = string.Empty;
         public int StateId { get; set; }
 
-
-        // Linea Tematic 
-       
-
-
-
-
-
-        // 🔹 Traído de Institution
+        //  Traído de Institution
         public string InstitutionName { get; set; } = string.Empty;
         
 
-        // 🔹 Lista de criterios evaluados
+        //  Lista de criterios y linea tematica
         public List<EvaluationCriteriaDTO> CriteriaEvaluations { get; set; } = new();
         public List<string> ThematicLineNames { get; set; } = new();
     }

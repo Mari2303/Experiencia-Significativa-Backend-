@@ -69,5 +69,9 @@ namespace Service.Implementations
             return await _repository.GetEnum(enumName);
         }
 
+      
     }
+
+
 }
+

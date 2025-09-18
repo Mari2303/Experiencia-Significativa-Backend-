@@ -56,6 +56,7 @@ namespace Service.Implementations.ModelOperationService
             return await _experienceRepository.GetDetailByIdAsync(id);
         }
 
+
         public async Task<bool> PatchAsync(ExperiencePatchDTO dto)
         {
             var experience = await _experienceRepository.GetByIdWithDetailsAsync(dto.ExperienceId);

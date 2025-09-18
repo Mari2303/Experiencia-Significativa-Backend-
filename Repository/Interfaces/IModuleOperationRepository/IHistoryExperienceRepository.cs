@@ -8,7 +8,6 @@ namespace Repository.Interfaces.IModuleOperationRepository
 {
     public interface IHistoryExperienceRepository : IBaseModelRepository<HistoryExperience, HistoryExperienceDTO, HistoryExperienceRequest>
     {
-        Task<TrackingSummaryRequest> GetTrackingSummaryAsync(QueryFilterRequest filters);
-
+        Task<object> GetTrackingSummaryAsync(QueryFilterRequest filters);
     }
 }

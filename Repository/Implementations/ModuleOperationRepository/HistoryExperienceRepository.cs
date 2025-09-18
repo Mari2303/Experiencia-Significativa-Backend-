@@ -28,9 +28,12 @@ namespace Repository.Implementations.ModuleOperationRepository
 
 
 
-        public async Task<TrackingSummaryRequest> GetTrackingSummaryAsync(QueryFilterRequest filters)
+        public async Task<object> GetTrackingSummaryAsync(QueryFilterRequest filters)
         {
-            var sql = @"
+            if (filters.Role == "SUPERADMIN")
+            {
+                // Admin ve todo
+                var sql = @"
             SELECT 
                 COUNT(DISTINCT e.Id) AS TotalExperiences,
                 SUM(CASE WHEN ec.TotalScore <= 45 THEN 1 ELSE 0 END) AS ExperiencesNaciente,
@@ -40,11 +43,11 @@ namespace Repository.Implementations.ModuleOperationRepository
                 SUM(CASE WHEN e.StateId = 1 THEN 1 ELSE 0 END) AS ExperiencesRegistradas,
                 SUM(CASE WHEN e.StateId = 2 THEN 1 ELSE 0 END) AS ExperiencesCreadas,
                 COUNT(DISTINCT i.Id) AS TotalInstitutionsWithExperiences,
-               (SELECT COUNT(DISTINCT u2.Id)
-             FROM [Users] u2
-             INNER JOIN UserRoles ur2 ON u2.Id = ur2.UserId
-             INNER JOIN Roles r2 ON ur2.RoleId = r2.Id
-             WHERE r2.Name = 'Profesor') AS TotalTeachersRegistered,
+                (SELECT COUNT(DISTINCT u2.Id)
+                 FROM [Users] u2
+                 INNER JOIN UserRoles ur2 ON u2.Id = ur2.UserId
+                 INNER JOIN Roles r2 ON ur2.RoleId = r2.Id
+                 WHERE r2.Name = 'Profesor') AS TotalTeachersRegistered,
                 COUNT(DISTINCT CASE WHEN ev.Comments IS NOT NULL AND ev.Comments <> '' THEN e.Id END) AS TotalExperiencesWithComments,
                 COUNT(DISTINCT CASE WHEN i.TestsKnow = 'SI' THEN e.Id END) AS TotalExperiencesTestsKnow
             FROM Experiences e
@@ -60,10 +63,31 @@ namespace Repository.Implementations.ModuleOperationRepository
             LEFT JOIN Roles r ON ur.RoleId = r.Id;
         ";
 
-            return await _context.QueryFirstOrDefaultAsync<TrackingSummaryRequest>(sql);
-           
+                return await _context.QueryFirstOrDefaultAsync<TrackingSummaryRequest>(sql);
+            }
+            else if (filters.Role == "Profesor")
+            {
+                // Profesor solo ve dos métricas
+                var sql = @"
+            SELECT 
+                COUNT(DISTINCT CASE WHEN e.CreatedAt IS NOT NULL THEN e.Id END) AS TotalExperiencesRegistradas,
+                COUNT(DISTINCT CASE WHEN ev.Comments IS NOT NULL AND ev.Comments <> '' THEN e.Id END) AS TotalExperiencesWithComments
+            FROM Experiences e
+            LEFT JOIN Evaluations ev ON ev.ExperienceId = e.Id
+            WHERE e.UserId = @UserId;
+        ";
 
+                return await _context.QueryFirstOrDefaultAsync<TrackingSummaryProfesorRequest>(
+                    sql,
+                    new { UserId = filters.UserId }
+                );
+            }
+            else
+            {
+                throw new Exception("Rol no soportado.");
+            }
         }
-        }
+
     }
+}
 

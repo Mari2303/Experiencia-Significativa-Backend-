@@ -43,7 +43,7 @@ namespace API.Controllers
         /// <summary>
         /// Obtener un usuario por nombre
         /// </summary>
-        [HttpGet("{username}")]
+        [HttpGet("username/User")]
         public async Task<IActionResult> GetByName(string username)
         {
             try

@@ -8,8 +8,8 @@ namespace Service.Interfaces.ModelOperationService
 {
     public interface IHistoryExperienceService : IBaseModelService<HistoryExperience, HistoryExperienceDTO, HistoryExperienceRequest>
     {
-      
-        Task<TrackingSummaryRequest> GetTrackingSummaryAsync(QueryFilterRequest filters);
+
+        Task<object> GetTrackingSummaryAsync(QueryFilterRequest filters);
 
 
 

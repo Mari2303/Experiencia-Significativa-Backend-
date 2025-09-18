@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Repository.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Utilities.Helper.Implementation;
 using Utilities.JwtAuthentication;
 
 namespace Repository.Implementations
@@ -102,6 +103,8 @@ namespace Repository.Implementations
             {
                 throw new Exception("Passwords do not match");
             }
+
+            PasswordHelper.ValidatePassword(dto.NewPassword);
 
             user.Password = _jwtAuthentication.EncryptMD5(dto.NewPassword);
 

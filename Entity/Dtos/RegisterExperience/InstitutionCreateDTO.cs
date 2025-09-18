@@ -1,25 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Entity.Dtos.RegisterExperience
+public class InstitutionCreateDTO
 {
-    public class InstitutionCreateDTO
-    {
-        public string Name { get; set; } = string.Empty;
-        public string Address { get; set; } = string.Empty;
-        public uint Phone { get; set; }
-        public string CodeDane { get; set; } = string.Empty;
-        public string EmailInstitucional { get; set; } = string.Empty;
-        public string Departament { get; set; } = string.Empty;
-        public string Commune { get; set; } = string.Empty;
-        public string Municipality { get; set; } = string.Empty;
-        public string NameRector { get; set; } = string.Empty;
-        public string EZone { get; set; } = string.Empty;
-        public string Caracteristic { get; set; } = string.Empty;
-        public string TerritorialEntity { get; set; } = string.Empty;
-        public string TestsKnow { get; set; } = string.Empty;
-    }
+    [Required(ErrorMessage = "El nombre de la institución es obligatorio")]
+    [StringLength(100, MinimumLength = 10, ErrorMessage = "El nombre debe tener entre 10 y 100 caracteres")]
+    public string Name { get; set; } = string.Empty;
+
+    [Required(ErrorMessage = "La dirección es obligatoria")]
+    [StringLength(50, ErrorMessage = "La dirección no debe superar los 50 caracteres")]
+    public string Address { get; set; } = string.Empty;
+
+    [Required(ErrorMessage = "El teléfono es obligatorio")]
+    [Range(1000000, 9999999999, ErrorMessage = "El teléfono debe tener entre 7 y 10 dígitos")]
+    public uint Phone { get; set; }
+
+    [Required(ErrorMessage = "El código DANE es obligatorio")]
+    [RegularExpression(@"^\d{5,10}$", ErrorMessage = "El código DANE debe contener solo números y tener entre 5 y 10 dígitos")]
+    public string CodeDane { get; set; } = string.Empty;
+
+    [Required(ErrorMessage = "El correo institucional es obligatorio")]
+    [EmailAddress(ErrorMessage = "El correo institucional no tiene un formato válido")]
+    public string EmailInstitucional { get; set; } = string.Empty;
+
+    [Required(ErrorMessage = "El departamento es obligatorio")]
+    [StringLength(100, ErrorMessage = "El departamento no debe superar los 100 caracteres")]
+    public string Departament { get; set; } = string.Empty;
+
+    [Required(ErrorMessage = "El municipio es obligatorio")]
+    [StringLength(100, ErrorMessage = "El municipio no debe superar los 100 caracteres")]
+    public string Municipality { get; set; } = string.Empty;
+
+    [StringLength(100, ErrorMessage = "La comuna no debe superar los 100 caracteres")]
+    public string Commune { get; set; } = string.Empty;
+
+    [Required(ErrorMessage = "El nombre del rector es obligatorio")]
+    [StringLength(150, ErrorMessage = "El nombre del rector no debe superar los 150 caracteres")]
+    public string NameRector { get; set; } = string.Empty;
+
+    [StringLength(100, ErrorMessage = "La zona educativa no debe superar los 50 caracteres")]
+    public string EZone { get; set; } = string.Empty;
+
+    [StringLength(100, ErrorMessage = "Las características no deben superar los 100 caracteres")]
+    public string Caracteristic { get; set; } = string.Empty;
+
+    [StringLength(100, ErrorMessage = "La entidad territorial no debe superar los 100 caracteres")]
+    public string TerritorialEntity { get; set; } = string.Empty;
+
+    [StringLength(100, ErrorMessage = "Las pruebas de conocimiento no deben superar los 100 caracteres")]
+    public string TestsKnow { get; set; } = string.Empty;
 }

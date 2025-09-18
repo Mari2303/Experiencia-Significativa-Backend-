@@ -8,6 +8,7 @@ using AutoMapper;
 using Repository.Interfaces;
 using Service.Interfaces;
 using Repository.Implementations;
+using Utilities.Helper.Implementation;
 
 namespace Service.Implementations
 {
@@ -62,6 +63,8 @@ namespace Service.Implementations
         // Sobrescribimos AddAsync para registrar usuarios sin token
         public async Task<UserRequest> AddAsync(UserRequest request)
         {
+            PasswordHelper.ValidatePassword(request.Password);
+
             // Encriptar password antes de guardar
             string passwordHash = request.Password;
             if (!string.IsNullOrEmpty(request.Password))
@@ -111,7 +114,7 @@ namespace Service.Implementations
             };
         }
 
-
+     
 
         private string EncryptMD5(string input)
         {

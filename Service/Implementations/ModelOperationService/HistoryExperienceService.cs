@@ -17,7 +17,7 @@ namespace Service.Implementations.ModelOperationService
         }
 
 
-        public async Task<TrackingSummaryRequest> GetTrackingSummaryAsync(QueryFilterRequest filters)
+        public async Task<object> GetTrackingSummaryAsync(QueryFilterRequest filters)
         {
             try
             {

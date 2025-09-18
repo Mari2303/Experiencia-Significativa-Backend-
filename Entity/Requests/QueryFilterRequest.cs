@@ -49,5 +49,8 @@ namespace Entity.Requests
         /// Gets or sets the name of the foreign key property used for filtering.
         /// </summary>
         public bool AplyPagination { get; set; }
+
+        public string? Role { get; set; }
+        public int? UserId { get; set; }
     }
 }
