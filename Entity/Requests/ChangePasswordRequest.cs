@@ -22,9 +22,6 @@ namespace Entity.Requests
 
         [Required(ErrorMessage = "La nueva contraseña es obligatoria")]
         [MinLength(8, ErrorMessage = "La contraseña debe tener al menos 8 caracteres")]
-        [MaxLength(20, ErrorMessage = "La contraseña no debe superar los 20 caracteres")]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$",
-        ErrorMessage = "La contraseña debe contener al menos una mayúscula, una minúscula, un número y un carácter especial")]
         public string NewPassword { get; set; } = string.Empty;
 
         /// <summary>
