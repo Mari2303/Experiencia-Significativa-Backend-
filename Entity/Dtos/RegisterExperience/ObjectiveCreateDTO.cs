@@ -4,16 +4,15 @@ namespace Entity.Dtos.RegisterExperience
 {
     public class ObjectiveCreateDTO
     {
-        [Required(ErrorMessage = "La descripción del problema es obligatoria")]
-        [StringLength(80, MinimumLength = 10, ErrorMessage = "La descripción del problema debe tener entre 10 y 80 caracteres")]
+        [StringLength(100, ErrorMessage = "La description de problema no debe superar los 100 caracteres")]
         public string DescriptionProblem { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "El objetivo de la experiencia es obligatorio")]
-        [StringLength(100, MinimumLength = 20, ErrorMessage = "El objetivo debe tener entre 20 y 100 caracteres")]
+        [StringLength(100, ErrorMessage = "La frase Objectivo no debe superar los 100 caracteres")]
         public string ObjectiveExperience { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "El enfoque de la experiencia es obligatorio")]
-        [StringLength(100, MinimumLength = 20, ErrorMessage = "El enfoque debe tener entre 20 y 100 caracteres")]
+        [StringLength(100, ErrorMessage = "La frase enfoque no debe superar los 100 caracteres")]
         public string EnfoqueExperience { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Las metodologías son obligatorias")]

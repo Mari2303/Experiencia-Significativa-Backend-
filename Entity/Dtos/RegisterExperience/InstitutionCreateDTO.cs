@@ -11,7 +11,6 @@ public class InstitutionCreateDTO
     public string Address { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "El teléfono es obligatorio")]
-   
     public uint Phone { get; set; }
 
     [Required(ErrorMessage = "El código DANE es obligatorio")]
@@ -19,8 +18,8 @@ public class InstitutionCreateDTO
     public string CodeDane { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "El correo institucional es obligatorio")]
-    [EmailAddress(ErrorMessage = "El correo institucional no tiene un formato válido")]
     public string EmailInstitucional { get; set; } = string.Empty;
+
 
     [Required(ErrorMessage = "El departamento es obligatorio")]
     [StringLength(100, ErrorMessage = "El departamento no debe superar los 100 caracteres")]
