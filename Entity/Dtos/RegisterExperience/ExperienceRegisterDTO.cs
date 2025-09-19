@@ -8,8 +8,6 @@ public class ExperienceRegisterDTO
     public string NameExperiences { get; set; } = string.Empty;
 
 
-    [Required(ErrorMessage = "El código es obligatorio")]
-    [MaxLength(3, ErrorMessage = "El código no puede superar los 10 caracteres")]
     public string Code { get; set; } = string.Empty;
 
 
@@ -23,7 +21,7 @@ public class ExperienceRegisterDTO
     public string FirstIdentityDocument { get; set; } = string.Empty;
 
     [Required]
-    [EmailAddress(ErrorMessage = "El correo del primer líder no es válido")]
+   
     public string FirdtEmail { get; set; } = string.Empty;
 
     [Required]
@@ -31,7 +29,7 @@ public class ExperienceRegisterDTO
     public string FirstPosition { get; set; } = string.Empty;
 
     [Required]
-    [Phone(ErrorMessage = "El teléfono del primer líder no es válido")]
+   
     public uint FirstPhone { get; set; }
 
 
@@ -42,7 +40,7 @@ public class ExperienceRegisterDTO
     [MaxLength(10)]
     public string SecondIdentityDocument { get; set; } = string.Empty;
 
-    [EmailAddress(ErrorMessage = "El correo del segundo líder no es válido")]
+  
     public string SecondEmail { get; set; } = string.Empty;
 
     [MaxLength(50)]

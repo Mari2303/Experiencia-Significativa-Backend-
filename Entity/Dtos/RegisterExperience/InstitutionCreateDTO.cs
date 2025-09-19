@@ -3,7 +3,7 @@
 public class InstitutionCreateDTO
 {
     [Required(ErrorMessage = "El nombre de la institución es obligatorio")]
-    [StringLength(100, MinimumLength = 10, ErrorMessage = "El nombre debe tener entre 10 y 100 caracteres")]
+   
     public string Name { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "La dirección es obligatoria")]
@@ -11,11 +11,11 @@ public class InstitutionCreateDTO
     public string Address { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "El teléfono es obligatorio")]
-    [Range(1000000, 9999999999, ErrorMessage = "El teléfono debe tener entre 7 y 10 dígitos")]
+   
     public uint Phone { get; set; }
 
     [Required(ErrorMessage = "El código DANE es obligatorio")]
-    [RegularExpression(@"^\d{5,10}$", ErrorMessage = "El código DANE debe contener solo números y tener entre 5 y 10 dígitos")]
+    
     public string CodeDane { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "El correo institucional es obligatorio")]

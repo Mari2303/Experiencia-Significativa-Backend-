@@ -116,7 +116,7 @@ namespace Entity.Context
         /// <summary>
         /// Executes a SQL query using Dapper and returns a collection of objects of the specified type.
         /// </summary>
-        public async Task<IEnumerable<T>> QueryAsync<T>(string text, object parameters = null!, int? timeout = null, CommandType? type = null)
+        public async Task<IEnumerable<T>> QueryAsync<T>(string text, object parameters = null!, int? timeout = null, CommandType? type = null, string? Role = null, int? UserId = null)
         {
             using var command = new DapperEFCoreCommand(this, text, parameters, timeout, type, CancellationToken.None);
             var connection = this.Database.GetDbConnection();
