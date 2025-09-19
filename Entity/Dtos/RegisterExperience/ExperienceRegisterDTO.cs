@@ -46,7 +46,7 @@ public class ExperienceRegisterDTO
     [MaxLength(50)]
     public string SecondPosition { get; set; } = string.Empty;
 
-    [Phone]
+    
     public uint SecondPhone { get; set; }
 
 

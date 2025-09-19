@@ -27,7 +27,7 @@ namespace Entity.Requests
         /// <summary>
         /// Confirmation of the new password
         /// </summary>
-        /// 
+        ///  
         [Required(ErrorMessage = "Debe confirmar la contraseña")]
         [Compare("NewPassword", ErrorMessage = "Las contraseñas no coinciden")]
         public string ConfirmPassword { get; set; } = string.Empty;
