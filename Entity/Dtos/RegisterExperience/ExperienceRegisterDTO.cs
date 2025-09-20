@@ -6,10 +6,7 @@ public class ExperienceRegisterDTO
     [Required(ErrorMessage = "El nombre de la experiencia es obligatorio")]
     [MaxLength(100, ErrorMessage = "El nombre no puede superar los 100 caracteres")]
     public string NameExperiences { get; set; } = string.Empty;
-
-
     public string Code { get; set; } = string.Empty;
-
 
     // Datos del primer líder
     [Required(ErrorMessage = "El nombre del primer líder es obligatorio")]
@@ -31,7 +28,6 @@ public class ExperienceRegisterDTO
     [Required]
    
     public uint FirstPhone { get; set; }
-
 
     // Datos del segundo líder (pueden ser opcionales si no siempre se registran)
     [MaxLength(50)]
@@ -58,7 +54,6 @@ public class ExperienceRegisterDTO
     [Required]
     public int StateId { get; set; }
 
-
     // Temática y desarrollo
     [Required(ErrorMessage = "Debe seleccionar al menos una línea temática")]
     public List<int> ThematicLineIds { get; set; } = new();
@@ -77,7 +72,6 @@ public class ExperienceRegisterDTO
 
     [MaxLength(50)]
     public string ExperiencesCovidPandemic { get; set; } = string.Empty;
-
 
     //  Grados 
     [Required]

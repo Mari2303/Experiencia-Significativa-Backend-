@@ -159,7 +159,7 @@ namespace Entity.Context
             {
                 Id = 2,
                 Name = "Experiencia",
-                Path = "experiencias",
+                Path = "Operational/experiencias",
                 Description = "Gestión de experiencias significativas.",
                 Icon = "fa-solid fa-star",
                 Order = 2,
@@ -171,7 +171,7 @@ namespace Entity.Context
             {
                 Id = 3,
                 Name = "Evaluación",
-                Path = "evaluacion",
+                Path = "Operational/evaluacion",
                 Description = "Gestión de evaluaciones.",
                 Icon = "fa-solid fa-clipboard-check",
                 Order = 3,
@@ -215,11 +215,12 @@ namespace Entity.Context
                 CreatedAt = currentDate,
                 DeletedAt = null!
             };
+
             var formSeguimiento = new Form()
             {
                 Id = 7,
                 Name = "Seguimiento",
-                Path = "seguimiento",
+                Path = "Operational/seguimiento",
                 Description = "Formulario de seguimiento.",
                 Icon = "fa-solid fa-building-user",
                 Order = 1,
@@ -227,23 +228,63 @@ namespace Entity.Context
                 CreatedAt = currentDate,
                 DeletedAt = null!
             };
-            modelBuilder.Entity<Form>().HasData(formInicio, formExperiencia, formEvaluacion, formRoles, formUsers, formPersons, formSeguimiento);
+
+            var formPermissions = new Form()
+            {
+                Id = 8,
+                Name = "Permissions",
+                Path = "security/permissions",
+                Description = "Allows you to assign specific permissions to users and roles, controlling access to functions, forms, and modules according to the system's needs and security policies.",
+                Icon = "fa-solid fa-user-lock",
+                Order = 7,
+                State = true,
+                CreatedAt = currentDate,
+                DeletedAt = null!
+            };
+            var formModules = new Form()
+            {
+                Id = 9,
+                Name = "Modules",
+                Path = "security/modules",
+                Description = "Manages system modules, allowing users to define, modify, and assign modules available to them based on established roles and permissions.",
+                Icon = "fa-solid fa-window-maximize",
+                Order = 8,
+                State = true,
+                CreatedAt = currentDate,
+                DeletedAt = null!
+            };
+            var forms = new Form()
+            {
+                Id = 10,
+                Name = "Forms",
+                Path = "security/forms",
+                Description = "Manages the forms available in the system, allowing the creation, modification, and deletion of forms associated with different functionalities and modules.",
+                Icon = "fa-solid fa-window-restore",
+                Order = 9,
+                State = true,
+                CreatedAt = currentDate,
+                DeletedAt = null!
+            };
+
+
+            modelBuilder.Entity<Form>().HasData(formInicio, formExperiencia, formEvaluacion, formRoles, formUsers, formPersons, formSeguimiento, forms, formModules, formPermissions);
 
             // Form - Modules
             var formModuleInicio = new FormModule()
             {
                 Id = 1,
                 FormId = 1, // Inicio
-                ModuleId = 1, // Security
+                ModuleId = 2, // Operational
                 State = true,
                 CreatedAt = currentDate,
                 DeletedAt = null!
             };
+
             var formModuleExperiencia = new FormModule()
             {
                 Id = 2,
                 FormId = 2, // Experiencia
-                ModuleId = 1, // Security
+                ModuleId = 2, // Operational
                 State = true,
                 CreatedAt = currentDate,
                 DeletedAt = null!
@@ -252,7 +293,7 @@ namespace Entity.Context
             {
                 Id = 3,
                 FormId = 3, // Evaluación
-                ModuleId = 1, // Security
+                ModuleId = 2, // Operational
                 State = true,
                 CreatedAt = currentDate,
                 DeletedAt = null!
@@ -293,7 +334,35 @@ namespace Entity.Context
                 CreatedAt = currentDate,
                 DeletedAt = null!
             };
-            modelBuilder.Entity<FormModule>().HasData(formModuleInicio, formModuleExperiencia, formModuleEvaluacion, formModuleRoles, formModuleUsers, formModulePersons, formModuleSeguimiento);
+
+            var formModulePermissions = new FormModule()
+            {
+                Id = 8,
+                FormId = 8,// Permission 
+                ModuleId = 1, // security
+                State = true,
+                CreatedAt = currentDate,
+                DeletedAt = null!
+            };
+            var formModuleModules = new FormModule()
+            {
+                Id = 9,
+                FormId = 9,
+                ModuleId = 1,
+                State = true,
+                CreatedAt = currentDate,
+                DeletedAt = null!
+            };
+            var formModuleForms = new FormModule()
+            {
+                Id = 10,
+                FormId = 10,
+                ModuleId = 1,
+                State = true,
+                CreatedAt = currentDate,
+                DeletedAt = null!
+            };
+            modelBuilder.Entity<FormModule>().HasData(formModuleInicio, formModuleExperiencia, formModuleEvaluacion, formModuleRoles, formModuleUsers, formModulePersons, formModuleSeguimiento, formModuleForms);
 
             // Permission
             var permissionReadWrite = new Permission()
@@ -389,11 +458,43 @@ namespace Entity.Context
                 CreatedAt = currentDate,
                 DeletedAt = null!
             };
+            var RoleFormPermissionPermissions = new RoleFormPermission()
+            {
+                Id = 8,
+                RoleId = 1,
+                FormId = 8,
+                PermissionId = 1,
+                State = true,
+                CreatedAt = currentDate,
+                DeletedAt = null!
+            };
+            var RoleFormPermissionForms = new RoleFormPermission()
+            {
+                Id = 9,
+                RoleId = 1,
+                FormId = 10,
+                PermissionId = 1,
+                State = true,
+                CreatedAt = currentDate,
+                DeletedAt = null!
+            };
+           
+            var RoleFormPermissionModules = new RoleFormPermission()
+            {
+                Id = 10,
+                State = true,
+                CreatedAt = currentDate,
+                DeletedAt = null!,
+                RoleId = 1,
+                FormId = 9,
+                PermissionId = 1,
+            };
+
 
             // Roles - Forms - Permissions (PROFESOR: solo Inicio y Experiencia)
             var RoleFormPermissionTeacherInicio = new RoleFormPermission()
             {
-                Id = 100,
+                Id = 11,
                 RoleId = 2,
                 FormId = 1, // Inicio
                 PermissionId = 2, // Solo lectura
@@ -403,7 +504,7 @@ namespace Entity.Context
             };
             var RoleFormPermissionTeacherExperiencia = new RoleFormPermission()
             {
-                Id = 1001,
+                Id = 12,
                 RoleId = 2,
                 FormId = 2, // Experiencia
                 PermissionId = 2, // Solo lectura
@@ -412,17 +513,25 @@ namespace Entity.Context
                 DeletedAt = null!
             };
 
+            // Roles - Forms - Permissions (Admin: solo Inicio y Experiencia)
+
+
+
             modelBuilder.Entity<RoleFormPermission>().HasData(
-                RoleFormPermissionInicio,
-                RoleFormPermissionExperiencia,
-                RoleFormPermissionEvaluacion,
-                RoleFormPermissionRoles,
-                RoleFormPermissionUsers,
-                RoleFormPermissionPersons,
-                RoleFormPermissionSeguimiento,
-                RoleFormPermissionTeacherInicio,
-                RoleFormPermissionTeacherExperiencia
-            );
+      RoleFormPermissionInicio,
+      RoleFormPermissionExperiencia,
+      RoleFormPermissionEvaluacion,
+      RoleFormPermissionRoles,
+      RoleFormPermissionUsers,
+      RoleFormPermissionPersons,
+      RoleFormPermissionSeguimiento,
+      RoleFormPermissionPermissions,
+      RoleFormPermissionForms,
+      RoleFormPermissionModules,
+      RoleFormPermissionTeacherInicio,
+      RoleFormPermissionTeacherExperiencia
+  );
+
         }
     }
 }
