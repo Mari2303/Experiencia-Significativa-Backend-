@@ -147,7 +147,7 @@ namespace Entity.Context
             {
                 Id = 1,
                 Name = "Inicio",
-                Path = "dashboard",
+                Path = "Operational/dashboard",
                 Description = "Vista principal del sistema.",
                 Icon = "fa-solid fa-house",
                 Order = 1,
@@ -186,7 +186,7 @@ namespace Entity.Context
                 Path = "security/roles",
                 Description = "Gestión de roles del sistema.",
                 Icon = "fa-solid fa-users-gear",
-                Order = 4,
+                Order = 5,
                 State = true,
                 CreatedAt = currentDate,
                 DeletedAt = null!
@@ -198,7 +198,7 @@ namespace Entity.Context
                 Path = "security/users",
                 Description = "Gestión de usuarios.",
                 Icon = "fa-solid fa-users",
-                Order = 5,
+                Order = 6,
                 State = true,
                 CreatedAt = currentDate,
                 DeletedAt = null!
@@ -210,7 +210,7 @@ namespace Entity.Context
                 Path = "security/persons",
                 Description = "Gestión de personas.",
                 Icon = "fa-solid fa-user",
-                Order = 6,
+                Order = 7,
                 State = true,
                 CreatedAt = currentDate,
                 DeletedAt = null!
@@ -223,7 +223,7 @@ namespace Entity.Context
                 Path = "Operational/seguimiento",
                 Description = "Formulario de seguimiento.",
                 Icon = "fa-solid fa-building-user",
-                Order = 1,
+                Order = 4,
                 State = true,
                 CreatedAt = currentDate,
                 DeletedAt = null!
@@ -236,7 +236,7 @@ namespace Entity.Context
                 Path = "security/permissions",
                 Description = "Allows you to assign specific permissions to users and roles, controlling access to functions, forms, and modules according to the system's needs and security policies.",
                 Icon = "fa-solid fa-user-lock",
-                Order = 7,
+                Order = 8,
                 State = true,
                 CreatedAt = currentDate,
                 DeletedAt = null!
@@ -248,7 +248,7 @@ namespace Entity.Context
                 Path = "security/modules",
                 Description = "Manages system modules, allowing users to define, modify, and assign modules available to them based on established roles and permissions.",
                 Icon = "fa-solid fa-window-maximize",
-                Order = 8,
+                Order = 9,
                 State = true,
                 CreatedAt = currentDate,
                 DeletedAt = null!
@@ -260,7 +260,7 @@ namespace Entity.Context
                 Path = "security/forms",
                 Description = "Manages the forms available in the system, allowing the creation, modification, and deletion of forms associated with different functionalities and modules.",
                 Icon = "fa-solid fa-window-restore",
-                Order = 9,
+                Order = 10,
                 State = true,
                 CreatedAt = currentDate,
                 DeletedAt = null!
@@ -362,7 +362,7 @@ namespace Entity.Context
                 CreatedAt = currentDate,
                 DeletedAt = null!
             };
-            modelBuilder.Entity<FormModule>().HasData(formModuleInicio, formModuleExperiencia, formModuleEvaluacion, formModuleRoles, formModuleUsers, formModulePersons, formModuleSeguimiento, formModuleForms);
+            modelBuilder.Entity<FormModule>().HasData(formModuleInicio, formModuleExperiencia, formModuleEvaluacion, formModuleRoles, formModuleUsers, formModulePersons, formModuleSeguimiento, formModulePermissions, formModuleForms, formModuleModules);
 
             // Permission
             var permissionReadWrite = new Permission()

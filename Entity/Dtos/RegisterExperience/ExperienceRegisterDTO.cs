@@ -3,15 +3,22 @@ using Entity.Dtos.RegisterExperience;
 
 public class ExperienceRegisterDTO
 {
+
+
     [Required(ErrorMessage = "El nombre de la experiencia es obligatorio")]
     [MaxLength(100, ErrorMessage = "El nombre no puede superar los 100 caracteres")]
     public string NameExperiences { get; set; } = string.Empty;
+
+
     public string Code { get; set; } = string.Empty;
+
+
 
     // Datos del primer líder
     [Required(ErrorMessage = "El nombre del primer líder es obligatorio")]
     [MaxLength(50)]
     public string NameFirstLeader { get; set; } = string.Empty;
+
 
     [Required(ErrorMessage = "El documento del primer líder es obligatorio")]
     [MaxLength(10)]
@@ -94,9 +101,7 @@ public class ExperienceRegisterDTO
     public string Socialization { get; set; } = string.Empty;
 
 
-
     //   public string ThemeExperienceArea { get; set; } = string.Empty;
-
 
     public int UserId { get; set; }
     public InstitutionCreateDTO Institution { get; set; } = null!;
