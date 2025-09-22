@@ -1,14 +1,15 @@
 ﻿using AutoMapper;
 using Entity.Context;
-using Entity.Dtos.ModelosParametro;
 using Entity.Dtos.ModuleOperational;
-using Entity.Dtos.UpdateExperience;
 using Entity.Models.ModuleOperation;
 using Entity.Requests.ModuleOperation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Repository.Interfaces.IModuleOperationRepository;
 using Utilities.Helper;
+  // o el namespace real de tus builders
+
+
 
 namespace Repository.Implementations.ModuleOperationRepository
 {
@@ -49,40 +50,8 @@ namespace Repository.Implementations.ModuleOperationRepository
                 .FirstOrDefaultAsync(e => e.Id == id);
         }
 
-        public async Task<ExperienceDetailDTO?> GetDetailByIdAsync(int id)
-        {
-            var experience = await GetByIdWithDetailsAsync(id);
-            if (experience == null) return null;
+      
 
-            return new ExperienceDetailDTO
-            {
-                ExperienceId = experience.Id,
-                NameExperiences = experience.NameExperiences,
-                Developmenttime = experience.Developmenttime,
-                NameFirstLeader = experience.NameFirstLeader,
-                StateId = experience.StateId,
-
-                Name = experience.Institution?.Name ?? string.Empty,
-                Department = experience.Institution?.Departament ?? string.Empty,
-                Municipality = experience.Institution?.Commune ?? string.Empty,
-                CodeDane = experience.Institution?.CodeDane ?? string.Empty,
-
-                UrlPdf = experience.Documents?.FirstOrDefault()?.UrlPdf ?? string.Empty,
-                UrlLink = experience.Documents?.FirstOrDefault()?.UrlLink ?? string.Empty,
-
-
-                //Solo devuelve el Name del criterio
-                Criterias = experience.Evaluations
-            .SelectMany(ev => ev.EvaluationCriterias)
-            .Where(ec => ec.Criteria != null) 
-            .Select(ec => new CriteriaNameDTO
-            {
-                Name = ec.Criteria.Name
-            })
-            .DistinctBy(c => c.Name)
-            .ToList()
-            };
-        }
 
 
         public async Task UpdateAsync(Experience experience)

@@ -9,7 +9,7 @@ namespace Repository.Interfaces.IModuleOperationRepository
     {
         Task<Experience> AddAsync(Experience experience);
 
-        Task<ExperienceDetailDTO?> GetDetailByIdAsync(int id);
+
         Task UpdateAsync(Experience experience);
 
         Task<Experience?> GetByIdAsync(int id);
@@ -17,5 +17,7 @@ namespace Repository.Interfaces.IModuleOperationRepository
         Task<IEnumerable<Experience>> GetAllAsync();
         Task<IEnumerable<Experience>> GetByUserIdAsync(int userId);
         Task<Experience> GetByIdWithDetailsAsync(int experienceId);
+
+
     }
 }
