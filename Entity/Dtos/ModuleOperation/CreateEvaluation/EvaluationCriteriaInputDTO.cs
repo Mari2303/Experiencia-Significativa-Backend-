@@ -1,13 +1,11 @@
-﻿
-
-namespace Entity.Dtos.CreateEvaluation
+﻿namespace Entity.Dtos.ModuleOperation.CreateEvaluation
 {
     public class EvaluationCriteriaInputDTO
     {
 
         public int CriteriaId { get; set; }  // id del criterio ya existente
         public int Score { get; set; }       // valor otorgado por el evaluador
-                                             // 🔹 Nuevos campos que el user llena
+                                             // Nuevos campos que el user llena
         // campos de criteria 
         public string DescriptionContribution { get; set; } = string.Empty;
     

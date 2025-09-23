@@ -53,6 +53,9 @@ builder.Services.AddSingleton<IJwtAuthentication, JwtAuthentication>(provider =>
 
 // Configuring the JWT Authentication Service as a Singleton
 builder.Services.AddSingleton<IJwtAuthenticationService, JwtAuthenticationService>();
+builder.Services.AddScoped<IFileStorageService>(sp =>
+    new FileStorageService(sp.GetRequiredService<IWebHostEnvironment>().WebRootPath));
+
 
 // Configuration for authenticating using JWT Bearer tokens
 AuthenticationExtensions.AddCustomAuthentication(builder.Services, builder.Configuration);

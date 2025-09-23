@@ -2,6 +2,7 @@
 using Entity.Models;
 using Entity.Models.ModelosParametros;
 using Entity.Models.ModuleOperation;
+using Entity.Requests;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -44,6 +45,10 @@ namespace Entity.Context
 
 
     {
+
+
+      
+
         /// <summary>
         /// Configures the User entity.
         /// Defines the primary key for the User entity.
@@ -296,6 +301,14 @@ namespace Entity.Context
 
 
         }
+
+
+
+
+
+
+
+
 
     }
 }

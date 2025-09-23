@@ -18,7 +18,7 @@
         /// </summary>
         public virtual ICollection<RoleFormPermission> RoleFormPermissions { get; set; } = new List<RoleFormPermission>();
 
-        public string Path { get; internal set; }
+     
     }
 
 }

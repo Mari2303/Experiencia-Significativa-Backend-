@@ -1,8 +1,6 @@
-﻿
+﻿using Entity.Dtos.ModelosParametro;
 
-using Entity.Dtos.ModelosParametro;
-
-namespace Entity.Dtos.CreateEvaluation
+namespace Entity.Dtos.ModuleOperation.CreateEvaluation
 {
     public  class EvaluationRegisterDTO
     {

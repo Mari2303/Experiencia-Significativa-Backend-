@@ -1,8 +1,12 @@
-﻿namespace Entity.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Entity.Models
 {
     /// <summary>
     /// Represents the association between a user and a role
     /// </summary>
+    /// 
+    [Table("UserRoles")]
     public class UserRole : BaseModel
     {
         /// <summary>

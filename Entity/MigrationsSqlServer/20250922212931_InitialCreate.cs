@@ -200,7 +200,6 @@ namespace Entity.MigrationsSqlServer
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Path = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     State = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -692,15 +691,15 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "Code", "CreatedAt", "DeletedAt", "DescriptionContribution", "DescruotionType", "Name", "State" },
                 values: new object[,]
                 {
-                    { 1, "01", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "", "", "Pertinencia", true },
-                    { 2, "02", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "", "", "Fundamentación", true },
-                    { 3, "03", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "", "", "Innovación", true },
-                    { 4, "04", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "", "", "Resultados", true },
-                    { 5, "05", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "", "", "Empoderamiento", true },
-                    { 6, "06", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "", "", "Seguimiento y valoración", true },
-                    { 7, "07", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "", "", "Transformación", true },
-                    { 8, "08", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "", "", "Sostenibilidad", true },
-                    { 9, "09", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "", "", "Transferencia", true }
+                    { 1, "01", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "", "", "Pertinencia", true },
+                    { 2, "02", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "", "", "Fundamentación", true },
+                    { 3, "03", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "", "", "Innovación", true },
+                    { 4, "04", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "", "", "Resultados", true },
+                    { 5, "05", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "", "", "Empoderamiento", true },
+                    { 6, "06", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "", "", "Seguimiento y valoración", true },
+                    { 7, "07", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "", "", "Transformación", true },
+                    { 8, "08", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "", "", "Sostenibilidad", true },
+                    { 9, "09", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "", "", "Transferencia", true }
                 });
 
             migrationBuilder.InsertData(
@@ -708,16 +707,16 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "CreatedAt", "DeletedAt", "Description", "Icon", "Name", "Order", "Path", "State" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Vista principal del sistema.", "fa-solid fa-house", "Inicio", 1, "Operational/dashboard", true },
-                    { 2, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Gestión de experiencias significativas.", "fa-solid fa-star", "Experiencia", 2, "Operational/experiencias", true },
-                    { 3, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Gestión de evaluaciones.", "fa-solid fa-clipboard-check", "Evaluación", 3, "Operational/evaluacion", true },
-                    { 4, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Gestión de roles del sistema.", "fa-solid fa-users-gear", "Roles", 5, "security/roles", true },
-                    { 5, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Gestión de usuarios.", "fa-solid fa-users", "Users", 6, "security/users", true },
-                    { 6, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Gestión de personas.", "fa-solid fa-user", "Persons", 7, "security/persons", true },
-                    { 7, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Formulario de seguimiento.", "fa-solid fa-building-user", "Seguimiento", 4, "Operational/seguimiento", true },
-                    { 8, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Allows you to assign specific permissions to users and roles, controlling access to functions, forms, and modules according to the system's needs and security policies.", "fa-solid fa-user-lock", "Permissions", 8, "security/permissions", true },
-                    { 9, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Manages system modules, allowing users to define, modify, and assign modules available to them based on established roles and permissions.", "fa-solid fa-window-maximize", "Modules", 9, "security/modules", true },
-                    { 10, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Manages the forms available in the system, allowing the creation, modification, and deletion of forms associated with different functionalities and modules.", "fa-solid fa-window-restore", "Forms", 10, "security/forms", true }
+                    { 1, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Vista principal del sistema.", "fa-solid fa-house", "Inicio", 1, "Operational/dashboard", true },
+                    { 2, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Gestión de experiencias significativas.", "fa-solid fa-star", "Experiencia", 2, "Operational/experiencias", true },
+                    { 3, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Gestión de evaluaciones.", "fa-solid fa-clipboard-check", "Evaluación", 3, "Operational/evaluacion", true },
+                    { 4, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Gestión de roles del sistema.", "fa-solid fa-users-gear", "Roles", 5, "security/roles", true },
+                    { 5, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Gestión de usuarios.", "fa-solid fa-users", "Users", 6, "security/users", true },
+                    { 6, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Gestión de personas.", "fa-solid fa-user", "Persons", 7, "security/persons", true },
+                    { 7, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Formulario de seguimiento.", "fa-solid fa-building-user", "Seguimiento", 4, "Operational/seguimiento", true },
+                    { 8, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Allows you to assign specific permissions to users and roles, controlling access to functions, forms, and modules according to the system's needs and security policies.", "fa-solid fa-user-lock", "Permissions", 8, "security/permissions", true },
+                    { 9, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Manages system modules, allowing users to define, modify, and assign modules available to them based on established roles and permissions.", "fa-solid fa-window-maximize", "Modules", 9, "security/modules", true },
+                    { 10, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Manages the forms available in the system, allowing the creation, modification, and deletion of forms associated with different functionalities and modules.", "fa-solid fa-window-restore", "Forms", 10, "security/forms", true }
                 });
 
             migrationBuilder.InsertData(
@@ -725,9 +724,9 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "Code", "CreatedAt", "DeletedAt", "Description", "Name", "State" },
                 values: new object[,]
                 {
-                    { 1, "01", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "", "Primaria", true },
-                    { 2, "02", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "", "Secundaria", true },
-                    { 3, "03", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "", "Media", true }
+                    { 1, "01", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "", "Primaria", true },
+                    { 2, "02", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "", "Secundaria", true },
+                    { 3, "03", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "", "Media", true }
                 });
 
             migrationBuilder.InsertData(
@@ -735,15 +734,15 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "Code", "CreatedAt", "DeletedAt", "Name", "State" },
                 values: new object[,]
                 {
-                    { 1, "01", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Ciencia y Tecnología", true },
-                    { 2, "02", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Educación Ambiental", true },
-                    { 3, "03", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Interculturalidad Bilingüismo", true },
-                    { 4, "04", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Arte, Cultura y Patrimonio", true },
-                    { 5, "05", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Habilidades Comunicativas", true },
-                    { 6, "06", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Academica Curricular", true },
-                    { 7, "07", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Inclusion Diversidad", true },
-                    { 8, "08", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Convivencia Escolar (Ciencias Sociales y Políticas)", true },
-                    { 9, "09", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Danza, Deporte y Recreación", true }
+                    { 1, "01", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Ciencia y Tecnología", true },
+                    { 2, "02", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Educación Ambiental", true },
+                    { 3, "03", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Interculturalidad Bilingüismo", true },
+                    { 4, "04", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Arte, Cultura y Patrimonio", true },
+                    { 5, "05", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Habilidades Comunicativas", true },
+                    { 6, "06", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Academica Curricular", true },
+                    { 7, "07", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Inclusion Diversidad", true },
+                    { 8, "08", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Convivencia Escolar (Ciencias Sociales y Políticas)", true },
+                    { 9, "09", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Danza, Deporte y Recreación", true }
                 });
 
             migrationBuilder.InsertData(
@@ -751,8 +750,8 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "CreatedAt", "DeletedAt", "Description", "Name", "State" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "El módulo de seguridad gestiona autenticación, roles, permisos y acceso a los formularios del sistema.", "Security", true },
-                    { 2, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "El módulo operativo gestiona los formularios funcionales principales del sistema.", "Operational", true }
+                    { 1, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "El módulo de seguridad gestiona autenticación, roles, permisos y acceso a los formularios del sistema.", "Security", true },
+                    { 2, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "El módulo operativo gestiona los formularios funcionales principales del sistema.", "Operational", true }
                 });
 
             migrationBuilder.InsertData(
@@ -760,8 +759,8 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "Code", "CreatedAt", "DeletedAt", "Description", "Name", "State" },
                 values: new object[,]
                 {
-                    { 1, "0001", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Allows the user to query, update, and delete records within the system, granting full access to the management of associated data.", "Reading and writing", true },
-                    { 2, "0002", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Allows the user to only view records within the system, without permission to perform updates or deletions.", "Reading only", true }
+                    { 1, "0001", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Allows the user to query, update, and delete records within the system, granting full access to the management of associated data.", "Reading and writing", true },
+                    { 2, "0002", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Allows the user to only view records within the system, without permission to perform updates or deletions.", "Reading only", true }
                 });
 
             migrationBuilder.InsertData(
@@ -769,8 +768,8 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "CodeDane", "CreatedAt", "DeletedAt", "DocumentType", "Email", "EmailInstitutional", "FirstLastName", "FirstName", "IdentificationNumber", "MiddleName", "Phone", "SecondLastName", "State" },
                 values: new object[,]
                 {
-                    { 1, "441001004839", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, 1, "mariaalejan1080@gmail.com", "mariaa_marinh@soy.sena.com", "MARIN", "MARIA", "1000000000", "ALEJANDRA", 3243652328L, "HENRIQUEZ", true },
-                    { 2, "441001004840", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, 1, "juan.perez@correo.com", "juan_perez@soy.sena.com", "PEREZ", "JUAN", "2000000000", "CARLOS", 3123456789L, "GOMEZ", true }
+                    { 1, "441001004839", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, 1, "mariaalejan1080@gmail.com", "mariaa_marinh@soy.sena.com", "MARIN", "MARIA", "1000000000", "ALEJANDRA", 3243652328L, "HENRIQUEZ", true },
+                    { 2, "441001004840", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, 1, "juan.perez@correo.com", "juan_perez@soy.sena.com", "PEREZ", "JUAN", "2000000000", "CARLOS", 3123456789L, "GOMEZ", true }
                 });
 
             migrationBuilder.InsertData(
@@ -778,22 +777,22 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "Code", "CreatedAt", "DeletedAt", "Name", "State" },
                 values: new object[,]
                 {
-                    { 1, "01", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Indigenas", true },
-                    { 2, "02", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Afrocolombianos", true },
-                    { 3, "03", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Mestizos", true },
-                    { 4, "04", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Palenqueros", true },
-                    { 5, "05", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Pequeños Productores", true },
-                    { 6, "06", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Raizales", true },
-                    { 7, "07", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Rom", true }
+                    { 1, "01", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Indigenas", true },
+                    { 2, "02", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Afrocolombianos", true },
+                    { 3, "03", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Mestizos", true },
+                    { 4, "04", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Palenqueros", true },
+                    { 5, "05", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Pequeños Productores", true },
+                    { 6, "06", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Raizales", true },
+                    { 7, "07", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Rom", true }
                 });
 
             migrationBuilder.InsertData(
                 table: "Roles",
-                columns: new[] { "Id", "Code", "CreatedAt", "DeletedAt", "Description", "Name", "Path", "State" },
+                columns: new[] { "Id", "Code", "CreatedAt", "DeletedAt", "Description", "Name", "State" },
                 values: new object[,]
                 {
-                    { 1, "01", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "", "SUPERADMIN", "dashboard", true },
-                    { 2, "0002", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Rol para profesores", "Profesor", "dashboardTeacher", true }
+                    { 1, "01", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "", "SUPERADMIN", true },
+                    { 2, "0002", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Rol para profesores", "Profesor", true }
                 });
 
             migrationBuilder.InsertData(
@@ -801,9 +800,9 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "Code", "CreatedAt", "DeletedAt", "Name", "State" },
                 values: new object[,]
                 {
-                    { 1, "01", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Naciente", true },
-                    { 2, "02", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Creciente", true },
-                    { 3, "03", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "Inspiradora", true }
+                    { 1, "01", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Naciente", true },
+                    { 2, "02", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Creciente", true },
+                    { 3, "03", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "Inspiradora", true }
                 });
 
             migrationBuilder.InsertData(
@@ -811,16 +810,16 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "CreatedAt", "DeletedAt", "FormId", "ModuleId", "State" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, 1, 2, true },
-                    { 2, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, 2, 2, true },
-                    { 3, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, 3, 2, true },
-                    { 4, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, 4, 1, true },
-                    { 5, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, 5, 1, true },
-                    { 6, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, 6, 1, true },
-                    { 7, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, 7, 2, true },
-                    { 8, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, 8, 1, true },
-                    { 9, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, 9, 1, true },
-                    { 10, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, 10, 1, true }
+                    { 1, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, 1, 2, true },
+                    { 2, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, 2, 2, true },
+                    { 3, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, 3, 2, true },
+                    { 4, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, 4, 1, true },
+                    { 5, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, 5, 1, true },
+                    { 6, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, 6, 1, true },
+                    { 7, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, 7, 2, true },
+                    { 8, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, 8, 1, true },
+                    { 9, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, 9, 1, true },
+                    { 10, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, 10, 1, true }
                 });
 
             migrationBuilder.InsertData(
@@ -828,18 +827,18 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "CreatedAt", "DeletedAt", "FormId", "PermissionId", "RoleId", "State" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, 1, 1, 1, true },
-                    { 2, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, 2, 1, 1, true },
-                    { 3, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, 3, 1, 1, true },
-                    { 4, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, 4, 1, 1, true },
-                    { 5, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, 5, 1, 1, true },
-                    { 6, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, 6, 1, 1, true },
-                    { 7, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, 7, 1, 1, true },
-                    { 8, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, 8, 1, 1, true },
-                    { 9, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, 10, 1, 1, true },
-                    { 10, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, 9, 1, 1, true },
-                    { 11, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, 1, 2, 2, true },
-                    { 12, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, 2, 2, 2, true }
+                    { 1, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, 1, 1, 1, true },
+                    { 2, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, 2, 1, 1, true },
+                    { 3, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, 3, 1, 1, true },
+                    { 4, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, 4, 1, 1, true },
+                    { 5, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, 5, 1, 1, true },
+                    { 6, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, 6, 1, 1, true },
+                    { 7, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, 7, 1, 1, true },
+                    { 8, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, 8, 1, 1, true },
+                    { 9, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, 10, 1, 1, true },
+                    { 10, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, 9, 1, 1, true },
+                    { 11, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, 1, 2, 2, true },
+                    { 12, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, 2, 2, 2, true }
                 });
 
             migrationBuilder.InsertData(
@@ -847,8 +846,8 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "Code", "CreatedAt", "DeletedAt", "Password", "PersonId", "State", "Username" },
                 values: new object[,]
                 {
-                    { 1, "0001", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "202CB962AC59075B964B07152D234B70", 1, true, "mariaalejan1080@gmail.com" },
-                    { 2, "0002", new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, "202CB962AC59075B964B07152D234B70", 2, true, "juan.perez@correo.com" }
+                    { 1, "0001", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "202CB962AC59075B964B07152D234B70", 1, true, "mariaalejan1080@gmail.com" },
+                    { 2, "0002", new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, "202CB962AC59075B964B07152D234B70", 2, true, "juan.perez@correo.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -856,8 +855,8 @@ namespace Entity.MigrationsSqlServer
                 columns: new[] { "Id", "CreatedAt", "DeletedAt", "RoleId", "State", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, 1, true, 1 },
-                    { 2, new DateTime(2025, 9, 20, 16, 9, 58, 834, DateTimeKind.Utc).AddTicks(1919), null, 2, true, 2 }
+                    { 1, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, 1, true, 1 },
+                    { 2, new DateTime(2025, 9, 22, 16, 29, 30, 73, DateTimeKind.Utc).AddTicks(4952), null, 2, true, 2 }
                 });
 
             migrationBuilder.CreateIndex(

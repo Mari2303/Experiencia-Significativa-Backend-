@@ -76,6 +76,7 @@ namespace Entity.Context
 
         }
 
+
         /// <summary>
         /// Configures the context to allow the logging of sensitive data, useful during debugging to view parameter values in logs.
         /// This should be disabled in production environments to avoid security risks.

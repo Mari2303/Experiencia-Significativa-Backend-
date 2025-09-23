@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entity.Dtos.RegisterExperience
+namespace Entity.Dtos.ModuleOperation.RegisterExperience
 {
     public class GradeRegisterDTO
     {

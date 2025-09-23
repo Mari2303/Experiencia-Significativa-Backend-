@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Entity.Dtos.RegisterExperience
+namespace Entity.Dtos.ModuleOperation.RegisterExperience
 {
     public class ObjectiveCreateDTO
     {

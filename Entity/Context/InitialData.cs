@@ -21,7 +21,6 @@ namespace Entity.Context
                 Id = 1,
                 Code = "01",
                 Name = "SUPERADMIN",
-                Path = "dashboard",
                 Description = "",
                 State = true,
                 CreatedAt = currentDate,
@@ -32,7 +31,6 @@ namespace Entity.Context
                 Id = 2,
                 Code = "0002",
                 Name = "Profesor",
-                Path = "dashboardTeacher",
                 Description = "Rol para profesores",
                 State = true,
                 CreatedAt = currentDate,
@@ -147,7 +145,7 @@ namespace Entity.Context
             {
                 Id = 1,
                 Name = "Inicio",
-                Path = "Operational/dashboard",
+                Path = "dashboard",
                 Description = "Vista principal del sistema.",
                 Icon = "fa-solid fa-house",
                 Order = 1,
@@ -159,7 +157,7 @@ namespace Entity.Context
             {
                 Id = 2,
                 Name = "Experiencia",
-                Path = "Operational/experiencias",
+                Path = "experiences",
                 Description = "Gestión de experiencias significativas.",
                 Icon = "fa-solid fa-star",
                 Order = 2,
@@ -171,7 +169,7 @@ namespace Entity.Context
             {
                 Id = 3,
                 Name = "Evaluación",
-                Path = "Operational/evaluacion",
+                Path = "evaluation",
                 Description = "Gestión de evaluaciones.",
                 Icon = "fa-solid fa-clipboard-check",
                 Order = 3,
@@ -183,7 +181,7 @@ namespace Entity.Context
             {
                 Id = 4,
                 Name = "Roles",
-                Path = "security/roles",
+                Path = "roles",
                 Description = "Gestión de roles del sistema.",
                 Icon = "fa-solid fa-users-gear",
                 Order = 5,
@@ -194,8 +192,8 @@ namespace Entity.Context
             var formUsers = new Form()
             {
                 Id = 5,
-                Name = "Users",
-                Path = "security/users",
+                Name = "Usuarios",
+                Path = "users",
                 Description = "Gestión de usuarios.",
                 Icon = "fa-solid fa-users",
                 Order = 6,
@@ -206,8 +204,8 @@ namespace Entity.Context
             var formPersons = new Form()
             {
                 Id = 6,
-                Name = "Persons",
-                Path = "security/persons",
+                Name = "Personas",
+                Path = "persons",
                 Description = "Gestión de personas.",
                 Icon = "fa-solid fa-user",
                 Order = 7,
@@ -220,7 +218,7 @@ namespace Entity.Context
             {
                 Id = 7,
                 Name = "Seguimiento",
-                Path = "Operational/seguimiento",
+                Path = "tracking",
                 Description = "Formulario de seguimiento.",
                 Icon = "fa-solid fa-building-user",
                 Order = 4,
@@ -232,8 +230,8 @@ namespace Entity.Context
             var formPermissions = new Form()
             {
                 Id = 8,
-                Name = "Permissions",
-                Path = "security/permissions",
+                Name = "Permisos",
+                Path = "permissions",
                 Description = "Allows you to assign specific permissions to users and roles, controlling access to functions, forms, and modules according to the system's needs and security policies.",
                 Icon = "fa-solid fa-user-lock",
                 Order = 8,
@@ -244,8 +242,8 @@ namespace Entity.Context
             var formModules = new Form()
             {
                 Id = 9,
-                Name = "Modules",
-                Path = "security/modules",
+                Name = "Modulos",
+                Path = "modules",
                 Description = "Manages system modules, allowing users to define, modify, and assign modules available to them based on established roles and permissions.",
                 Icon = "fa-solid fa-window-maximize",
                 Order = 9,
@@ -256,8 +254,8 @@ namespace Entity.Context
             var forms = new Form()
             {
                 Id = 10,
-                Name = "Forms",
-                Path = "security/forms",
+                Name = "Formularios",
+                Path = "forms",
                 Description = "Manages the forms available in the system, allowing the creation, modification, and deletion of forms associated with different functionalities and modules.",
                 Icon = "fa-solid fa-window-restore",
                 Order = 10,
@@ -266,8 +264,47 @@ namespace Entity.Context
                 DeletedAt = null!
             };
 
+            var formUsersRol = new Form()
+            {
+                Id = 11,
+                Name = "Asignación de Roles",
+                Path = "usersRol",
+                Description = "Gestiona los roles de usuario dentro del sistema, permitiendo la asignación, modificación y eliminación de permisos según las responsabilidades y niveles de acceso de cada usuario.",
+                Icon = "fa-solid fa-window-restore",
+                Order = 11,
+                State = true,
+                CreatedAt = currentDate,
+                DeletedAt = null!
+            };
 
-            modelBuilder.Entity<Form>().HasData(formInicio, formExperiencia, formEvaluacion, formRoles, formUsers, formPersons, formSeguimiento, forms, formModules, formPermissions);
+            var formFormModule = new Form()
+            {
+                Id = 12,
+                Name = "Asignación de Formularios",
+                Path = "formModule",
+                Description = "Gestiona la relación entre formularios y módulos del sistema, permitiendo organizar, vincular y estructurar los formularios dentro de las diferentes secciones o áreas funcionales.",
+                Icon = "fa-solid fa-window-restore",
+                Order = 12,
+                State = true,
+                CreatedAt = currentDate,
+                DeletedAt = null!
+            };
+
+            var formRolFormPermission = new Form()
+            {
+                Id = 13,
+                Name = "Asignación por permisos",
+                Path = "rolFormPermission",
+                Description = "Gestiona la relación entre roles y formularios del sistema, permitiendo definir, organizar y controlar los permisos de acceso y acciones que cada rol puede realizar sobre los diferentes formularios.",
+                Icon = "fa-solid fa-window-restore",
+                Order = 13,
+                State = true,
+                CreatedAt = currentDate,
+                DeletedAt = null!
+            };
+
+
+            modelBuilder.Entity<Form>().HasData(formInicio, formExperiencia, formEvaluacion, formRoles, formUsers, formPersons, formSeguimiento, forms, formModules, formPermissions, formUsersRol, formFormModule, formRolFormPermission);
 
             // Form - Modules
             var formModuleInicio = new FormModule()
@@ -362,7 +399,34 @@ namespace Entity.Context
                 CreatedAt = currentDate,
                 DeletedAt = null!
             };
-            modelBuilder.Entity<FormModule>().HasData(formModuleInicio, formModuleExperiencia, formModuleEvaluacion, formModuleRoles, formModuleUsers, formModulePersons, formModuleSeguimiento, formModulePermissions, formModuleForms, formModuleModules);
+            var formModuleUsersRol = new FormModule()
+            {
+                Id = 11,
+                FormId = 11,
+                ModuleId = 1,
+                State = true,
+                CreatedAt = currentDate,
+                DeletedAt = null!
+            };
+            var formModuleFormModule = new FormModule()
+            {
+                Id = 12,
+                FormId = 12,
+                ModuleId = 1,
+                State = true,
+                CreatedAt = currentDate,
+                DeletedAt = null!
+            };
+            var formModuleRolFormPermissions = new FormModule()
+            {
+                Id = 13,
+                FormId = 13,
+                ModuleId = 1,
+                State = true,
+                CreatedAt = currentDate,
+                DeletedAt = null!
+            };
+            modelBuilder.Entity<FormModule>().HasData(formModuleInicio, formModuleExperiencia, formModuleEvaluacion, formModuleRoles, formModuleUsers, formModulePersons, formModuleSeguimiento, formModulePermissions, formModuleForms, formModuleModules, formModuleUsersRol, formModuleFormModule, formModuleRolFormPermissions);
 
             // Permission
             var permissionReadWrite = new Permission()
@@ -472,13 +536,13 @@ namespace Entity.Context
             {
                 Id = 9,
                 RoleId = 1,
-                FormId = 10,
+                FormId = 9,
                 PermissionId = 1,
                 State = true,
                 CreatedAt = currentDate,
                 DeletedAt = null!
             };
-           
+
             var RoleFormPermissionModules = new RoleFormPermission()
             {
                 Id = 10,
@@ -486,7 +550,40 @@ namespace Entity.Context
                 CreatedAt = currentDate,
                 DeletedAt = null!,
                 RoleId = 1,
-                FormId = 9,
+                FormId = 10,
+                PermissionId = 1,
+            };
+
+            var RoleFormPermissionUsersRol = new RoleFormPermission()
+            {
+                Id = 13,
+                State = true,
+                CreatedAt = currentDate,
+                DeletedAt = null!,
+                RoleId = 1,
+                FormId = 11,
+                PermissionId = 1,
+            };
+
+            var RoleFormPermissionFormModule = new RoleFormPermission()
+            {
+                Id = 14,
+                State = true,
+                CreatedAt = currentDate,
+                DeletedAt = null!,
+                RoleId = 1,
+                FormId = 12,
+                PermissionId = 1,
+            };
+
+            var RoleFormPermissionRolFormPermission = new RoleFormPermission()
+            {
+                Id = 15,
+                State = true,
+                CreatedAt = currentDate,
+                DeletedAt = null!,
+                RoleId = 1,
+                FormId = 13,
                 PermissionId = 1,
             };
 
@@ -529,7 +626,10 @@ namespace Entity.Context
       RoleFormPermissionForms,
       RoleFormPermissionModules,
       RoleFormPermissionTeacherInicio,
-      RoleFormPermissionTeacherExperiencia
+      RoleFormPermissionTeacherExperiencia,
+      RoleFormPermissionUsersRol,
+      RoleFormPermissionFormModule,
+      RoleFormPermissionRolFormPermission
   );
 
         }

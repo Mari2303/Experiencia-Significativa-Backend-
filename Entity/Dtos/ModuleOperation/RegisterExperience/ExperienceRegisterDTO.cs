@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Entity.Dtos.RegisterExperience;
+using Entity.Dtos.ModuleOperation.RegisterExperience;
 
 public class ExperienceRegisterDTO
 {
