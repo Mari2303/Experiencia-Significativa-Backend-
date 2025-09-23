@@ -15,7 +15,7 @@ namespace Entity.Dtos.ModuleOperation.CreateEvaluation
         public string Comments { get; set; } = string.Empty;
         public string EvaluationResult { get; set; } = string.Empty;
 
-        // 🔹 Traídos de Experience
+        // Traídos de Experience
         public int ExperienceId { get; set; }
         public string ExperienceName { get; set; } = string.Empty;
         public int StateId { get; set; }

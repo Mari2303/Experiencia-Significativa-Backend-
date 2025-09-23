@@ -11,6 +11,7 @@ using Repository.Implementations.Email;
 using Repository.Interfaces.IEmail;
 using Utilities.Messaging.Implements;
 using Utilities.Messaging.Interfaces;
+using Service.Implementations.Email;
 
 
 var builder = WebApplication.CreateBuilder(args);

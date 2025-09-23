@@ -1,4 +1,5 @@
-﻿using Entity.Dtos.ModuleOperational;
+﻿using Entity.Dtos.ModuleOperation.CreateEvaluation;
+using Entity.Dtos.ModuleOperational;
 using Entity.Models.ModelosParametros;
 using Entity.Models.ModuleOperation;
 using Entity.Requests.ModuleOperation;
@@ -13,6 +14,6 @@ namespace Repository.Interfaces.IModuleOperationRepository
         Task UpdateCriteriaAsync(Criteria criteria);
         Task SaveChangesAsync();
         Task<Criteria?> GetCriteriaByIdAsync(int id);
-
+        Task<EvaluationDetailDTO> GetEvaluationDetailAsync(int id);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Entity.Context;
+using Entity.Dtos.ModuleOperation.CreateEvaluation;
 using Entity.Dtos.ModuleOperational;
 using Entity.Models.ModelosParametros;
 using Entity.Models.ModuleOperation;
@@ -50,8 +51,7 @@ namespace Repository.Implementations.ModuleOperationRepository
         }
 
 
-      
-
+     
         public async Task<Experience?> GetExperienceWithInstitutionAsync(int experienceId)
         {
             return await _context.Experiences
@@ -59,7 +59,29 @@ namespace Repository.Implementations.ModuleOperationRepository
                 .Include(e => e.ExperienceLineThematics)
                     .ThenInclude(elt => elt.LineThematic) 
                 .FirstOrDefaultAsync(e => e.Id == experienceId);
+
+
         }
+
+
+
+        public async Task<EvaluationDetailDTO> GetEvaluationDetailAsync(int evaluationId)
+        {
+            var evaluation = await _context.Evaluations
+                .Include(e => e.EvaluationCriterias)
+                .Include(e => e.Experience)
+                    .ThenInclude(ex => ex.Institution)
+                .Include(e => e.Experience)
+                    .ThenInclude(ex => ex.ExperienceLineThematics)
+                        .ThenInclude(elt => elt.LineThematic)
+                .FirstOrDefaultAsync(e => e.Id == evaluationId);
+
+            if (evaluation == null)
+                throw new KeyNotFoundException("La evaluación no existe");
+
+            return _mapper.Map<EvaluationDetailDTO>(evaluation);
+        }
+
 
 
         public async Task SaveChangesAsync()

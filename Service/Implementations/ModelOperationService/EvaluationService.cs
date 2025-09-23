@@ -18,87 +18,46 @@ namespace Service.Implementations.ModelOperationService
         }
 
 
-          
+
         public async Task<EvaluationDetailDTO> CreateEvaluationAsync(EvaluationRegisterDTO dto)
         {
+            // 1. Validar que la experiencia exista
             var experience = await _evaluationRepository.GetExperienceWithInstitutionAsync(dto.ExperienceId)
-             ?? throw new KeyNotFoundException("La experiencia no existe");
+                ?? throw new KeyNotFoundException("La experiencia no existe");
 
-            // Crear evaluación
-            var evaluation = new Evaluation
-            {
-                TypeEvaluation = dto.TypeEvaluation,
-                AccompanimentRole = dto.AccompanimentRole,
-                Comments = dto.Comments,
+            // 2. Construir evaluación con Builder (suma los scores) y obtener criterios sin EvaluationId
+            var builder = new EvaluationBuilder(dto)
+                .AddCriteriaScores(dto.CriteriaEvaluations);
 
-                UserId = dto.UserId,
-                ExperienceId = dto.ExperienceId,
-                State = true,
-                CreatedAt = DateTime.UtcNow
+            var (evaluation, criteriaList) = builder.Build(); // ahora devuelve evaluación y lista de criterios
 
-            };
-
+            // 3. Guardar evaluación para obtener Id generado
             evaluation = await _evaluationRepository.AddEvaluationAsync(evaluation);
 
-            int totalScore = 0;
+            // 4. Asignar EvaluationId a cada criterio y guardarlos
+            foreach (var c in criteriaList)
+            {
+                c.EvaluationId = evaluation.Id; // asignamos Id recién generado
+                await _evaluationRepository.AddEvaluationCriteriaAsync(c);
+            }
 
+            // 5. Actualizar campos adicionales de Criteria si es necesario
             foreach (var c in dto.CriteriaEvaluations)
             {
-                //  Guardamos Score en la pivote
-                var evalCriteria = new EvaluationCriteria
-                {
-                    EvaluationId = evaluation.Id,
-                    CriteriaId = c.CriteriaId,
-                    Score = c.Score,
-                    State = true,
-                    CreatedAt = DateTime.UtcNow
-                };
-                await _evaluationRepository.AddEvaluationCriteriaAsync(evalCriteria);
-
-                // Actualizamos campos de Criteria
                 var criteria = await _evaluationRepository.GetCriteriaByIdAsync(c.CriteriaId);
                 if (criteria != null)
                 {
                     criteria.DescriptionContribution = c.DescriptionContribution;
                     await _evaluationRepository.UpdateCriteriaAsync(criteria);
                 }
-
-                totalScore += c.Score;
             }
 
-           
+            // 6. Obtener DTO final usando el mapper del repository
+            var evaluationDto = await _evaluationRepository.GetEvaluationDetailAsync(evaluation.Id);
 
-            evaluation.EvaluationResult = CalcularResultadoFinal(totalScore);
-            await _evaluationRepository.SaveChangesAsync();
-
-            return new EvaluationDetailDTO
-            {
-                EvaluationId = evaluation.Id,
-                TypeEvaluation = evaluation.TypeEvaluation,
-                AccompanimentRole = evaluation.AccompanimentRole,
-                Comments = evaluation.Comments,
-                EvaluationResult = evaluation.EvaluationResult,
-                ExperienceId = experience.Id,
-                ExperienceName = experience.NameExperiences,
-                StateId = experience.StateId,
-                InstitutionName = experience.Institution?.Name ?? string.Empty,
-                ThematicLineNames = experience.ExperienceLineThematics?
-               .Where(x => x.LineThematic != null)
-                .Select(x => x.LineThematic.Name)
-               .ToList() ?? new List<string>(),
-                CriteriaEvaluations = dto.CriteriaEvaluations
-                    .Select(c => new EvaluationCriteriaDTO
-                    {
-                        CriteriaId = c.CriteriaId,
-                        Score = c.Score,
-                        EvaluationId = evaluation.Id
-                    }).ToList()
-            };
+            return evaluationDto;
         }
 
-        private string CalcularResultadoFinal(int totalScore) =>
-    totalScore <= 45 ? "Naciente" :
-    totalScore <= 79 ? "Creciente" : "Inspiradora";
     }
 }
 

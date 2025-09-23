@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entity.Dtos.Email
 {
-    public class PasswordRecoveryDto
+    public class PasswordRecoveryDTO
     {
 
         public int Id { get; set; }

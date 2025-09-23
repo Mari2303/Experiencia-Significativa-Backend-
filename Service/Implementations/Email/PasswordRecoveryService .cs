@@ -6,6 +6,7 @@ using Service.Interfaces;
 using Utilities.JwtAuthentication;
 using Utilities.Messaging.Interfaces;
 
+namespace Service.Implementations.Email;
 public class PasswordRecoveryService : IPasswordRecoveryService
 {
     private readonly IUserRepository _userRepo;
