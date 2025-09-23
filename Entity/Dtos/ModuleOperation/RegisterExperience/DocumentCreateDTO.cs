@@ -14,8 +14,8 @@ namespace Entity.Dtos.ModuleOperation.RegisterExperience
       [Url(ErrorMessage = "La URL del PDF no tiene un formato válido")]
        public string UrlPdf { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "El archivo PDF es obligatorio")]
-        public IFormFile PdfFile { get; set; }
+      //  [Required(ErrorMessage = "El archivo PDF es obligatorio")]
+     //   public IFormFile PdfFile { get; set; }
 
 
         [Url(ErrorMessage = "La URL del enlace no tiene un formato válido")]

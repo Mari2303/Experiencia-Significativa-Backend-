@@ -39,5 +39,7 @@ namespace Repository.Interfaces
         /// <param name="id">The ID of the entity to delete.</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
         Task Delete(int id);
+
+        Task Restore(int id);
     }
 }

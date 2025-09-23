@@ -1,4 +1,5 @@
 using Entity.Models;
+using Entity.Models.ModuleOperation;
 using Entity.Requests;
 
 namespace Repository.Interfaces
@@ -33,5 +34,10 @@ namespace Repository.Interfaces
         /// </summary>
         /// <param name="token">The existing JWT token to renew.</param>
         Task<RenewTokenRequest> RenewTokenAsync(string token);
+
+
+
+
+
     }
 }

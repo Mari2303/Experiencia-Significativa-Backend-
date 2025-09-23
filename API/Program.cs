@@ -7,6 +7,10 @@ using System.Text.Json.Serialization;
 using Utilities.JwtAuthentication;
 using Service.Implementations;
 using Service.Interfaces;
+using Repository.Implementations.Email;
+using Repository.Interfaces.IEmail;
+using Utilities.Messaging.Implements;
+using Utilities.Messaging.Interfaces;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -57,6 +61,12 @@ builder.Services.AddScoped<IFileStorageService>(sp =>
     new FileStorageService(sp.GetRequiredService<IWebHostEnvironment>().WebRootPath));
 
 
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IPasswordRecoveryRepository, PasswordRecoveryRepository>();
+builder.Services.AddScoped<IPasswordRecoveryService, PasswordRecoveryService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+
+
 // Configuration for authenticating using JWT Bearer tokens
 AuthenticationExtensions.AddCustomAuthentication(builder.Services, builder.Configuration);
 
@@ -67,7 +77,7 @@ MapperExtension.ConfigureAutoMapper(builder.Services);
 
 var app = builder.Build();
 
-// 🔹 Aplicar migraciones automáticamente
+//  Aplicar migraciones automáticamente
 using (var scope = app.Services.CreateScope())
 {
     var sqlServerContext = scope.ServiceProvider.GetRequiredService<ApplicationContext>();

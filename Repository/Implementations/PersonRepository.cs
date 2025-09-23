@@ -68,7 +68,6 @@ namespace Repository.Implementations
                             person.FirstLastName,
                             person.SecondLastName,
                             CONCAT(person.FirstName, ' ' , person.MiddleName, ' ' , person.FirstLastName, ' ' , person.SecondLastName) AS FullName,
-                            END AS Gender,
                             person.Email,
                             person.Phone,
                             person.State,

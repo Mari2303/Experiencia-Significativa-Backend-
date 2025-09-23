@@ -50,5 +50,8 @@ namespace API.Controllers
         /// <param name="id">The ID of the entity to delete.</param>
         /// <returns>An <see cref="ActionResult"/> indicating the outcome of the deletion operation.</returns>
         public abstract Task<ActionResult> Delete(int id);
+
+
+        public abstract Task<ActionResult> Restore(int id);
     }
 }

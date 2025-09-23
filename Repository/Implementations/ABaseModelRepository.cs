@@ -45,5 +45,9 @@ namespace Repository.Implementations
         /// <param name="id">The ID of the entity to delete.</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
         public abstract Task Delete(int id);
+
+
+
+        public abstract Task Restore(int id);
     }
 }

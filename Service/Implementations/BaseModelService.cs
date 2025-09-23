@@ -77,5 +77,21 @@ namespace Service.Implementations
         {
             await _repository.Update(entity);
         }
+
+
+
+        public override async Task Restore(int id)
+        {
+            var entity = await _repository.GetById(id);
+
+            if (entity == null)
+                throw new Exception("Entity not found");
+
+            if (entity.State)
+                throw new Exception("Entity is already active");
+
+            await _repository.Restore(id);
+        }
+
     }
 }

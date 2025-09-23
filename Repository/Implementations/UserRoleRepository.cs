@@ -55,8 +55,8 @@ namespace Repository.Implementations
                             userRol.Id,
                             userRol.UserId,
                             userRol.RoleId,
-                            u.Username AS User,
-                            r.Name AS Role
+                            u.Username AS UserName,
+                            r.Name AS RoleName
                         FROM
                             UserRoles AS userRol
                         INNER JOIN Users AS u ON userRol.UserId = u.Id 

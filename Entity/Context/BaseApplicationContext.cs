@@ -59,6 +59,14 @@ namespace Entity.Context
             modelBuilder.ApplyConfiguration<Objective>(configuration);
 
 
+            modelBuilder.Entity<PasswordRecovery>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Email).IsRequired().HasMaxLength(150);
+                entity.Property(e => e.Code).IsRequired().HasMaxLength(10);
+                entity.Property(e => e.Expiration).IsRequired();
+                entity.Property(e => e.Active).IsRequired();
+            });
 
             InitialData.Data(modelBuilder);
             base.OnModelCreating(modelBuilder);
@@ -153,6 +161,7 @@ namespace Entity.Context
         public DbSet<HistoryExperience> HistoryExperiences { get; set; }
         public DbSet<Institution> Institutions { get; set; }
         public DbSet<Objective> Objectives { get; set; }
+        public DbSet<PasswordRecovery> PasswordRecoveries { get; set; } = null!;
 
     }
 

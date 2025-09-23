@@ -50,5 +50,7 @@ namespace Service.Implementations
         /// <param name="entity">The entity to update.</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
         public abstract Task Update(T entity);
+
+        public abstract Task Restore(int id);
     }
 }

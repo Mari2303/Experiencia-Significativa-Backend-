@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entity.Models.ModuleOperation
+namespace Entity.Dtos.Email
 {
-    public class PasswordRecovery 
+    public class PasswordRecoveryDto
     {
+
         public int Id { get; set; }
-        public string Email { get; set; } = null!;
-        public string Code { get; set; } = null!;
+        public string Email { get; set; } = string.Empty;
+        public string Code { get; set; } = string.Empty;
         public DateTime Expiration { get; set; }
         public bool Active { get; set; }
 

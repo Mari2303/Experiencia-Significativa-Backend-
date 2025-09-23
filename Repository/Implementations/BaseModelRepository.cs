@@ -216,5 +216,25 @@ namespace Repository.Implementations
                 throw new Exception("Related entities found, entity cannot be deleted");
             }
         }
+
+
+
+        public override async Task Restore(int id)
+        {
+            T entity = await GetById(id);
+
+            if (entity == null)
+                throw new Exception("Entity not found");
+
+            entity.DeletedAt = null;  // Se limpia la fecha de eliminación
+            entity.State = true;      // Se vuelve a marcar como activo
+
+            await Update(entity);
+        }
+
+
+
+
+
     }
 }

@@ -180,6 +180,28 @@ namespace Repository.Implementations
             return roles;
         }
 
+
+        public async Task<User?> GetByEmailAsync(string email)
+        {
+            return await _context.Users
+                .Include(u => u.Person) // si tienes la navegación
+                .FirstOrDefaultAsync(u => u.Person != null && u.Person.Email == email);
+        }
+
+
+        public async Task UpdateAsync(User user)
+        {
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+        }
+
+
+
+
+
+
+
+
     }
 
 }

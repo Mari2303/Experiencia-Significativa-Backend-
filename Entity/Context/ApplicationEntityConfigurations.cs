@@ -38,7 +38,8 @@ namespace Entity.Context
         IEntityTypeConfiguration<HistoryExperience>,
         IEntityTypeConfiguration<Verification>,
         IEntityTypeConfiguration<Institution>,
-        IEntityTypeConfiguration<EvaluationCriteria>
+        IEntityTypeConfiguration<EvaluationCriteria>,
+        IEntityTypeConfiguration<PasswordRecovery>
 
 
 
@@ -57,6 +58,12 @@ namespace Entity.Context
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(s => s.Id); // Primary key
+        }
+
+
+        public void Configure(EntityTypeBuilder<PasswordRecovery> builder)
+        {
+            builder.HasKey(s => s.Id); 
         }
 
         /// <summary>
@@ -78,9 +85,6 @@ namespace Entity.Context
             builder.HasKey(s => s.Id); // Primary key
         }
 
-
-
-
         public void Configure(EntityTypeBuilder<Criteria> builder)
         {
             builder.HasKey(s => s.Id); // Primary key
@@ -92,8 +96,6 @@ namespace Entity.Context
             builder.HasKey(s => s.Id); // Primary key
 
         }
-
-
 
         public void Configure(EntityTypeBuilder<Grade> builder)
         {
@@ -111,8 +113,6 @@ namespace Entity.Context
         {
             builder.HasKey(s => s.Id); // Primary key
         }
-
-
 
         /// <summary>
         /// Configures the Permission entity.
@@ -183,7 +183,6 @@ namespace Entity.Context
                 .WithMany(r => r.Documents)
                 .HasForeignKey(rfp => rfp.ExperienceId);
         }
-
 
         public void Configure(EntityTypeBuilder<Evaluation> builder)
         {
@@ -301,6 +300,8 @@ namespace Entity.Context
 
 
         }
+
+
 
 
 

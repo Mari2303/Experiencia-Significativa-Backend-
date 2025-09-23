@@ -169,5 +169,24 @@ namespace API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
             }
         }
+
+        [Authorize]
+        [HttpPatch("restore/{id}")]
+        public override async Task<ActionResult> Restore(int id)
+        {
+            await _service.Restore(id);
+            var restoredEntity = await _service.GetById(id);
+
+            return Ok(new
+            {
+                message = "Entity restored successfully",
+                data = restoredEntity
+            });
+        }
+
+
+
+
+
     }
 }

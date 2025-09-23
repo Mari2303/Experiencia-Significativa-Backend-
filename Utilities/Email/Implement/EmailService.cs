@@ -41,7 +41,7 @@ namespace Utilities.Messaging.Implements
              <p style=""font-size: 16px; color: #2d3748;"">Hemos recibido una solicitud para restablecer tu contraseña.</p>
              <p style=""font-size: 16px; color: #2d3748;"">Tu código de verificación es:</p>
              <div style=""font-size: 28px; font-weight: bold; color: #5890d8; margin: 20px 0; text-align: center;"">
-            {{Code}}
+             {{recoveryCode}}
               </div>
              <p style=""font-size: 14px; color: #5890d8;"">Este código tiene una validez de 10 minutos. Si no solicitaste este cambio, puedes ignorar este correo.</p>
              <br>
