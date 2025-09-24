@@ -28,7 +28,14 @@ namespace Application.Builders
                 NameExperiences = experience.NameExperiences,
                 Developmenttime = experience.Developmenttime,
                 NameFirstLeader = experience.NameFirstLeader,
-                StateId = experience.StateId
+               
+                 // Tomamos la última evaluación si existe, sino "Naciente"
+        EvaluationResult = experience.Evaluations != null && experience.Evaluations.Any()
+            ? experience.Evaluations
+                .OrderByDescending(e => e.CreatedAt)
+                .First()
+                .EvaluationResult
+            : "Naciente"
             };
         }
 

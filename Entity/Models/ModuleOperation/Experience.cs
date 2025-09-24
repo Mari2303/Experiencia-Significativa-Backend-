@@ -1,4 +1,5 @@
 ﻿
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection.Metadata;
 using Entity.Models.ModelosParametros;
 
@@ -53,6 +54,11 @@ namespace Entity.Models.ModuleOperation
 
         public int StateId { get; set; }
         public virtual State State { get; set; }
+       
+
+
+
+
         public virtual Verification? Verification { get; set; } = null;
         public int UserId { get; set; }
         public virtual User User { get; set; } = null!;
@@ -68,5 +74,11 @@ namespace Entity.Models.ModuleOperation
         public ICollection<HistoryExperience> HistoryExperiences { get; set; } = new List<HistoryExperience>();
         public ICollection<Verification> verifications { get; set; } = new List<Verification>();
 
-    } 
+
+      
+
+
+
+
+    }
 }

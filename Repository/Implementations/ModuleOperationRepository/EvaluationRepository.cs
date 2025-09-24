@@ -55,6 +55,7 @@ namespace Repository.Implementations.ModuleOperationRepository
         public async Task<Experience?> GetExperienceWithInstitutionAsync(int experienceId)
         {
             return await _context.Experiences
+                .Include(e => e.Evaluations)
                 .Include(e => e.Institution)
                 .Include(e => e.ExperienceLineThematics)
                     .ThenInclude(elt => elt.LineThematic) 

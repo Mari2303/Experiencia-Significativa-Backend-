@@ -23,5 +23,11 @@ namespace Entity.Dtos.UpdateExperience
 
         [Required]
         public int StateId { get; set; }
+
+         // Nuevo campo que refleja el estado según la evaluación
+    public string State => EvaluationResult ?? "Naciente";
+
+    // Esto requiere que pases el resultado de la evaluación al DTO
+    public string EvaluationResult { get; set; }
     }
 }
