@@ -9,7 +9,7 @@ namespace Entity.Enums
 {
     public enum TypeEvaluation
     {
-        [Description("Dianostico")]
+        [Description("Diagnóstico ")]
         DianosticoId = 1,
 
         [Description("Inicial")]
