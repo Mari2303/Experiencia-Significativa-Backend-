@@ -4,7 +4,7 @@ namespace Entity.Dtos.ModuleOperation.CreateEvaluation
 {
     public  class EvaluationRegisterDTO
     {
-        // --- Campos propios de Evaluation ---
+        // --- Estos son los datos que el evaluador va a llenar  ---
         public string TypeEvaluation { get; set; } = string.Empty;
         public string AccompanimentRole { get; set; } = string.Empty;
         public string Comments { get; set; } = string.Empty;

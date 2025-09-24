@@ -27,7 +27,7 @@ namespace Entity.Dtos.UpdateExperience
         public string Municipality { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "El código DANE es obligatorio")]
-        [StringLength(10, ErrorMessage = "El código DANE debe ser numérico y tener entre 5 y 10 dígitos")]
+        [StringLength(12, ErrorMessage = "El código DANE debe ser numérico y tener entre 5 y 10 dígitos")]
         public string CodeDane { get; set; } = string.Empty;
 
     }

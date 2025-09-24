@@ -14,8 +14,8 @@ public class InstitutionCreateDTO
     public uint Phone { get; set; }
 
     [Required(ErrorMessage = "El código DANE es obligatorio")]
-    
     public string CodeDane { get; set; } = string.Empty;
+
 
     [Required(ErrorMessage = "El correo institucional es obligatorio")]
     public string EmailInstitucional { get; set; } = string.Empty;

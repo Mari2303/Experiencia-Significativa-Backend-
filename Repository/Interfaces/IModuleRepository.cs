@@ -10,5 +10,6 @@ namespace Repository.Interfaces
     /// </summary>
     public interface IBaseModuleRepository : IBaseModelRepository<Module, ModuleDTO, ModuleRequest>
     {
+
     }
 }

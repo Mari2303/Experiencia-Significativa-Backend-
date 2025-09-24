@@ -61,11 +61,10 @@ builder.Services.AddSingleton<IJwtAuthenticationService, JwtAuthenticationServic
 builder.Services.AddScoped<IFileStorageService>(sp =>
     new FileStorageService(sp.GetRequiredService<IWebHostEnvironment>().WebRootPath));
 
-
-builder.Services.AddScoped<IUserRepository, UserRepository>();
+/*builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPasswordRecoveryRepository, PasswordRecoveryRepository>();
 builder.Services.AddScoped<IPasswordRecoveryService, PasswordRecoveryService>();
-builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IEmailService, EmailService>(); */
 
 
 // Configuration for authenticating using JWT Bearer tokens
