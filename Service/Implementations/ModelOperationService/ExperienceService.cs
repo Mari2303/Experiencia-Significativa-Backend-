@@ -13,61 +13,14 @@ namespace Service.Implementations.ModelOperationService
     public class ExperienceService : BaseModelService<Experience, ExperienceDTO, ExperienceRequest>, IExperienceService
     {
         private readonly IExperienceRepository _experienceRepository;
-        private readonly IFileStorageService _fileStorage;
-        public ExperienceService(IExperienceRepository experienceRepository, IFileStorageService fileStorage) : base(experienceRepository)
+      
+        public ExperienceService(IExperienceRepository experienceRepository) : base(experienceRepository)
         {
             _experienceRepository = experienceRepository;
-            _fileStorage = fileStorage;
+        
         }
 
-        /*  public async Task<Experience> RegisterExperienceAsync(ExperienceRegisterDTO dto)
-          {
-              try
-              {
-                 // Primero subimos los PDFs y generamos rutas
-                  var documents = new List<DocumentCreateDTO>();
-                  if (dto.Documents != null && dto.Documents.Any())
-                  {
-                      foreach (var doc in dto.Documents)
-                      {
-                       //   var UrlPdf = await _fileStorage.SaveFileAsync(doc.PdfFile, "pdfs");
-
-                          documents.Add(new DocumentCreateDTO
-                          {
-                              Name = doc.Name,
-                              UrlLink = doc.UrlLink,
-                           //   PdfFile = null,   // Ya guardamos el archivo
-                              UrlPdf = UrlPdf     // Ruta generada
-                          });
-                      }
-                  }
-
-                  // Ahora construimos la experiencia con el builder
-                  var experience = new ExperienceBuilder()
-                      .WithBasicInfo(dto)
-                      .WithInstitution(dto.Institution)
-                      .WithDocuments(Document)   
-                      .WithObjectives(dto.Objectives)
-                      .WithThematics(dto.ThematicLineIds)
-                      .WithGrades(dto.Grades)
-                      .WithPopulations(dto.PopulationGradeIds)
-                      .WithHistory(dto.HistoryExperiences, dto.UserId)
-                      .Build();
-
-                  await _experienceRepository.AddAsync(experience);
-                  return experience;
-              }
-              catch (DbUpdateException dbEx)
-              {
-                  var innerMessage = dbEx.InnerException?.Message ?? dbEx.Message;
-                  throw new Exception($"Error al registrar la experiencia (DB): {innerMessage}", dbEx);
-              }
-              catch (Exception ex)
-              {
-                  throw new Exception($"Error general al registrar la experiencia: {ex.Message}", ex);
-              }
-          }*/
-
+ 
 
         public async Task<Experience> RegisterExperienceAsync(ExperienceRegisterDTO dto)
         {
@@ -76,7 +29,7 @@ namespace Service.Implementations.ModelOperationService
                 var experience = new ExperienceBuilder()
                     .WithBasicInfo(dto)
                     .WithInstitution(dto.Institution)
-                    .WithDocuments(dto.Documents)
+                   .WithDocuments(dto.Documents)
                     .WithObjectives(dto.Objectives)
                     .WithThematics(dto.ThematicLineIds)
                     .WithGrades(dto.Grades)
@@ -96,7 +49,7 @@ namespace Service.Implementations.ModelOperationService
             {
                 throw new Exception($"Error general al registrar la experiencia: {ex.Message}", ex);
             }
-        }
+        } 
 
 
         public async Task<ExperienceDetailDTO?> GetDetailByIdAsync(int id)

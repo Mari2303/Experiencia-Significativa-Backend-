@@ -7,11 +7,7 @@ using System.Text.Json.Serialization;
 using Utilities.JwtAuthentication;
 using Service.Implementations;
 using Service.Interfaces;
-using Repository.Implementations.Email;
-using Repository.Interfaces.IEmail;
-using Utilities.Messaging.Implements;
-using Utilities.Messaging.Interfaces;
-using Service.Implementations.Email;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -58,13 +54,9 @@ builder.Services.AddSingleton<IJwtAuthentication, JwtAuthentication>(provider =>
 
 // Configuring the JWT Authentication Service as a Singleton
 builder.Services.AddSingleton<IJwtAuthenticationService, JwtAuthenticationService>();
-builder.Services.AddScoped<IFileStorageService>(sp =>
-    new FileStorageService(sp.GetRequiredService<IWebHostEnvironment>().WebRootPath));
 
-/*builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IPasswordRecoveryRepository, PasswordRecoveryRepository>();
-builder.Services.AddScoped<IPasswordRecoveryService, PasswordRecoveryService>();
-builder.Services.AddScoped<IEmailService, EmailService>(); */
+
+
 
 
 // Configuration for authenticating using JWT Bearer tokens
