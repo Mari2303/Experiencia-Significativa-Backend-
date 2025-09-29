@@ -5,40 +5,71 @@ using Entity.Requests;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.Interfaces;
+using Utilities.Email.Interfaces;
 
 namespace API.Controllers
 {
-    public class UserController : BaseModelController<User, UserDTO, UserRequest>
+    [ApiController]
+    [Route("api/[controller]")]
+    public class UserController : ControllerBase
     {
+        private readonly IPersonService _personService;
         private readonly IUserService _userService;
-        private readonly IMapper _mapper;
+        private readonly IEmailService _emailService;
 
-        public UserController(IBaseModelService<User, UserDTO, UserRequest> baseService, IUserService service, IMapper mapper) : base(baseService, mapper)
+        public UserController(IPersonService personService, IUserService userService, IEmailService emailService)
         {
-            _userService = service;
-            _mapper = mapper;
+            _personService = personService;
+            _userService = userService;
+            _emailService = emailService;
         }
 
-
-
         /// <summary>
-        /// Registrar un nuevo usuario
+        /// Registrar un nuevo usuario y persona, y enviar correo de bienvenida.
         /// </summary>
-        [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] UserRequest request)
+        [HttpPost("register-full")]
+        public async Task<IActionResult> RegisterFull([FromBody] PersonUserRegisterRequest request)
         {
             try
             {
-                var createdUser = await _userService.AddAsync(request);
-                return Ok(createdUser);
+                // 1. Registrar la persona
+                // Map PersonRegisterRequest to PersonRequest
+                var personRequest = new PersonRequest
+                {
+                    // Assign properties from request.Person to personRequest as needed
+                    FirstName = request.Person.FirstName,
+                    Email = request.Person.Email,
+                    // Add other properties as required
+                };
+                var personResult = await _personService.CreatePersonAsync(personRequest);
+                if (personResult == null)
+                    return BadRequest("No se pudo crear la persona.");
+
+                // 2. Asignar el Id de la persona creada al usuario (solo en backend)
+                var userRequest = request.User;
+                // Si UserRegisterRequest no tiene PersonId, usa un DTO interno o asigna aquí antes de guardar
+                dynamic userToSave = userRequest;
+                userToSave.PersonId = personResult.Id;
+
+                // 3. Registrar el usuario
+                var createdUser = await _userService.AddAsync(userToSave);
+                if (createdUser == null)
+                    return BadRequest("No se pudo crear el usuario.");
+
+                // 4. Leer plantilla y enviar correo
+                string templatePath = Path.Combine("Utilities", "Email", "Templates", "Recordatorio.html");
+                string body = System.IO.File.ReadAllText(templatePath);
+                body = body.Replace("{Nombre}", personResult.FirstName)
+                           .Replace("{Fecha}", DateTime.Now.ToString("dd/MM/yyyy"));
+                await _emailService.SendExperiencesEmail(personResult.Email, body);
+
+                return Ok(new { person = personResult, user = createdUser });
             }
             catch (Exception ex)
             {
                 return BadRequest(new { message = ex.Message });
             }
         }
-
-      
 
         /// <summary>
         /// Obtener un usuario por nombre
@@ -59,7 +90,6 @@ namespace API.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
-
 
         [Authorize]
         [HttpGet("{userId}/menu")]

@@ -67,7 +67,16 @@ namespace Repository.Implementations
             try
             {
                 // Retrieves (Where State is true)
-                IQueryable<T> query = _context.Set<T>().Where(x => x.State);
+              IQueryable<T> query = _context.Set<T>();
+
+// Aplica filtro por estado si viene en el request
+if (filters.OnlyActive.HasValue)
+{
+    if (filters.OnlyActive.Value)
+        query = query.Where(x => x.State);          // Solo activos
+    else
+        query = query.Where(x => !x.State);         // Solo inactivos
+}
 
                 // Apply Foreign Key Filters
                 if (filters.ForeignKey != null && !string.IsNullOrEmpty(filters.NameForeignKey))

@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 using Utilities.JwtAuthentication;
 using Service.Implementations;
 using Service.Interfaces;
-
+using Utilities.Email;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,6 +38,8 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 
 // Configure Swagger/OpenAPI for API documentation
 builder.Services.AddEndpointsApiExplorer();
+    // Configuración para envío de correos
+    builder.Services.AddTransient<Utilities.Email.Interfaces.IEmailService, Utilities.Email.Implements.EmailService>();
 AuthenticationExtensions.CustomSwagger(builder.Services);
 
 // Adding custom services from an extension file

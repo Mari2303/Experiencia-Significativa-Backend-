@@ -52,5 +52,6 @@ namespace Entity.Requests
 
         public string? Role { get; set; }
         public int? UserId { get; set; }
+            public bool? OnlyActive { get; set; }
     }
 }

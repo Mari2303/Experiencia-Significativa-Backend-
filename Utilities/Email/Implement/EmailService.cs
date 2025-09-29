@@ -1,9 +1,9 @@
 ﻿using System.Net;
 using System.Net.Mail;
 using Microsoft.Extensions.Configuration;
-using Utilities.Messaging.Interfaces;
+using Utilities.Email.Interfaces;
 
-namespace Utilities.Messaging.Implements
+namespace Utilities.Email.Implements
 {
     public class EmailService : IEmailService
     {

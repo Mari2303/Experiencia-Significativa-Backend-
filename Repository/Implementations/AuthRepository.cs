@@ -87,13 +87,14 @@ namespace Repository.Implementations
         }
 
         /// <summary>
-        /// Changes the password for a user.
+        /// Changes the password for a user, validating the current password.
         /// </summary>
-        /// <param name="dto">The data transfer object containing the user ID and new password.</param>
+        /// <param name="dto">The data transfer object containing the user ID, current password, new password, and confirmation.</param>
         /// <returns>A task representing the asynchronous operation.</returns>
-        /// <exception cref="Exception">Throws if the user does not exist or if passwords do not match.</exception>
+        /// <exception cref="Exception">Throws if the user does not exist, if current password is incorrect, or if new passwords do not match.</exception>
         public async Task ChangePasswordAsync(ChangePasswordRequest dto)
         {
+            // 1. Buscar usuario
             User user = await _userRepository.GetById(dto.UserId);
 
             if (user == null)
@@ -101,17 +102,28 @@ namespace Repository.Implementations
                 throw new Exception("User does not exist");
             }
 
+            // 2. Validar contraseña actual
+            string encryptedCurrent = _jwtAuthentication.EncryptMD5(dto.CurrentPassword);
+            if (user.Password != encryptedCurrent)
+            {
+                throw new Exception("Current password is incorrect");
+            }
+
+            // 3. Validar coincidencia entre nueva y confirmación
             if (dto.NewPassword != dto.ConfirmPassword)
             {
                 throw new Exception("Passwords do not match");
             }
 
+            // 4. Validar seguridad de la nueva contraseña
             PasswordHelper.ValidatePassword(dto.NewPassword);
 
+            // 5. Encriptar y actualizar
             user.Password = _jwtAuthentication.EncryptMD5(dto.NewPassword);
 
             await _userRepository.Update(user);
         }
+
 
         /// <summary>
         /// Retrieves a user from a valid JWT token.

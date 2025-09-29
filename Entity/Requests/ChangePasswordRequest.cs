@@ -14,7 +14,9 @@ namespace Entity.Requests
         /// <summary>
         /// User's current password for verification        
         /// </summary>
-        //   public string CurrentPassword { get; set; } = string.Empty;
+        /// 
+        [Required(ErrorMessage = "La actual contraseña es obligatoria")]
+        public string CurrentPassword { get; set; } = string.Empty;
 
         /// <summary>
         /// User's new password
