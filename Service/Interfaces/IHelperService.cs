@@ -5,38 +5,49 @@ using Entity.Requests;
 namespace Service.Interfaces
 {
     /// <summary>
-    /// Defines a contract for helper services that operate on a model and its corresponding Data Transfer Object (DTO).
+    /// Define un contrato para servicios auxiliares que operan sobre un modelo 
+    /// y su correspondiente Objeto de Transferencia de Datos (DTO).
     /// </summary>
-    /// <typeparam name="T">The model type, which must inherit from <see cref="BaseModel"/>.</typeparam>
-    /// <typeparam name="D">The DTO type, which must inherit from <see cref="BaseDTO"/>.</typeparam>
+    /// <typeparam name="T">El tipo de modelo, que debe heredar de <see cref="BaseModel"/>.</typeparam>
+    /// <typeparam name="D">El tipo de DTO, que debe heredar de <see cref="BaseDTO"/>.</typeparam>
     public interface IHelperService<T, D>
         where T : BaseModel
         where D : BaseDTO
     {
         /// <summary>
-        /// Validates the relationships associated with a given entity identified by its ID.
+        /// Valida las relaciones asociadas a una entidad específica identificada por su ID.
         /// </summary>
-        /// <param name="id">The unique identifier of the entity whose relationships are to be validated.</param>
+        /// <param name="id">El identificador único de la entidad cuyas relaciones deben validarse.</param>
         /// <returns>
-        /// A task that represents the asynchronous operation. The task result contains <c>true</c> if the relationships are valid; otherwise, <c>false</c>.
+        /// Una tarea que representa la operación asincrónica. El resultado contiene <c>true</c> si las relaciones son válidas; 
+        /// de lo contrario, <c>false</c>.
         /// </returns>
         Task<bool> ValidateEntityRelationships(int id);
-        // <summary>
-        /// Generates a consecutive code based on the number of records in the associated model's table.
+
+        /// <summary>
+        /// Genera un código consecutivo basado en la cantidad de registros en la tabla del modelo asociado.
         /// </summary>
         /// <returns>
-        /// A task that represents the asynchronous operation. The task result contains the generated consecutive code, formatted as a 4-digit string (e.g., "0001", "0002").
+        /// Una tarea que representa la operación asincrónica. El resultado contiene el código consecutivo generado, 
+        /// formateado como una cadena de 4 dígitos (por ejemplo, "0001", "0002").
         /// </returns>
         Task<string> GenerateConsecutiveCode();
+
         /// <summary>
-        /// Retrieves a list of key-value pairs representing the values of a specified enumeration type.
+        /// Obtiene una lista de pares clave-valor que representan los valores de un tipo de enumeración especificado.
         /// </summary>
-        /// <param name="enumName">The name of the enum defined in the <c>Entity.Models</c> namespace (e.g., "DocumentType").</param>
+        /// <param name="enumName">
+        /// El nombre del enumerador definido en el espacio de nombres <c>Entity.Models</c> (por ejemplo, "DocumentType").
+        /// </param>
         /// <returns>
-        /// A task representing the asynchronous operation. The task result contains a list of <see cref="DataSelectRquest"/> 
-        /// objects, where each item includes the numeric value (<c>Id</c>) and its associated description (<c>DisplayText</c>).
+        /// Una tarea que representa la operación asincrónica. El resultado contiene una lista de objetos 
+        /// <see cref="DataSelectRequest"/>, donde cada elemento incluye el valor numérico (<c>Id</c>) 
+        /// y su descripción asociada (<c>DisplayText</c>).
         /// </returns>
-        /// <exception cref="ArgumentException">Thrown when the enum name does not correspond to a valid enum type.</exception>
+        /// <exception cref="ArgumentException">
+        /// Se lanza cuando el nombre del enumerador no corresponde a un tipo de enumeración válido.
+        /// </exception>
         Task<List<DataSelectRequest>> GetEnum(string enumName);
     }
 }
+

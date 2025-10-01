@@ -1,49 +1,48 @@
-﻿    using Dapper;
-    using Entity.Models;
-    using Entity.Models.ModelosParametros;
+﻿using Dapper;
+using Entity.Models;
+using Entity.Models.ModelosParametros;
 using Entity.Models.ModuleOperation;
 using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Diagnostics;
-    using Microsoft.EntityFrameworkCore.Storage;
-    using Microsoft.Extensions.Configuration;
-    using System.Data;
-    using System.Reflection;
-    using System.Reflection.Emit;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.Configuration;
+using System.Data;
+using System.Reflection;
+using System.Reflection.Emit;
 using System.Reflection.Metadata;
-
-
-
 
 namespace Entity.Context
 {
     /// <summary>
-    /// Database context for managing users, roles, forms, permissions, person, customer, and associations.
+    /// Contexto principal de la base de datos que gestiona usuarios, roles, permisos, personas, clientes, evaluaciones,
+    /// módulos, documentos, instituciones, objetivos y demás entidades del sistema.
+    /// Combina EF Core para ORM y Dapper para queries directas SQL.
     /// </summary>
     public class ApplicationContext : DbContext
     {
         protected readonly IConfiguration _configuration;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ApplicationContext"/> class.
+        /// Constructor del ApplicationContext.
         /// </summary>
-        /// <param name="options">The options for the context.</param>
-        /// <param name="configuration">The configuration object.</param>
+        /// <param name="options">Opciones del contexto de EF Core.</param>
+        /// <param name="configuration">Objeto de configuración (para obtener connection strings, etc).</param>
         public ApplicationContext(DbContextOptions<ApplicationContext> options, IConfiguration configuration)
             : base(options)
         {
             _configuration = configuration;
         }
 
-
         /// <summary>
-        /// Configures the model for the database context.
+        /// Configura los modelos y relaciones entre las entidades.
         /// </summary>
-        /// <param name="modelBuilder">The model builder for the context.</param>
+        /// <param name="modelBuilder">ModelBuilder de EF Core.</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Aplica todas las configuraciones de entidades desde este ensamblado
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-            // Apply configurations for all entities with a single configuration class.
+            // Configuración específica de cada entidad mediante ApplicationEntityConfigurations
             var configuration = new ApplicationEntityConfigurations();
             modelBuilder.ApplyConfiguration<User>(configuration);
             modelBuilder.ApplyConfiguration<Person>(configuration);
@@ -59,7 +58,6 @@ namespace Entity.Context
             modelBuilder.ApplyConfiguration<Criteria>(configuration);
             modelBuilder.ApplyConfiguration<LineThematic>(configuration);
             modelBuilder.ApplyConfiguration<PopulationGrade>(configuration);
-
             modelBuilder.ApplyConfiguration<Models.ModuleOperation.Document>(configuration);
             modelBuilder.ApplyConfiguration<Verification>(configuration);
             modelBuilder.ApplyConfiguration<Evaluation>(configuration);
@@ -72,8 +70,7 @@ namespace Entity.Context
             modelBuilder.ApplyConfiguration<Institution>(configuration);
             modelBuilder.ApplyConfiguration<Objective>(configuration);
 
-
-
+            // Configuración específica de PasswordRecovery
             modelBuilder.Entity<PasswordRecovery>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -83,18 +80,17 @@ namespace Entity.Context
                 entity.Property(e => e.Active).IsRequired();
             });
 
+            // Carga de datos iniciales
             InitialData.Data(modelBuilder);
+
             base.OnModelCreating(modelBuilder);
         }
 
-
-
-
         /// <summary>
-        /// Configures the context to allow the logging of sensitive data, useful during debugging to view parameter values in logs.
-        /// This should be disabled in production environments to avoid security risks.
+        /// Configura EF Core para permitir logging de datos sensibles (para debug).
+        /// Ignora warnings de cambios pendientes en el modelo.
         /// </summary>
-        /// <param name="optionsBuilder">The options builder.</param>
+        /// <param name="optionsBuilder">Opciones del contexto.</param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.EnableSensitiveDataLogging();
@@ -102,7 +98,7 @@ namespace Entity.Context
         }
 
         /// <summary>
-        /// Overrides the `SaveChanges` method to include auditing logic before saving changes to the database.
+        /// Sobrescribe SaveChanges para incluir lógica de auditoría antes de persistir cambios.
         /// </summary>
         public override int SaveChanges()
         {
@@ -111,24 +107,26 @@ namespace Entity.Context
         }
 
         /// <summary>
-        /// Overrides the `SaveChangesAsync` method to include auditing logic before saving changes asynchronously.
+        /// Sobrescribe SaveChangesAsync para incluir lógica de auditoría de forma asíncrona.
         /// </summary>
-        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {
             EnsureAudit();
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
 
         /// <summary>
-        /// Ensures auditing by detecting changes in the entities before performing operations on the database.
+        /// Detecta cambios en las entidades antes de guardar, útil para auditoría.
         /// </summary>
         private void EnsureAudit()
         {
             ChangeTracker.DetectChanges();
         }
 
+        #region Dapper Support
+
         /// <summary>
-        /// Executes a SQL query using Dapper and returns a collection of objects of the specified type.
+        /// Ejecuta un query SQL usando Dapper y devuelve un IEnumerable del tipo especificado.
         /// </summary>
         public async Task<IEnumerable<T>> QueryAsync<T>(string text, object parameters = null!, int? timeout = null, CommandType? type = null, string? Role = null, int? UserId = null)
         {
@@ -138,7 +136,7 @@ namespace Entity.Context
         }
 
         /// <summary>
-        /// Executes a SQL query using Dapper and returns the first object of the specified type, or a default value if not found.
+        /// Ejecuta un query SQL usando Dapper y devuelve el primer objeto encontrado o valor por defecto.
         /// </summary>
         public async Task<T> QueryFirstOrDefaultAsync<T>(string text, object parameters = null!, int? timeout = null, CommandType? type = null)
         {
@@ -148,19 +146,12 @@ namespace Entity.Context
         }
 
         /// <summary>
-        /// Represents a SQL command to be executed using Dapper and Entity Framework Core, encapsulating details like transaction, timeout, and cancellation token.
+        /// Representa un comando SQL para Dapper y EF Core con soporte de transacciones, timeout y token de cancelación.
         /// </summary>
         public readonly struct DapperEFCoreCommand : IDisposable
         {
-            /// <summary>
-            /// Initializes the command with the provided details.
-            /// </summary>
-            /// <param name="context">The database context.</param>
-            /// <param name="text">The SQL query text.</param>
-            /// <param name="parameters">The parameters for the query.</param>
-            /// <param name="timeout">The command timeout.</param>
-            /// <param name="type">The type of SQL command.</param>
-            /// <param name="ct">The cancellation token.</param>
+            public CommandDefinition Definition { get; }
+
             public DapperEFCoreCommand(DbContext context, string text, object parameters, int? timeout, CommandType? type, CancellationToken ct)
             {
                 var transaction = context.Database.CurrentTransaction?.GetDbTransaction();
@@ -177,18 +168,13 @@ namespace Entity.Context
                 );
             }
 
-            public CommandDefinition Definition { get; }
-
-            /// <summary>
-            /// Empty implementation of Dispose since no unmanaged resources are used in this command.
-            /// </summary>
-            public void Dispose()
-            {
-                // No additional actions needed to release resources in this case.
-            }
+            public void Dispose() { }
         }
 
-        // Definition of entities as DbSet properties for interaction with database tables.
+        #endregion
+
+        #region DbSets
+
         public DbSet<User> Users { get; set; }
         public DbSet<Person> Persons { get; set; }
         public DbSet<Role> Roles { get; set; }
@@ -201,11 +187,9 @@ namespace Entity.Context
 
         public DbSet<State> State { get; set; }
         public DbSet<Criteria> Criteria { get; set; }
-
         public DbSet<Grade> Grade { get; set; }
         public DbSet<LineThematic> LineThematics { get; set; }
         public DbSet<PopulationGrade> PopulationGrade { get; set; }
-
 
         public DbSet<Models.ModuleOperation.Document> Documents { get; set; }
         public DbSet<Verification> verifications { get; set; }
@@ -220,5 +204,7 @@ namespace Entity.Context
         public DbSet<Objective> Objectives { get; set; }
         public DbSet<PasswordRecovery> PasswordRecoveries { get; set; } = null!;
 
+        #endregion
     }
 }
+

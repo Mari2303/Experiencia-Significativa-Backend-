@@ -1,40 +1,62 @@
 ﻿using Entity.Models;
 using Entity.Requests;
+using Entity.Resquest;
 
 namespace Service.Interfaces
 {
     /// <summary>
-    /// Interface that defines operations related to user authentication.
-    /// This interface provides methods for login, password change, and user retrieval using JWT tokens.
+    /// Define las operaciones relacionadas con la autenticación de usuarios.
+    /// 
+    /// Esta interfaz proporciona métodos para:
+    /// - Iniciar sesión y obtener un token JWT.
+    /// - Cambiar la contraseña del usuario.
+    /// - Obtener un usuario a partir de un token JWT.
+    /// - Renovar un token existente.
     /// </summary>
     public interface IAuthService
     {
         /// <summary>
-        /// Retry a JWT for the correct user and password
+        /// Autentica al usuario con las credenciales proporcionadas y genera un token JWT válido.
         /// </summary>
-        /// <param name="username">The username of the user attempting to log in.</param>
-        /// <param name="password">The password of the user.</param>
+        /// <param name="username">Nombre de usuario utilizado para iniciar sesión.</param>
+        /// <param name="password">Contraseña asociada al usuario.</param>
+        /// <returns>
+        /// Una tarea asincrónica cuyo resultado contiene un <see cref="UserLoginResponseRequest"/> 
+        /// con la información del usuario autenticado y el token JWT.
+        /// </returns>
         Task<UserLoginResponseRequest> LoginAsync(string username, string password);
 
         /// <summary>
-        /// A task representing the asynchronous operation.
+        /// Cambia la contraseña de un usuario existente.
         /// </summary>
-        /// <param name="dto">The data transfer object containing the user ID and new password.</param>
+        /// <param name="changePassword">
+        /// Objeto de tipo <see cref="ChangePasswordRequest"/> que contiene el ID del usuario y la nueva contraseña.
+        /// </param>
+        /// <returns>
+        /// Una tarea asincrónica que representa la operación. 
+        /// No devuelve valor, pero lanza excepciones en caso de error (ej. credenciales inválidas).
+        /// </returns>
         Task ChangePasswordAsync(ChangePasswordRequest changePassword);
 
         /// <summary>
-        /// Return the user corresponding to the token.
+        /// Obtiene un usuario a partir de un token JWT válido.
         /// </summary>
-        /// <param name="token">The JWT token used to retrieve the user.</param>
+        /// <param name="token">El token JWT utilizado para identificar al usuario.</param>
+        /// <returns>
+        /// Una tarea asincrónica cuyo resultado es un objeto <see cref="User"/> correspondiente al token proporcionado.
+        /// </returns>
         Task<User> GetUserFromTokenAsync(string token);
 
         /// <summary>
-        /// Renews an existing JWT token by creating a new token with the same claims but a new expiration time.
-        /// </summary> 
-        /// <param name="token">The existing JWT token to renew.</param>
+        /// Renueva un token JWT existente, generando uno nuevo con los mismos claims 
+        /// pero con una fecha de expiración actualizada.
+        /// </summary>
+        /// <param name="token">El token JWT que se desea renovar.</param>
+        /// <returns>
+        /// Una tarea asincrónica cuyo resultado es un objeto <see cref="RenewTokenRequest"/> 
+        /// que contiene el nuevo token renovado y su fecha de expiración.
+        /// </returns>
         Task<RenewTokenRequest> RenewTokenAsync(string token);
-
-
-
     }
 }
+

@@ -1,44 +1,43 @@
 namespace Entity.Requests
 {
     /// <summary>
-    /// Rquest for show a menu
+    /// Petición para mostrar un menú
     /// </summary>
     public class MenuRequest
     {
         /// <summary>
-        /// The reference to form id
+        /// Referencia al ID del formulario
         /// </summary>
         public int FormId { get; set; }
 
         /// <summary>
-        /// The name of the form
+        /// Nombre del formulario
         /// </summary>
         public string Form { get; set; } = string.Empty;
 
         /// <summary>
-        /// The URL path or route to access the form
+        /// Ruta o URL para acceder al formulario
         /// </summary>
         public string Path { get; set; } = string.Empty;
 
         /// <summary>
-        /// Icon identifier for UI representation
+        /// Identificador del ícono para mostrar en la interfaz
         /// </summary>
         public string Icon { get; set; } = string.Empty;
 
         /// <summary>
-        /// Display order for the form in UI
+        /// Orden de visualización del formulario en la interfaz
         /// </summary>
         public int Order { get; set; }
 
         /// <summary>
-        /// The reference to module id
+        /// Referencia al ID del módulo
         /// </summary>
         public int ModuleId { get; set; }
 
         /// <summary>
-        /// The name of the module
+        /// Nombre del módulo
         /// </summary>
         public string Module { get; set; } = string.Empty;
-
     }
 }

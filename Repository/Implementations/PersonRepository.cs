@@ -11,7 +11,7 @@ using Utilities.Helper;
 namespace Repository.Implementations
 {
     /// <summary>
-    /// Implementation of the repository for person-related operations.
+    /// Implementación del repositorio para operaciones relacionadas con la entidad Persona.
     /// </summary>
     public class PersonRepository : BaseModelRepository<Person, PersonDTO, PersonRequest>, IPersonRepository
     {
@@ -20,8 +20,12 @@ namespace Repository.Implementations
         private readonly IConfiguration _configuration;
         private readonly IHelper<Person, PersonDTO> _helperRepository;
 
-        public PersonRepository(ApplicationContext context, IMapper mapper, IConfiguration configuration, IHelper<Person, PersonDTO> helperRepository)
-            : base(context, mapper, configuration, helperRepository)
+        public PersonRepository(
+            ApplicationContext context,
+            IMapper mapper,
+            IConfiguration configuration,
+            IHelper<Person, PersonDTO> helperRepository
+        ) : base(context, mapper, configuration, helperRepository)
         {
             _context = context;
             _mapper = mapper;
@@ -30,25 +34,31 @@ namespace Repository.Implementations
         }
 
         /// <summary>
-        /// Retrieves (where State is true) a filtered, sorted, and paginated list of DTOs based on the specified query filters.
+        /// Obtiene (donde <c>State</c> es verdadero) una lista filtrada, ordenada y paginada de DTOs 
+        /// según los filtros de consulta especificados.
         /// </summary>
         /// <param name="filters">
-        /// An instance of <see cref="QueryFilterRequest"/> containing optional parameters for filtering, 
-        /// ordering, pagination, and foreign key constraints.
+        /// Una instancia de <see cref="QueryFilterRequest"/> que contiene parámetros opcionales 
+        /// para filtrado, ordenamiento, paginación y restricciones por clave foránea.
         /// </param>
         /// <returns>
-        /// A task that represents the asynchronous operation. The task result contains an <see cref="IEnumerable{PersonResponseDTO}"/> 
-        /// representing the list of mapped DTOs that match the applied filters and pagination settings.
+        /// Una tarea asincrónica cuyo resultado es un <see cref="IEnumerable{PersonRequest}"/> 
+        /// que representa la lista de DTOs mapeados que cumplen con los filtros y paginación aplicados.
         /// </returns>
         /// <exception cref="Exception">
-        /// Throws any exception encountered during query execution or data mapping.
+        /// Lanza una excepción si ocurre un error durante la ejecución de la consulta o el mapeo de datos.
         /// </exception>
         public override async Task<IEnumerable<PersonRequest>> GetAll(QueryFilterRequest filters)
         {
             try
             {
-                int pageNumber = filters.PageNumber.HasValue && filters.PageNumber.Value > 0 ? filters.PageNumber.Value : _configuration.GetValue<int>("Pagination:DefaultPageNumber");
-                int pageSize = filters.PageSize.HasValue && filters.PageSize.Value > 0 ? filters.PageSize.Value : _configuration.GetValue<int>("Pagination:DefaultPageSize");
+                int pageNumber = filters.PageNumber.HasValue && filters.PageNumber.Value > 0
+                    ? filters.PageNumber.Value
+                    : _configuration.GetValue<int>("Pagination:DefaultPageNumber");
+
+                int pageSize = filters.PageSize.HasValue && filters.PageSize.Value > 0
+                    ? filters.PageSize.Value
+                    : _configuration.GetValue<int>("Pagination:DefaultPageSize");
 
                 filters.ColumnOrder ??= _configuration.GetValue<string>("Ordering:DefaultColumnOrder");
                 filters.DirectionOrder ??= _configuration.GetValue<string>("Ordering:DefaultDirectionOrder");
@@ -59,7 +69,6 @@ namespace Repository.Implementations
                                 WHEN 1 THEN 'Cédula de ciudadanía'
                                 WHEN 2 THEN 'Tarjeta de identidad'
                                 WHEN 3 THEN 'Cédula de extranjería'
-
                                 ELSE 'Desconocido'
                             END AS DocumentType,
                             person.IdentificationNumber,
@@ -67,7 +76,7 @@ namespace Repository.Implementations
                             person.MiddleName,
                             person.FirstLastName,
                             person.SecondLastName,
-                            CONCAT(person.FirstName, ' ' , person.MiddleName, ' ' , person.FirstLastName, ' ' , person.SecondLastName) AS FullName,
+                            CONCAT(person.FirstName, ' ', person.MiddleName, ' ', person.FirstLastName, ' ', person.SecondLastName) AS FullName,
                             person.Email,
                             person.Phone,
                             person.State,
@@ -84,14 +93,18 @@ namespace Repository.Implementations
 
                 if (!string.IsNullOrEmpty(filters.Filter))
                 {
-                    sql += @"AND (UPPER(CONCAT(person.FirstName,person.MiddleName,person.FirstLastName,person.SecondLastName)) LIKE UPPER(CONCAT(%, @filter, %))) ";
+                    sql += @"AND (UPPER(CONCAT(person.FirstName, person.MiddleName, person.FirstLastName, person.SecondLastName)) 
+                              LIKE UPPER(CONCAT('%', @filter, '%'))) ";
                 }
 
                 sql += @"ORDER BY person." + filters.ColumnOrder + @" " + filters.DirectionOrder;
 
-                IEnumerable<PersonRequest> items = await _context.QueryAsync<PersonRequest>(sql, new { filter = filters.Filter, foreignKey = filters.ForeignKey });
+                IEnumerable<PersonRequest> items = await _context.QueryAsync<PersonRequest>(
+                    sql,
+                    new { filter = filters.Filter, foreignKey = filters.ForeignKey }
+                );
 
-                // Apply pagination
+                // Aplicar paginación
                 if (filters.AplyPagination)
                 {
                     int skip = (pageNumber - 1) * pageSize;
@@ -102,10 +115,9 @@ namespace Repository.Implementations
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error retrieving data: {ex.Message}");
+                Console.WriteLine($"Error al obtener los datos: {ex.Message}");
                 throw;
             }
         }
-
     }
 }

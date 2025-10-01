@@ -5,65 +5,67 @@ using System.Linq.Expressions;
 namespace Entity.Requests
 {
     /// <summary>
-    /// Represents a paginated list of items with metadata for navigation and optional filtered lists.
-    /// Inherits from <see cref="List{T}"/>.
+    /// Representa una lista paginada de elementos con metadatos para navegación 
+    /// y listas opcionales filtradas.
+    /// Hereda de <see cref="List{T}"/>.
     /// </summary>
-    /// <typeparam name="T">The type of items in the paginated list.</typeparam>
+    /// <typeparam name="T">El tipo de elementos en la lista paginada.</typeparam>
     public class PagedListRequest<T> : List<T>
     {
         /// <summary>
-        /// Gets or sets the current page number.
+        /// Obtiene o establece el número de página actual.
         /// </summary>
         public int CurrentPage { get; set; }
 
         /// <summary>
-        /// Gets or sets the total number of pages.
+        /// Obtiene o establece el número total de páginas.
         /// </summary>
         public int TotalPages { get; set; }
 
         /// <summary>
-        /// Gets or sets the size of each page.
+        /// Obtiene o establece el tamaño de cada página (cantidad de elementos).
         /// </summary>
         public int PageSize { get; set; }
 
         /// <summary>
-        /// Gets or sets the total number of items across all pages.
+        /// Obtiene o establece el número total de elementos en todas las páginas.
         /// </summary>
         public int TotalCount { get; set; }
 
         /// <summary>
-        /// Gets or sets additional related data, such as select lists or filters.
+        /// Obtiene o establece datos adicionales relacionados, 
+        /// como listas de selección o filtros.
         /// </summary>
         public object Lists { get; set; }
 
         /// <summary>
-        /// Gets a value indicating whether there is a previous page.
+        /// Indica si existe una página anterior.
         /// </summary>
         public bool HasPreviousPage => CurrentPage > 1;
 
         /// <summary>
-        /// Gets a value indicating whether there is a next page.
+        /// Indica si existe una página siguiente.
         /// </summary>
         public bool HasNextPage => CurrentPage < TotalPages;
 
         /// <summary>
-        /// Gets the next page number if available; otherwise, null.
+        /// Obtiene el número de la página siguiente si está disponible; de lo contrario, null.
         /// </summary>
         public int? NextPageNumber => HasNextPage ? CurrentPage + 1 : null;
 
         /// <summary>
-        /// Gets the previous page number if available; otherwise, null.
+        /// Obtiene el número de la página anterior si está disponible; de lo contrario, null.
         /// </summary>
         public int? PreviousPageNumber => HasPreviousPage ? CurrentPage - 1 : null;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PagedListDTO{T}"/> class.
+        /// Inicializa una nueva instancia de la clase <see cref="PagedListRequest{T}"/>.
         /// </summary>
-        /// <param name="items">The items to include in the current page.</param>
-        /// <param name="count">The total number of items in the full list.</param>
-        /// <param name="pageNumber">The current page number (1-based).</param>
-        /// <param name="pageSize">The number of items per page.</param>
-        /// <param name="lists">Optional related lists or metadata.</param>
+        /// <param name="items">Los elementos a incluir en la página actual.</param>
+        /// <param name="count">El número total de elementos en la lista completa.</param>
+        /// <param name="pageNumber">El número de página actual (basado en 1).</param>
+        /// <param name="pageSize">El número de elementos por página.</param>
+        /// <param name="lists">Listas relacionadas o metadatos opcionales.</param>
         public PagedListRequest(List<T> items, int count, int pageNumber = 1, int pageSize = 10, object lists = null)
         {
             TotalCount = count;
@@ -76,13 +78,14 @@ namespace Entity.Requests
         }
 
         /// <summary>
-        /// Creates a new <see cref="PagedListDTO{T}"/> from a source collection, applying pagination logic.
+        /// Crea una nueva <see cref="PagedListRequest{T}"/> a partir de una colección origen,
+        /// aplicando la lógica de paginación.
         /// </summary>
-        /// <param name="source">The full source collection.</param>
-        /// <param name="pageNumber">The page number to return.</param>
-        /// <param name="pageSize">The number of items per page.</param>
-        /// <param name="lists">Optional related data to include.</param>
-        /// <returns>A paged list of items from the source.</returns>
+        /// <param name="source">La colección completa de origen.</param>
+        /// <param name="pageNumber">El número de página a devolver.</param>
+        /// <param name="pageSize">El número de elementos por página.</param>
+        /// <param name="lists">Datos relacionados opcionales para incluir.</param>
+        /// <returns>Una lista paginada de elementos de la fuente.</returns>
         public static PagedListRequest<T> Create(IEnumerable<T> source, int pageNumber, int pageSize, object lists = null)
         {
             var count = source.Count();
@@ -92,22 +95,22 @@ namespace Entity.Requests
         }
 
         /// <summary>
-        /// Applies dynamic filtering to the source collection using the specified column and filter string.
+        /// Aplica filtros dinámicos a la colección fuente utilizando la columna y cadena de filtro especificada.
         /// </summary>
-        /// <param name="query">The source collection to filter.</param>
-        /// <param name="queryFilterDto">The filtering criteria.</param>
-        /// <returns>A filtered collection of items.</returns>
+        /// <param name="query">La colección fuente a filtrar.</param>
+        /// <param name="queryFilterDto">Los criterios de filtrado.</param>
+        /// <returns>Una colección filtrada de elementos.</returns>
         public static IQueryable<T> ApplyDynamicFilters(IQueryable<T> query, QueryFilterRequest queryFilterDto)
         {
             return query.Where(i => EF.Property<string>(i, queryFilterDto.ColumnFilter).Contains(queryFilterDto.Filter));
         }
 
         /// <summary>
-        /// Applies dynamic ordering to the source collection using the specified column and direction.
+        /// Aplica ordenamiento dinámico a la colección fuente utilizando la columna y dirección especificada.
         /// </summary>
-        /// <param name="query">The source collection to sort.</param>
-        /// <param name="queryFilterDto">The sorting criteria.</param>
-        /// <returns>An ordered queryable collection.</returns>
+        /// <param name="query">La colección fuente a ordenar.</param>
+        /// <param name="queryFilterDto">Los criterios de ordenamiento.</param>
+        /// <returns>Una colección ordenada (IOrderedQueryable).</returns>
         public static IOrderedQueryable<T> ApplyOrdering(IEnumerable<T> query, QueryFilterRequest queryFilterDto)
         {
             if (!string.IsNullOrEmpty(queryFilterDto.ColumnOrder))
@@ -120,12 +123,12 @@ namespace Entity.Requests
         }
 
         /// <summary>
-        /// Dynamically orders the source queryable by the specified property and direction.
+        /// Ordena dinámicamente la colección fuente según la propiedad y la dirección especificada.
         /// </summary>
-        /// <param name="source">The queryable source.</param>
-        /// <param name="propertyName">The name of the property to order by.</param>
-        /// <param name="direction">The direction to sort ("asc" or "desc").</param>
-        /// <returns>The ordered queryable collection.</returns>
+        /// <param name="source">La fuente de datos IQueryable.</param>
+        /// <param name="propertyName">El nombre de la propiedad por la que se ordenará.</param>
+        /// <param name="direction">La dirección del orden ("asc" o "desc").</param>
+        /// <returns>La colección ordenada.</returns>
         public static IOrderedQueryable<T> OrderByProperty<T>(IQueryable<T> source, string propertyName, string direction)
         {
             var type = typeof(T);
@@ -145,3 +148,4 @@ namespace Entity.Requests
         }
     }
 }
+

@@ -5,15 +5,18 @@ using Utilities.Mappers.ModulesParamer;
 
 namespace API
 {
+    /// <summary>
+    /// Extensión para configurar AutoMapper en la aplicación.
+    /// </summary>
     class MapperExtension
     {
         /// <summary>
-        /// Configures AutoMapper profiles for the application.
+        /// Configura los perfiles de AutoMapper para la aplicación.
         /// </summary>
-        /// <param name="services">The service collection to add the AutoMapper profiles to.</param>
+        /// <param name="services">La colección de servicios donde se agregarán los perfiles de AutoMapper.</param>
         public static void ConfigureAutoMapper(IServiceCollection services)
         {
-            // Create instances of the AutoMapper profiles
+            // Crear instancias de los perfiles de AutoMapper
             var jwtAuthentication = services.BuildServiceProvider().GetService<IJwtAuthentication>();
             var formProfiles = new FormProfiles();
             var formModuleProfiles = new FormModuleProfiles();
@@ -40,11 +43,9 @@ namespace API
             var historyExperienceProfiles = new HistoryExperienceProfiles();
             var objectiveProfiles = new ObjectiveProfiles();
             var verificationProfiles = new VerificationProfiles();
-            var InstitutionProfiles = new InstitutionProfiles();
+            var institutionProfiles = new InstitutionProfiles();
 
-
-
-            // Register AutoMapper with the AutoMapperProfiles instance
+            // Registrar los perfiles de AutoMapper en los servicios
             services.AddAutoMapper(_ => _.AddProfile(formProfiles));
             services.AddAutoMapper(_ => _.AddProfile(formModuleProfiles));
             services.AddAutoMapper(_ => _.AddProfile(moduleProfiles));
@@ -54,11 +55,11 @@ namespace API
             services.AddAutoMapper(_ => _.AddProfile(roleProfiles));
             services.AddAutoMapper(_ => _.AddProfile(userProfiles));
             services.AddAutoMapper(_ => _.AddProfile(userRoleProfiles));
-            services.AddAutoMapper(_=> _.AddProfile(criteriaProfiles));
-            services.AddAutoMapper(_=>_.AddProfile(gradeProfiles));
-            services.AddAutoMapper(_=>_.AddProfile(stateProfiles));
+            services.AddAutoMapper(_ => _.AddProfile(criteriaProfiles));
+            services.AddAutoMapper(_ => _.AddProfile(gradeProfiles));
+            services.AddAutoMapper(_ => _.AddProfile(stateProfiles));
             services.AddAutoMapper(_ => _.AddProfile(populationGradeProfiles));
-            services.AddAutoMapper(_=>_.AddProfile(lineThematicProfiles));
+            services.AddAutoMapper(_ => _.AddProfile(lineThematicProfiles));
 
             services.AddAutoMapper(_ => _.AddProfile(documentProfiles));
             services.AddAutoMapper(_ => _.AddProfile(evaluationProfiles));
@@ -70,9 +71,7 @@ namespace API
             services.AddAutoMapper(_ => _.AddProfile(historyExperienceProfiles));
             services.AddAutoMapper(_ => _.AddProfile(objectiveProfiles));
             services.AddAutoMapper(_ => _.AddProfile(verificationProfiles));
-            services.AddAutoMapper(_ => _.AddProfile(InstitutionProfiles));
-
-
+            services.AddAutoMapper(_ => _.AddProfile(institutionProfiles));
         }
     }
 }

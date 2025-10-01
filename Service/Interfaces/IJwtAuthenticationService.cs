@@ -1,30 +1,33 @@
 ﻿namespace Service.Interfaces
 {
     /// <summary>
-    /// Interface that defines operations for JWT authentication and password encryption.
+    /// Interfaz que define operaciones para la autenticación JWT y el cifrado de contraseñas.
     /// </summary>
     public interface IJwtAuthenticationService
     {
         /// <summary>
-        /// Authenticates a user based on their username and password.
+        /// Autentica a un usuario basado en su nombre de usuario y contraseña.
         /// </summary>
-        /// <param name="user">The username of the user.</param>
-        /// <param name="password">The password of the user.</param>
-        /// <returns>A JWT token if the authentication is successful.</returns>
+        /// <param name="user">El nombre de usuario del usuario.</param>
+        /// <param name="password">La contraseña del usuario.</param>
+        /// <param name="role">El rol del usuario.</param>
+        /// <param name="userId">El ID del usuario.</param>
+        /// <returns>Un token JWT si la autenticación es exitosa.</returns>
         string Authenticate(string user, string password, string role, int userId);
 
         /// <summary>
-        /// Encrypts a password using the MD5 algorithm.
+        /// Cifra una contraseña utilizando el algoritmo MD5.
         /// </summary>
-        /// <param name="password">The password to be encrypted.</param>
-        /// <returns>The MD5 hash of the password.</returns>
+        /// <param name="password">La contraseña que se desea cifrar.</param>
+        /// <returns>El hash MD5 de la contraseña.</returns>
         string EncryptMD5(string password);
 
         /// <summary>
-        /// Renews an existing JWT token by creating a new token with the same claims but a new expiration time.
+        /// Renueva un token JWT existente creando un nuevo token con los mismos claims pero con una nueva fecha de expiración.
         /// </summary>
-        /// <param name="existingToken">The existing JWT token to renew.</param>
-        /// <returns>A new JWT token with the same claims but a new expiration time, or an error message if the renewal fails.</returns>
+        /// <param name="existingToken">El token JWT existente que se desea renovar.</param>
+        /// <returns>Un nuevo token JWT con los mismos claims pero con nueva fecha de expiración, o un mensaje de error si la renovación falla.</returns>
         public string RenewToken(string existingToken);
     }
 }
+

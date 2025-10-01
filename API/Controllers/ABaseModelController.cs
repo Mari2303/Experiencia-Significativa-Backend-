@@ -1,57 +1,62 @@
-﻿using Entity.Dtos;
-using Entity.Models;
-using Entity.Requests;
-using Microsoft.AspNetCore.Mvc;
+﻿using Entity.Dtos;     
+using Entity.Models;    
+using Entity.Requests;   
+using Microsoft.AspNetCore.Mvc; 
 
 namespace API.Controllers
 {
     /// <summary>
-    /// Abstract base controller that defines generic RESTful endpoints for managing entities and their DTO representations.
-    /// This class is intended to be inherited by specific controllers that handle a concrete model type.
+    /// Controlador base abstracto que define endpoints REST genéricos para manejar entidades.
+    /// Este controlador se utiliza como plantilla para otros controladores específicos de entidades concretas.
     /// </summary>
-    /// <typeparam name="T">The entity type, inheriting from <see cref="BaseModel"/>.</typeparam>
-    /// <typeparam name="D">The DTO type, inheriting from <see cref="BaseDTO"/>.</typeparam>
-    /// <typeparam name="R">The Request type, inheriting from <see cref="BaseRequest"/>.</typeparam>
+    /// <typeparam name="T">Tipo de entidad, debe heredar de <see cref="BaseModel"/>.</typeparam>
+    /// <typeparam name="D">Tipo de DTO (Data Transfer Object), debe heredar de <see cref="BaseDTO"/>.</typeparam>
+    /// <typeparam name="R">Tipo de Request, debe heredar de <see cref="BaseRequest"/>.</typeparam>
     public abstract class ABaseModelController<T, D, R> : ControllerBase
         where T : BaseModel
         where D : BaseDTO
         where R : BaseRequest
     {
         /// <summary>
-        /// Retrieves all entities as a collection of DTOs.
+        /// Obtiene todas las entidades aplicando filtros opcionales.
         /// </summary>
-        /// <returns>A list of <typeparamref name="R"/> wrapped in an <see cref="ActionResult"/>.</returns>
+        /// <param name="filters">Filtros opcionales para la consulta.</param>
+        /// <returns>Una lista de entidades convertidas a DTOs (tipo <typeparamref name="R"/>).</returns>
         public abstract Task<ActionResult<IEnumerable<R>>> GetAll(QueryFilterRequest filters);
 
         /// <summary>
-        /// Retrieves a specific entity by its unique identifier and maps it to a DTO.
+        /// Obtiene una entidad específica por su ID.
         /// </summary>
-        /// <param name="id">The ID of the entity to retrieve.</param>
-        /// <returns>The DTO representation of the entity, wrapped in an <see cref="ActionResult"/>.</returns>
+        /// <param name="id">El identificador único de la entidad.</param>
+        /// <returns>La entidad convertida a DTO (tipo <typeparamref name="D"/>).</returns>
         public abstract Task<ActionResult<D>> GetById(int id);
 
         /// <summary>
-        /// Creates a new entity using the data from the provided DTO.
+        /// Crea una nueva entidad a partir de un DTO.
         /// </summary>
-        /// <param name="dto">The data transfer object containing entity data to save.</param>
-        /// <returns>The created entity as a DTO, wrapped in an <see cref="ActionResult"/>.</returns>
+        /// <param name="request">DTO con los datos de la entidad a crear.</param>
+        /// <returns>La entidad creada como DTO.</returns>
         public abstract Task<ActionResult<D>> Save(D request);
 
         /// <summary>
-        /// Updates an existing entity using the data from the provided DTO.
+        /// Actualiza una entidad existente a partir de un DTO.
         /// </summary>
-        /// <param name="dto">The data transfer object containing the updated entity data.</param>
-        /// <returns>An <see cref="ActionResult"/> indicating the outcome of the update operation.</returns>
+        /// <param name="request">DTO con los datos actualizados de la entidad.</param>
+        /// <returns>Resultado de la operación de actualización.</returns>
         public abstract Task<ActionResult<D>> Update(D request);
 
         /// <summary>
-        /// Deletes an entity based on its unique identifier.
+        /// Elimina una entidad según su ID.
         /// </summary>
-        /// <param name="id">The ID of the entity to delete.</param>
-        /// <returns>An <see cref="ActionResult"/> indicating the outcome of the deletion operation.</returns>
+        /// <param name="id">El ID de la entidad a eliminar.</param>
+        /// <returns>Resultado de la operación de eliminación.</returns>
         public abstract Task<ActionResult> Delete(int id);
 
-
+        /// <summary>
+        /// Restaura una entidad previamente eliminada (soft delete).
+        /// </summary>
+        /// <param name="id">El ID de la entidad a restaurar.</param>
+        /// <returns>Resultado de la operación de restauración.</returns>
         public abstract Task<ActionResult> Restore(int id);
     }
 }

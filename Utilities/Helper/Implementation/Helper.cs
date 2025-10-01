@@ -11,11 +11,11 @@ using Entity.Requests;
 namespace Utilities.Helper
 {
     /// <summary>
-    /// Concrete implementation of the <see cref="AHelper{T, D}"/> that uses reflection and expression trees
-    /// to dynamically validate whether an entity of type <typeparamref name="T"/> is referenced by other active entities in the database.
+    /// Implementación concreta de <see cref="AHelper{T, D}"/> que utiliza reflexión y árboles de expresión
+    /// para validar dinámicamente si una entidad de tipo <typeparamref name="T"/> está referenciada por otras entidades activas en la base de datos.
     /// </summary>
-    /// <typeparam name="T">The entity type, which must inherit from <see cref="BaseModel"/>.</typeparam>
-    /// <typeparam name="D">The DTO type, which must inherit from <see cref="BaseDTO"/>.</typeparam>
+    /// <typeparam name="T">El tipo de entidad, que debe heredar de <see cref="BaseModel"/>.</typeparam>
+    /// <typeparam name="D">El tipo de DTO, que debe heredar de <see cref="BaseDTO"/>.</typeparam>
     public class Helper<T, D> : AHelper<T, D>
         where T : BaseModel
         where D : BaseDTO
@@ -24,10 +24,10 @@ namespace Utilities.Helper
         private readonly IMapper _mapper;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Helper{T, D}"/> class with the specified database context and mapper.
+        /// Inicializa una nueva instancia de la clase <see cref="Helper{T, D}"/> con el contexto de base de datos y el mapper especificados.
         /// </summary>
-        /// <param name="context">The Entity Framework database context used for querying entity relationships.</param>
-        /// <param name="mapper">The object mapper used for model-to-DTO transformations.</param>
+        /// <param name="context">El contexto de Entity Framework utilizado para consultar las relaciones de las entidades.</param>
+        /// <param name="mapper">El objeto mapper utilizado para transformar modelos a DTO.</param>
         public Helper(ApplicationContext context, IMapper mapper)
         {
             _context = context;
@@ -35,13 +35,13 @@ namespace Utilities.Helper
         }
 
         /// <summary>
-        /// Validates whether the entity of type <typeparamref name="T"/> with the given ID is referenced by any active records
-        /// in other entities within the current DbContext.
+        /// Valida si la entidad de tipo <typeparamref name="T"/> con el ID dado está referenciada por registros activos
+        /// en otras entidades dentro del DbContext actual.
         /// </summary>
-        /// <param name="id">The identifier of the entity to validate.</param>
+        /// <param name="id">El identificador de la entidad a validar.</param>
         /// <returns>
-        /// A task that represents the asynchronous operation. The task result is <c>true</c> if no active foreign key dependencies exist; 
-        /// otherwise, <c>false</c>.
+        /// Una tarea que representa la operación asíncrona. El resultado es <c>true</c> si no existen dependencias de clave foránea activas; 
+        /// de lo contrario, <c>false</c>.
         /// </returns>
         public override async Task<bool> ValidateEntityRelationships(int id)
         {
@@ -112,16 +112,21 @@ namespace Utilities.Helper
             }
             return true;
         }
+
         /// <summary>
-        /// Generates a consecutive code by delegating the logic to the repository layer.
+        /// Genera un código consecutivo delegando la lógica a la capa de repositorio.
         /// </summary>
         /// <returns>
-        /// A task that represents the asynchronous operation. The task result contains the generated 
-        /// consecutive code as a 4-digit string (e.g., "0001", "0002").
+        /// Una tarea que representa la operación asíncrona. El resultado contiene el código consecutivo generado como cadena de 4 dígitos (por ejemplo, "0001", "0002").
         /// </returns>
         public override async Task<string> GenerateConsecutiveCode()
         {
-            var lastCodeStr = await _context.Set<T>().AsNoTracking().Where(e => EF.Property<string>(e, "Code") != null).Select(e => EF.Property<string>(e, "Code")).ToListAsync();
+            var lastCodeStr = await _context.Set<T>()
+                .AsNoTracking()
+                .Where(e => EF.Property<string>(e, "Code") != null)
+                .Select(e => EF.Property<string>(e, "Code"))
+                .ToListAsync();
+
             var lastCodeInt = lastCodeStr.Select(code =>
             {
                 bool isParsed = int.TryParse(code, out int val);
@@ -131,15 +136,16 @@ namespace Utilities.Helper
             int newCode = lastCodeInt + 1;
             return newCode.ToString("D4");
         }
+
         /// <summary>
-        /// Retrieves a list of key-value pairs representing the values of the specified enum.
-        /// It uses reflection to locate the enum by name in the <c>Entity.Models</c> namespace and extracts its numeric value and associated <see cref="DescriptionAttribute"/>.
+        /// Obtiene una lista de pares clave-valor que representan los valores de un enum especificado.
+        /// Utiliza reflexión para localizar el enum por nombre en el espacio de nombres <c>Entity.Models</c> y extrae su valor numérico y el <see cref="DescriptionAttribute"/> asociado.
         /// </summary>
-        /// <param name="enumName">The name of the enum to retrieve, such as "DocumentType" or "Gender".</param>
+        /// <param name="enumName">El nombre del enum a recuperar, por ejemplo "DocumentType" o "Gender".</param>
         /// <returns>
-        /// A task representing the asynchronous operation. The task result is a list of <see cref="DataSelectRequest"/> containing the enum's value (as <c>Id</c>) and its description (as <c>DisplayText</c>).
+        /// Una tarea que representa la operación asíncrona. El resultado es una lista de <see cref="DataSelectRequest"/> que contiene el valor del enum (Id) y su descripción (DisplayText).
         /// </returns>
-        /// <exception cref="ArgumentException">Thrown if the enum type is not found or is not a valid enumeration.</exception>
+        /// <exception cref="ArgumentException">Se lanza si el tipo de enum no se encuentra o no es un enumerado válido.</exception>
         public override async Task<List<DataSelectRequest>> GetEnum(string enumName)
         {
             var enumType = AppDomain.CurrentDomain.GetAssemblies()
@@ -147,7 +153,7 @@ namespace Utilities.Helper
                 .FirstOrDefault(t => t.IsEnum && t.Name.Equals(enumName, StringComparison.OrdinalIgnoreCase));
 
             if (enumType == null || !enumType.IsEnum)
-                throw new ArgumentException($"Enum '{enumName}' not found or not a valid enum.");
+                throw new ArgumentException($"Enum '{enumName}' no encontrado o no es un enum válido.");
 
             var result = new List<DataSelectRequest>();
 
@@ -167,18 +173,22 @@ namespace Utilities.Helper
             return result;
         }
 
-
+        /// <summary>
+        /// Valida los datos importados del DTO proporcionado.
+        /// </summary>
+        /// <param name="request">El DTO que contiene los datos a validar.</param>
+        /// <returns>Una tarea que representa la operación asíncrona. El resultado indica si los datos son válidos (<c>true</c>) o no (<c>false</c>).</returns>
         public override async Task<bool> ValidateDataImport(D request)
         {
             if (request == null) return false;
 
-            // Inherited properties that are allowed to be null/empty
+            // Propiedades heredadas que se permiten nulas o vacías
             var excludedProps = typeof(BaseDTO)
                 .GetProperties(BindingFlags.Public | BindingFlags.Instance)
                 .Select(p => p.Name)
                 .ToHashSet();
 
-            // Properties of the derived class
+            // Propiedades de la clase derivada
             var propsToValidate = typeof(D)
                 .GetProperties(BindingFlags.Public | BindingFlags.Instance)
                 .Where(p => !excludedProps.Contains(p.Name));

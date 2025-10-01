@@ -3,33 +3,31 @@ using System.ComponentModel.DataAnnotations;
 namespace Entity.Requests
 {
     /// <summary>
-    /// Request for changing a user's password
+    /// Petición para cambiar la contraseña de un usuario
     /// </summary>
     public class ChangePasswordRequest
     {
         /// <summary>
-        /// The unique identifier for the user
+        /// Identificador único del usuario
         /// </summary>
         public int UserId { get; set; }
+
         /// <summary>
-        /// User's current password for verification        
+        /// Contraseña actual del usuario (para verificación)
         /// </summary>
-        /// 
         [Required(ErrorMessage = "La actual contraseña es obligatoria")]
         public string CurrentPassword { get; set; } = string.Empty;
 
         /// <summary>
-        /// User's new password
+        /// Nueva contraseña del usuario
         /// </summary>
-
         [Required(ErrorMessage = "La nueva contraseña es obligatoria")]
         [MinLength(8, ErrorMessage = "La contraseña debe tener al menos 8 caracteres")]
         public string NewPassword { get; set; } = string.Empty;
 
         /// <summary>
-        /// Confirmation of the new password
+        /// Confirmación de la nueva contraseña
         /// </summary>
-        ///  
         [Required(ErrorMessage = "Debe confirmar la contraseña")]
         [Compare("NewPassword", ErrorMessage = "Las contraseñas no coinciden")]
         public string ConfirmPassword { get; set; } = string.Empty;

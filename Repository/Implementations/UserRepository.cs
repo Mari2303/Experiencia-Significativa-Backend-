@@ -7,13 +7,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Repository.Interfaces;
 using Utilities.Helper;
-using System.Text;
-using System.Security.Cryptography;
 
 namespace Repository.Implementations
 {
     /// <summary>
-    /// Implementation of the repository for user-related operations.
+    /// Implementación del repositorio para operaciones relacionadas con Usuarios.
     /// </summary>
     public class UserRepository : BaseModelRepository<User, UserDTO, UserRequest>, IUserRepository
     {
@@ -22,7 +20,12 @@ namespace Repository.Implementations
         private readonly IConfiguration _configuration;
         private readonly IHelper<User, UserDTO> _helperRepository;
 
-        public UserRepository(ApplicationContext context, IMapper mapper, IConfiguration configuration, IHelper<User, UserDTO> helperRepository) : base(context, mapper, configuration, helperRepository)
+        public UserRepository(
+            ApplicationContext context,
+            IMapper mapper,
+            IConfiguration configuration,
+            IHelper<User, UserDTO> helperRepository
+        ) : base(context, mapper, configuration, helperRepository)
         {
             _context = context;
             _mapper = mapper;
@@ -31,25 +34,31 @@ namespace Repository.Implementations
         }
 
         /// <summary>
-        /// Retrieves (where State is true) a filtered, sorted, and paginated list of DTOs based on the specified query filters.
+        /// Obtiene (donde <c>DeletedAt</c> es nulo) una lista filtrada, ordenada y paginada de Usuarios
+        /// según los filtros especificados.
         /// </summary>
         /// <param name="filters">
-        /// An instance of <see cref="QueryFilterRequest"/> containing optional parameters for filtering, 
-        /// ordering, pagination, and foreign key constraints.
+        /// Instancia de <see cref="QueryFilterRequest"/> que contiene parámetros opcionales 
+        /// para filtrado, ordenamiento, paginación y restricciones por clave foránea.
         /// </param>
         /// <returns>
-        /// A task that represents the asynchronous operation. The task result contains an <see cref="IEnumerable{UserDTO}"/> 
-        /// representing the list of mapped DTOs that match the applied filters and pagination settings.
+        /// Una tarea asincrónica cuyo resultado es un <see cref="IEnumerable{UserRequest}"/> 
+        /// con la lista de usuarios que cumplen los filtros y paginación aplicados.
         /// </returns>
         /// <exception cref="Exception">
-        /// Throws any exception encountered during query execution or data mapping.
+        /// Lanza una excepción si ocurre un error durante la ejecución de la consulta o el mapeo de datos.
         /// </exception>
         public override async Task<IEnumerable<UserRequest>> GetAll(QueryFilterRequest filters)
         {
             try
             {
-                int pageNumber = filters.PageNumber.HasValue && filters.PageNumber.Value > 0 ? filters.PageNumber.Value : _configuration.GetValue<int>("Pagination:DefaultPageNumber");
-                int pageSize = filters.PageSize.HasValue && filters.PageSize.Value > 0 ? filters.PageSize.Value : _configuration.GetValue<int>("Pagination:DefaultPageSize");
+                int pageNumber = filters.PageNumber.HasValue && filters.PageNumber.Value > 0
+                    ? filters.PageNumber.Value
+                    : _configuration.GetValue<int>("Pagination:DefaultPageNumber");
+
+                int pageSize = filters.PageSize.HasValue && filters.PageSize.Value > 0
+                    ? filters.PageSize.Value
+                    : _configuration.GetValue<int>("Pagination:DefaultPageSize");
 
                 filters.ColumnOrder ??= _configuration.GetValue<string>("Ordering:DefaultColumnOrder");
                 filters.DirectionOrder ??= _configuration.GetValue<string>("Ordering:DefaultDirectionOrder");
@@ -76,14 +85,17 @@ namespace Repository.Implementations
 
                 if (!string.IsNullOrEmpty(filters.Filter))
                 {
-                    sql += @"AND (UPPER(CONCAT(usu.Username)) LIKE UPPER(CONCAT(%, @filter, %))) ";
+                    sql += @"AND (UPPER(usu.Username) LIKE UPPER(CONCAT('%', @filter, '%'))) ";
                 }
 
                 sql += @"ORDER BY usu." + filters.ColumnOrder + @" " + filters.DirectionOrder;
 
-                IEnumerable<UserRequest> items = await _context.QueryAsync<UserRequest>(sql, new { filter = filters.Filter, foreignKey = filters.ForeignKey });
+                IEnumerable<UserRequest> items = await _context.QueryAsync<UserRequest>(
+                    sql,
+                    new { filter = filters.Filter, foreignKey = filters.ForeignKey }
+                );
 
-                // Apply pagination
+                // Aplicar paginación
                 if (filters.AplyPagination)
                 {
                     int skip = (pageNumber - 1) * pageSize;
@@ -94,11 +106,18 @@ namespace Repository.Implementations
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error retrieving data: {ex.Message}");
+                Console.WriteLine($"Error al obtener usuarios: {ex.Message}");
                 throw;
             }
         }
 
+        /// <summary>
+        /// Obtiene un usuario por su nombre de usuario.
+        /// </summary>
+        /// <param name="name">Nombre de usuario.</param>
+        /// <returns>
+        /// Una tarea asincrónica cuyo resultado es una instancia de <see cref="UserRequest"/> o null si no existe.
+        /// </returns>
         public async Task<UserRequest> GetByName(string name)
         {
             try
@@ -122,11 +141,19 @@ namespace Repository.Implementations
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error retrieving data: {ex.Message}");
+                Console.WriteLine($"Error al obtener usuario por nombre: {ex.Message}");
                 throw;
             }
         }
 
+        /// <summary>
+        /// Obtiene el menú de accesos del usuario según sus roles y permisos.
+        /// </summary>
+        /// <param name="userId">Identificador del usuario.</param>
+        /// <returns>
+        /// Una tarea asincrónica cuyo resultado es una lista de <see cref="MenuRequest"/> 
+        /// con los formularios y módulos accesibles por el usuario.
+        /// </returns>
         public async Task<List<MenuRequest>> GetMenuAsync(int userId)
         {
             try
@@ -154,55 +181,59 @@ namespace Repository.Implementations
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error retrieving menu: {ex.Message}");
+                Console.WriteLine($"Error al obtener menú del usuario: {ex.Message}");
                 throw;
             }
         }
 
-
-        //  este AddAsync trabaja con ENTIDAD User
+        /// <summary>
+        /// Agrega un nuevo usuario en la base de datos.
+        /// </summary>
+        /// <param name="entity">Entidad usuario a agregar.</param>
         public async Task AddAsync(User entity)
         {
             await _context.Users.AddAsync(entity);
             await _context.SaveChangesAsync();
         }
 
-
+        /// <summary>
+        /// Obtiene la lista de roles asociados a un usuario.
+        /// </summary>
+        /// <param name="userId">Identificador del usuario.</param>
+        /// <returns>Lista de nombres de roles asociados al usuario.</returns>
         public async Task<List<string>> GetRolesByUserId(int userId)
         {
-            var roles = await _context.Users
+            return await _context.Users
                .Where(u => u.Id == userId)
                .Include(u => u.UserRoles)
                    .ThenInclude(ur => ur.Role)
                .SelectMany(u => u.UserRoles.Select(ur => ur.Role.Name))
                .ToListAsync();
-
-            return roles;
         }
 
-
+        /// <summary>
+        /// Obtiene un usuario por el correo electrónico asociado a la persona.
+        /// </summary>
+        /// <param name="email">Correo electrónico de la persona.</param>
+        /// <returns>Instancia de <see cref="User"/> o null si no existe.</returns>
         public async Task<User?> GetByEmailAsync(string email)
         {
             return await _context.Users
-                .Include(u => u.Person) // si tienes la navegación
+                .Include(u => u.Person)
                 .FirstOrDefaultAsync(u => u.Person != null && u.Person.Email == email);
         }
 
-
+        /// <summary>
+        /// Actualiza la información de un usuario.
+        /// </summary>
+        /// <param name="user">Entidad usuario a actualizar.</param>
         public async Task UpdateAsync(User user)
         {
             _context.Users.Update(user);
             await _context.SaveChangesAsync();
         }
-
-
-
-
-
-
-
-
     }
-
 }
+
+
 

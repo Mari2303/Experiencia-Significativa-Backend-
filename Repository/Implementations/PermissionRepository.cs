@@ -9,9 +9,7 @@ using Utilities.Helper;
 
 namespace Repository.Implementations
 {
-    /// <summary>
-    /// Implementation of the repository for permission-related operations.
-    /// </summary>
+   
     public class PermissionRepository : BaseModelRepository<Permission, PermissionDTO, PermissionRequest>, IPermissionRepository
     {
         private readonly ApplicationContext _context;

@@ -7,27 +7,33 @@ using Utilities.JwtAuthentication;
 namespace Utilities.Mappers
 {
     /// <summary>
-    /// Defines a User mapper for mapping between entities and data transfer objects (DTOs).
-    /// This class sets up mappings for the User model and its corresponding data transfer objects (DTOs).
+    /// Define un mapeador para usuarios que realiza la conversión entre entidades y objetos de transferencia de datos (DTOs).
+    /// Esta clase configura los mapeos para el modelo User y sus correspondientes DTOs.
     /// </summary>
     public class UserProfiles : Profile
     {
         private readonly IJwtAuthentication _jwtAuthentication;
 
+        /// <summary>
+        /// Inicializa una nueva instancia de <see cref="UserProfiles"/> con el servicio de autenticación JWT para cifrado de contraseñas.
+        /// </summary>
+        /// <param name="jwtAuthentication">El servicio de autenticación JWT utilizado para cifrar las contraseñas mediante MD5.</param>
         public UserProfiles(IJwtAuthentication jwtAuthentication) : base()
         {
             _jwtAuthentication = jwtAuthentication;
 
-            // Mapping from UserRequest to User with password encryption and CreatedAt set to the current UTC time minus 5 hours
+            // Mapeo de UserDTO a User con cifrado de contraseña
             CreateMap<UserDTO, User>()
-              .ForMember(dest => dest.Password, opt => opt.MapFrom(src => _jwtAuthentication.EncryptMD5(src.Password)));
+                .ForMember(dest => dest.Password, opt => opt.MapFrom(src => _jwtAuthentication.EncryptMD5(src.Password)));
 
+            // Mapeo de User a UserDTO
             CreateMap<User, UserDTO>();
 
-            // Mapping from UserRequest to User with password encryption and CreatedAt set to the current UTC time minus 5 hours
+            // Mapeo de UserRequest a User con cifrado de contraseña
             CreateMap<UserRequest, User>()
                 .ForMember(dest => dest.Password, opt => opt.MapFrom(src => _jwtAuthentication.EncryptMD5(src.Password)));
 
+            // Mapeo de User a UserRequest
             CreateMap<User, UserRequest>();
         }
     }

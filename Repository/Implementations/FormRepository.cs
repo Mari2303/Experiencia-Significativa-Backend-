@@ -9,9 +9,7 @@ using Utilities.Helper;
 
 namespace Repository.Implementations
 {
-    /// <summary>
-    /// Implementation of the repository for form-related operations.
-    /// </summary>
+  
     public class FormRepository : BaseModelRepository<Form, FormDTO, FormRequest>, IFormRepository
     {
         private readonly ApplicationContext _context;

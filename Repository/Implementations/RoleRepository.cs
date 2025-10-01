@@ -10,9 +10,7 @@ using Utilities.Helper;
 
 namespace Repository.Implementations
 {
-    /// <summary>
-    /// Implementation of the repository for role-related operations.
-    /// </summary>
+  
     public class RoleRepository : BaseModelRepository<Role, RoleDTO, RoleRequest>,IRoleRepository
     {
         private readonly ApplicationContext _context;

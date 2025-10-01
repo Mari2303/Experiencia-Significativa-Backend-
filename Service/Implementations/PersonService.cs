@@ -7,9 +7,7 @@ using Service.Interfaces;
 
 namespace Service.Implementations
 {
-    /// <summary>
-    /// Service implementation for managing persons.
-    /// </summary>
+   
     public class PersonService : BaseModelService<Person, PersonDTO, PersonRequest>, IPersonService
     {
         private readonly IPersonRepository _personRepository;

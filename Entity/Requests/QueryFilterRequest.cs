@@ -1,57 +1,68 @@
 namespace Entity.Requests
 {
     /// <summary>
-    /// Request used to encapsulate filtering, sorting, and pagination criteria for queries.
+    /// Request utilizado para encapsular criterios de filtrado, ordenamiento y paginación en consultas.
     /// </summary>
     public class QueryFilterRequest
     {
         /// <summary>
-        /// Gets or sets the number of items to include per page.
+        /// Número de elementos por página.
         /// </summary>
         public int? PageSize { get; set; }
 
         /// <summary>
-        /// Gets or sets the current page number (1-based index).
+        /// Número de página actual (basado en índice 1).
         /// </summary>
         public int? PageNumber { get; set; }
 
         /// <summary>
-        /// Gets or sets the text used for filtering results.
+        /// Texto usado para filtrar resultados.
         /// </summary>
         public string? Filter { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the column on which to apply the text filter.
+        /// Nombre de la columna sobre la cual se aplicará el filtro.
         /// </summary>
         public string? ColumnFilter { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the column used for ordering the results.
+        /// Nombre de la columna utilizada para ordenar los resultados.
         /// </summary>
         public string? ColumnOrder { get; set; }
 
         /// <summary>
-        /// Gets or sets the direction of ordering: "asc" for ascending, "desc" for descending.
+        /// Dirección del ordenamiento: "asc" (ascendente) o "desc" (descendente).
         /// </summary>
         public string? DirectionOrder { get; set; }
 
         /// <summary>
-        /// Gets or sets an optional foreign key value used to filter related entities.
+        /// Valor de clave foránea opcional para filtrar entidades relacionadas.
         /// </summary>
         public int? ForeignKey { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the foreign key property used for filtering.
+        /// Nombre de la propiedad de clave foránea usada para filtrar.
         /// </summary>
         public string? NameForeignKey { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the foreign key property used for filtering.
+        /// Indica si se debe aplicar paginación (true o false).
         /// </summary>
         public bool AplyPagination { get; set; }
 
+        /// <summary>
+        /// Rol del usuario que realiza la consulta (para restricciones de acceso).
+        /// </summary>
         public string? Role { get; set; }
+
+        /// <summary>
+        /// Id del usuario que realiza la consulta (para restricciones de acceso).
+        /// </summary>
         public int? UserId { get; set; }
-            public bool? OnlyActive { get; set; }
+
+        /// <summary>
+        /// Si es true, solo trae entidades activas.
+        /// </summary>
+        public bool? OnlyActive { get; set; }
     }
 }

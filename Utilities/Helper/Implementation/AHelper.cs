@@ -5,42 +5,49 @@ using Entity.Models;
 namespace Utilities.Helper
 {
     /// <summary>
-    /// Abstract base class for helper repositories that provides a contract for validating entity relationships.
-    /// Implements the <see cref="IHelper{T, D}"/> interface.
+    /// Clase base abstracta para repositorios helper que proporciona un contrato para validar las relaciones de las entidades.
+    /// Implementa la interfaz <see cref="IHelper{T, D}"/>.
     /// </summary>
-    /// <typeparam name="T">The entity type, inheriting from <see cref="BaseModel"/>.</typeparam>
-    /// <typeparam name="D">The Data Transfer Object (DTO) type, inheriting from <see cref="BaseDTO"/>.</typeparam>
+    /// <typeparam name="T">El tipo de entidad, que hereda de <see cref="BaseModel"/>.</typeparam>
+    /// <typeparam name="D">El tipo de Data Transfer Object (DTO), que hereda de <see cref="BaseDTO"/>.</typeparam>
     public abstract class AHelper<T, D> : IHelper<T, D>
         where T : BaseModel
         where D : BaseDTO
     {
         /// <summary>
-        /// When implemented in a derived class, validates the relationships of the entity identified by the specified ID.
+        /// Cuando se implementa en una clase derivada, valida las relaciones de la entidad identificada por el ID especificado.
         /// </summary>
-        /// <param name="id">The unique identifier of the entity to validate.</param>
+        /// <param name="id">El identificador único de la entidad a validar.</param>
         /// <returns>
-        /// A task representing the asynchronous operation. The task result contains 
-        /// <c>true</c> if the relationships are valid; otherwise, <c>false</c>.
+        /// Una tarea que representa la operación asíncrona. El resultado de la tarea contiene 
+        /// <c>true</c> si las relaciones son válidas; de lo contrario, <c>false</c>.
         /// </returns>
         public abstract Task<bool> ValidateEntityRelationships(int id);
+
         /// <summary>
-        /// When implemented in a derived class, generates a consecutive code based on the number of records in the associated model's table.
+        /// Cuando se implementa en una clase derivada, genera un código consecutivo basado en el número de registros en la tabla del modelo asociado.
         /// </summary>
         /// <returns>
-        /// A task representing the asynchronous operation. The result contains the generated consecutive code, formatted as a 4-digit string (e.g., "0001", "0002").
+        /// Una tarea que representa la operación asíncrona. El resultado contiene el código consecutivo generado, formateado como una cadena de 4 dígitos (por ejemplo, "0001", "0002").
         /// </returns>
         public abstract Task<string> GenerateConsecutiveCode();
+
         /// <summary>
-        /// When implemented in a derived class, retrieves the key-value representation of the specified enumeration.
-        /// The method returns a list of <see cref="DataSelectRequest"/>, where each item contains the numeric value (Id) and its corresponding description (DisplayText).
+        /// Cuando se implementa en una clase derivada, obtiene la representación clave-valor del enumerado especificado.
+        /// El método devuelve una lista de <see cref="DataSelectRequest"/>, donde cada elemento contiene el valor numérico (Id) y su descripción correspondiente (DisplayText).
         /// </summary>
-        /// <param name="enumName">The name of the enumeration defined in the <c>Entity.Models</c> namespace.</param>
+        /// <param name="enumName">El nombre del enumerado definido en el espacio de nombres <c>Entity.Models</c>.</param>
         /// <returns>
-        /// A task representing the asynchronous operation. The task result contains a list of key-value pairs representing the enum values and their descriptions.
+        /// Una tarea que representa la operación asíncrona. El resultado de la tarea contiene una lista de pares clave-valor que representan los valores del enum y sus descripciones.
         /// </returns>
-        /// <exception cref="ArgumentException">Thrown when the provided <paramref name="enumName"/> does not correspond to a valid enum.</exception>
+        /// <exception cref="ArgumentException">Se lanza cuando el <paramref name="enumName"/> proporcionado no corresponde a un enum válido.</exception>
         public abstract Task<List<DataSelectRequest>> GetEnum(string enumName);
 
+        /// <summary>
+        /// Cuando se implementa en una clase derivada, valida los datos importados del DTO proporcionado.
+        /// </summary>
+        /// <param name="request">El DTO que contiene los datos a validar.</param>
+        /// <returns>Una tarea que representa la operación asíncrona. El resultado indica si los datos son válidos (<c>true</c>) o no (<c>false</c>).</returns>
         public abstract Task<bool> ValidateDataImport(D request);
     }
 }

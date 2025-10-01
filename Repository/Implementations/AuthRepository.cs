@@ -1,6 +1,7 @@
 using Entity.Models;
 using Entity.Models.ModuleOperation;
 using Entity.Requests;
+using Entity.Resquest;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Repository.Interfaces;
@@ -12,7 +13,8 @@ using Utilities.JwtAuthentication;
 namespace Repository.Implementations
 {
     /// <summary>
-    /// Implementation of the authentication Repository for login, registration, and token validation handling.
+    /// Implementación del repositorio de autenticación para manejar inicio de sesión,
+    /// registro y validación de tokens.
     /// </summary>
     public class AuthRepository : IAuthRepository
     {
@@ -21,11 +23,11 @@ namespace Repository.Implementations
         private readonly IJwtAuthentication _jwtAuthentication;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AuthService"/> class.
+        /// Inicializa una nueva instancia de la clase <see cref="AuthRepository"/>.
         /// </summary>
-        /// <param name="configuration">The configuration service.</param>
-        /// <param name="userService">The user service for managing user data.</param>
-        /// <param name="jwtAuthenticationRepository">The JWT authentication service for generating and validating tokens.</param>
+        /// <param name="configuration">El servicio de configuración de la aplicación.</param>
+        /// <param name="userRepository">Repositorio de usuarios para administrar los datos.</param>
+        /// <param name="jwtAuthentication">Servicio de autenticación JWT para generar y validar tokens.</param>
         public AuthRepository(IConfiguration configuration, IUserRepository userRepository, IJwtAuthentication jwtAuthentication)
         {
             _configuration = configuration;
@@ -34,23 +36,26 @@ namespace Repository.Implementations
         }
 
         /// <summary>
-        /// Logs in a user by validating their username and password, then generates a JWT token.
+        /// Inicia sesión validando el nombre de usuario y la contraseña, luego genera un token JWT.
         /// </summary>
-        /// <param name="username">The username of the user attempting to log in.</param>
-        /// <param name="password">The password of the user.</param>
-        /// <returns>A <see cref="UserLoginResponseRequest"/> containing user details and the JWT token.</returns>
-        /// <exception cref="Exception">Throws if username or password is invalid or incorrect.</exception>
+        /// <param name="username">El nombre de usuario del usuario que intenta iniciar sesión.</param>
+        /// <param name="password">La contraseña del usuario.</param>
+        /// <returns>
+        /// Un objeto <see cref="UserLoginResponseRequest"/> que contiene los datos del usuario
+        /// y el token JWT en caso de credenciales válidas.
+        /// </returns>
+        /// <exception cref="Exception">Lanza excepción si el nombre de usuario o la contraseña son inválidos.</exception>
         public async Task<UserLoginResponseRequest> LoginAsync(string username, string password)
         {
             var encodePassword = _jwtAuthentication.EncryptMD5(password);
             if (string.IsNullOrEmpty(username))
             {
-                throw new Exception("Empty username");
+                throw new Exception("El nombre de usuario está vacío.");
             }
 
             if (string.IsNullOrEmpty(password))
             {
-                throw new Exception("Empty password");
+                throw new Exception("La contraseña está vacía.");
             }
 
             UserRequest user = await _userRepository.GetByName(username);
@@ -58,18 +63,18 @@ namespace Repository.Implementations
 
             if (user == null)
             {
-                throw new Exception("The user does not exist");
+                throw new Exception("El usuario no existe.");
             }
 
             if (user.Password.ToUpper() != encodePassword.ToUpper())
             {
-                throw new Exception("Incorrect password");
+                throw new Exception("Contraseña incorrecta.");
             }
 
-            // If the credentials are valid, generate the JWT token
-            var token = _jwtAuthentication.Authenticate(username, encodePassword,roles.FirstOrDefault(), user.Id);
+            // Generar el token JWT
+            var token = _jwtAuthentication.Authenticate(username, encodePassword, roles.FirstOrDefault(), user.Id);
 
-            //Give the menus to which the user has access.
+            // Menús a los que el usuario tiene acceso
             var menu = await _userRepository.GetMenuAsync(user.Id);
 
             return new UserLoginResponseRequest
@@ -79,19 +84,24 @@ namespace Repository.Implementations
                 Email = user.Username,
                 PersonId = user.PersonId,
                 Token = token,
-                ExpirationDate = DateTime.UtcNow.AddHours(-3),
+                ExpirationDate = DateTime.UtcNow.AddHours(-3), 
                 Menu = menu,
                 Role = roles
             };
-
         }
 
         /// <summary>
-        /// Changes the password for a user, validating the current password.
+        /// Cambia la contraseña de un usuario, validando primero la contraseña actual.
         /// </summary>
-        /// <param name="dto">The data transfer object containing the user ID, current password, new password, and confirmation.</param>
-        /// <returns>A task representing the asynchronous operation.</returns>
-        /// <exception cref="Exception">Throws if the user does not exist, if current password is incorrect, or if new passwords do not match.</exception>
+        /// <param name="dto">
+        /// Objeto que contiene el ID del usuario, la contraseña actual, 
+        /// la nueva contraseña y la confirmación de la misma.
+        /// </param>
+        /// <returns>Una tarea asincrónica que representa la operación.</returns>
+        /// <exception cref="Exception">
+        /// Lanza excepción si el usuario no existe, si la contraseña actual es incorrecta,
+        /// o si la nueva contraseña no coincide con la confirmación.
+        /// </exception>
         public async Task ChangePasswordAsync(ChangePasswordRequest dto)
         {
             // 1. Buscar usuario
@@ -99,20 +109,20 @@ namespace Repository.Implementations
 
             if (user == null)
             {
-                throw new Exception("User does not exist");
+                throw new Exception("El usuario no existe.");
             }
 
             // 2. Validar contraseña actual
             string encryptedCurrent = _jwtAuthentication.EncryptMD5(dto.CurrentPassword);
             if (user.Password != encryptedCurrent)
             {
-                throw new Exception("Current password is incorrect");
+                throw new Exception("La contraseña actual es incorrecta.");
             }
 
             // 3. Validar coincidencia entre nueva y confirmación
             if (dto.NewPassword != dto.ConfirmPassword)
             {
-                throw new Exception("Passwords do not match");
+                throw new Exception("Las contraseñas no coinciden.");
             }
 
             // 4. Validar seguridad de la nueva contraseña
@@ -124,12 +134,11 @@ namespace Repository.Implementations
             await _userRepository.Update(user);
         }
 
-
         /// <summary>
-        /// Retrieves a user from a valid JWT token.
+        /// Obtiene un usuario a partir de un token JWT válido.
         /// </summary>
-        /// <param name="token">The JWT token used to retrieve the user.</param>
-        /// <returns>The user corresponding to the token.</returns>
+        /// <param name="token">El token JWT usado para obtener los datos del usuario.</param>
+        /// <returns>El objeto <see cref="User"/> correspondiente al token.</returns>
         public async Task<User> GetUserFromTokenAsync(string token)
         {
             var handler = new JwtSecurityTokenHandler();
@@ -139,10 +148,14 @@ namespace Repository.Implementations
         }
 
         /// <summary>
-        /// Renews an existing JWT token by creating a new token with the same claims but a new expiration time.
+        /// Renueva un token JWT existente creando uno nuevo con los mismos claims 
+        /// pero con una nueva fecha de expiración.
         /// </summary>
-        /// <param name="token">The existing JWT token to renew.</param>
-        /// <returns>A new JWT token with the same claims but a new expiration time, or an error message if the renewal fails.</returns>
+        /// <param name="token">El token JWT existente que se desea renovar.</param>
+        /// <returns>
+        /// Un objeto <see cref="RenewTokenRequest"/> con el nuevo token generado,
+        /// o un error en caso de que la renovación falle.
+        /// </returns>
         public async Task<RenewTokenRequest> RenewTokenAsync(string token)
         {
             var newToken = _jwtAuthentication.RenewToken(token);
@@ -151,7 +164,5 @@ namespace Repository.Implementations
                 Token = newToken
             };
         }
-
-
     }
 }

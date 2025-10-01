@@ -6,51 +6,71 @@ using Service.Interfaces;
 namespace Service.Implementations
 {
     /// <summary>
-    /// Abstract base class that defines the structure for a service layer handling generic CRUD operations.
-    /// This class must be inherited and its methods implemented by a concrete service.
+    /// Clase base abstracta que define la estructura de un servicio genérico 
+    /// para manejar operaciones CRUD sobre entidades del dominio.
+    /// 
+    /// Esta clase debe ser heredada por servicios concretos que implementen
+    /// la lógica de negocio específica de cada entidad.
     /// </summary>
-    /// <typeparam name="T">The entity type, which must inherit from <see cref="BaseModel"/>.</typeparam>
-    /// <typeparam name="D">The DTO type, which must inherit from <see cref="BaseDTO"/>.</typeparam>
-    /// <typeparam name="R">The data transfer object (Request) type, which must inherit from <see cref="BaseRequest"/>.</typeparam>
+    /// <typeparam name="T">El tipo de entidad, que debe heredar de <see cref="BaseModel"/>.</typeparam>
+    /// <typeparam name="D">El tipo DTO asociado a la entidad, que debe heredar de <see cref="BaseDTO"/>.</typeparam>
+    /// <typeparam name="R">El tipo de objeto de transferencia de datos (Request), que debe heredar de <see cref="BaseRequest"/>.</typeparam>
     public abstract class ABaseModelService<T, D, R> : IBaseModelService<T, D, R>
         where T : BaseModel
         where D : BaseDTO
         where R : BaseRequest
     {
         /// <summary>
-        /// Deletes an entity from the data store based on its unique identifier.
+        /// Elimina una entidad del sistema a partir de su identificador único.
+        /// En implementaciones concretas, puede realizar eliminación lógica o física.
         /// </summary>
-        /// <param name="id">The ID of the entity to delete.</param>
-        /// <returns>A task that represents the asynchronous operation.</returns>
+        /// <param name="id">El identificador único de la entidad a eliminar.</param>
+        /// <returns>Una tarea asincrónica que representa la operación de eliminación.</returns>
         public abstract Task Delete(int id);
 
         /// <summary>
-        /// Retrieves all entities and maps them to DTOs.
+        /// Recupera todas las entidades aplicando filtros, paginación y ordenamiento
+        /// según lo definido en <see cref="QueryFilterRequest"/>.
         /// </summary>
-        /// <returns>A task that represents the asynchronous operation, containing a list of DTOs.</returns>
+        /// <param name="filters">Objeto con los parámetros opcionales de filtrado, paginación y ordenamiento.</param>
+        /// <returns>
+        /// Una tarea asincrónica cuyo resultado es una colección de objetos de tipo <typeparamref name="R"/> 
+        /// representando las entidades obtenidas.
+        /// </returns>
         public abstract Task<IEnumerable<R>> GetAll(QueryFilterRequest filters);
 
         /// <summary>
-        /// Retrieves a single entity based on its unique identifier.
+        /// Recupera una entidad específica a partir de su identificador único.
         /// </summary>
-        /// <param name="id">The ID of the entity to retrieve.</param>
-        /// <returns>A task that represents the asynchronous operation, containing the entity if found.</returns>
+        /// <param name="id">El identificador único de la entidad a consultar.</param>
+        /// <returns>
+        /// Una tarea asincrónica cuyo resultado es el objeto de tipo <typeparamref name="T"/> 
+        /// correspondiente si existe, o <c>null</c> en caso contrario.
+        /// </returns>
         public abstract Task<T> GetById(int id);
 
         /// <summary>
-        /// Saves a new entity to the data store.
+        /// Guarda una nueva entidad en el sistema.
         /// </summary>
-        /// <param name="entity">The entity to save.</param>
-        /// <returns>A task that represents the asynchronous operation, containing the saved entity.</returns>
+        /// <param name="entity">La entidad que se desea persistir.</param>
+        /// <returns>
+        /// Una tarea asincrónica cuyo resultado es la entidad persistida, incluyendo valores generados automáticamente (ej. ID).
+        /// </returns>
         public abstract Task<T> Save(T entity);
 
         /// <summary>
-        /// Updates an existing entity in the data store.
+        /// Actualiza una entidad existente en el sistema.
         /// </summary>
-        /// <param name="entity">The entity to update.</param>
-        /// <returns>A task that represents the asynchronous operation.</returns>
+        /// <param name="entity">La entidad con los valores actualizados.</param>
+        /// <returns>Una tarea asincrónica que representa la operación de actualización.</returns>
         public abstract Task Update(T entity);
 
+        /// <summary>
+        /// Restaura una entidad previamente eliminada (en caso de eliminación lógica).
+        /// </summary>
+        /// <param name="id">El identificador único de la entidad a restaurar.</param>
+        /// <returns>Una tarea asincrónica que representa la operación de restauración.</returns>
         public abstract Task Restore(int id);
     }
 }
+

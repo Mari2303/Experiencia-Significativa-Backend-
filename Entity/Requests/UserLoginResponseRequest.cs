@@ -1,46 +1,50 @@
-namespace Entity.Requests
+using Entity.Requests;
+
+namespace Entity.Resquest
 {
     /// <summary>
-    /// Request for the response after successful login
+    /// Response enviado al cliente tras un login exitoso.
+    /// Contiene los datos del usuario autenticado, el token JWT y permisos de acceso.
     /// </summary>
     public class UserLoginResponseRequest
     {
         /// <summary>
-        /// The unique identifier for the authenticated user
+        /// Identificador único del usuario autenticado.
         /// </summary>
         public int UserId { get; set; }
 
         /// <summary>
-        /// User's login username
+        /// Nombre de usuario usado en el login.
         /// </summary>
         public string UserName { get; set; } = string.Empty;
 
         /// <summary>
-        /// User's personId
+        /// Identificador de la persona asociada al usuario.
         /// </summary>
         public int PersonId { get; set; }
 
         /// <summary>
-        /// User's email address
+        /// Correo electrónico del usuario.
         /// </summary>
         public string Email { get; set; } = string.Empty;
 
         /// <summary>
-        /// JWT access token for authenticated API requests
+        /// Token JWT de acceso para las peticiones autenticadas.
         /// </summary>
         public string Token { get; set; } = string.Empty;
 
         /// <summary>
-        /// Expiration date and time for the JWT token
+        /// Fecha y hora de expiración del token JWT.
         /// </summary>
         public DateTime ExpirationDate { get; set; }
 
         /// <summary>
-        /// List of menu that have access the user
+        /// Lista de menús a los que el usuario tiene acceso.
         /// </summary>
         public List<MenuRequest> Menu { get; set; } = new();
+
         /// <summary>
-        /// User's role name
+        /// Lista de roles asociados al usuario autenticado.
         /// </summary>
         public List<string> Role { get; set; } = new();
     }

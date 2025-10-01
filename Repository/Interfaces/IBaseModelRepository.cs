@@ -5,41 +5,57 @@ using Entity.Requests;
 namespace Repository.Interfaces
 {
     /// <summary>
-    /// Interface for operations related to base entitys.
-    /// This interface defines methods for retrieving, adding, and updating base entitys in the repository.
+    /// Interfaz para operaciones relacionadas con entidades base.
+    /// Esta interfaz define métodos para obtener, agregar, actualizar y eliminar entidades base en el repositorio.
     /// </summary>
-    public interface IBaseModelRepository<T, D, R> where T : BaseModel where D : BaseDTO where R : BaseRequest
+    /// <typeparam name="T">Tipo de entidad que hereda de <see cref="BaseModel"/>.</typeparam>
+    /// <typeparam name="D">Tipo de DTO que hereda de <see cref="BaseDTO"/>.</typeparam>
+    /// <typeparam name="R">Tipo de Request que hereda de <see cref="BaseRequest"/>.</typeparam>
+    public interface IBaseModelRepository<T, D, R>
+        where T : BaseModel
+        where D : BaseDTO
+        where R : BaseRequest
     {
         /// <summary>
-        /// Retrieves all base entitys.
+        /// Obtiene todas las entidades base con filtros opcionales.
         /// </summary>
-        /// <returns>A task representing the asynchronous operation, with a collection of <see cref="R"/> results.</returns>
+        /// <param name="filters">Filtros de consulta.</param>
+        /// <returns>Una tarea que representa la operación asíncrona, con una colección de resultados de tipo <see cref="R"/>.</returns>
         Task<IEnumerable<R>> GetAll(QueryFilterRequest filters);
+
         /// <summary>
-        /// Retrieves a entity by their ID.
+        /// Obtiene una entidad por su ID.
         /// </summary>
-        /// <param name="id">The ID of the entity.</param>
-        /// <returns>A task representing the asynchronous operation, with a <see cref="T"/> result.</returns>
+        /// <param name="id">El ID de la entidad.</param>
+        /// <returns>Una tarea que representa la operación asíncrona, con un resultado de tipo <see cref="T"/>.</returns>
         Task<T> GetById(int id);
+
         /// <summary>
-        /// Adds a new entity to the repository.
+        /// Agrega una nueva entidad al repositorio.
         /// </summary>
-        /// <param name="entity">The entity to be added.</param>
-        /// <returns>A task representing the asynchronous operation, with a <see cref="T"/> result.</returns>
+        /// <param name="entity">La entidad a agregar.</param>
+        /// <returns>Una tarea que representa la operación asíncrona, con un resultado de tipo <see cref="T"/>.</returns>
         Task<T> Save(T entity);
+
         /// <summary>
-        /// Updates an existing entity in the repository.
+        /// Actualiza una entidad existente en el repositorio.
         /// </summary>
-        /// <param name="entity">The entity with updated data.</param>
-        /// <returns>A task representing the asynchronous operation.</returns>
+        /// <param name="entity">La entidad con los datos actualizados.</param>
+        /// <returns>Una tarea que representa la operación asíncrona.</returns>
         Task Update(T entity);
+
         /// <summary>
-        /// Deletes an entity based on its unique identifier.
+        /// Elimina una entidad en función de su identificador único.
         /// </summary>
-        /// <param name="id">The ID of the entity to delete.</param>
-        /// <returns>A task that represents the asynchronous operation.</returns>
+        /// <param name="id">El ID de la entidad a eliminar.</param>
+        /// <returns>Una tarea que representa la operación asíncrona.</returns>
         Task Delete(int id);
 
+        /// <summary>
+        /// Restaura una entidad previamente eliminada.
+        /// </summary>
+        /// <param name="id">El ID de la entidad a restaurar.</param>
+        /// <returns>Una tarea que representa la operación asíncrona.</returns>
         Task Restore(int id);
     }
 }

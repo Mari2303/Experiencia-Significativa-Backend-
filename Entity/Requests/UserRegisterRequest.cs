@@ -1,88 +1,92 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-
-namespace Entity.Requests
+﻿namespace Entity.Requests
 {
-    public class UserRegisterRequest 
+    /// <summary>
+    /// Request usado para registrar un nuevo usuario junto con su información personal.
+    /// </summary>
+    public class UserRegisterRequest
     {
-        // datos de persona 
+        // ============================
+        // DATOS DE PERSONA
+        // ============================
 
         /// <summary>
-        /// Person's document type
+        /// Tipo de documento de la persona (ejemplo: CC, TI, PAS).
         /// </summary>
         public string DocumentType { get; set; } = string.Empty;
 
         /// <summary>
-        /// Unique code identifier for the person
+        /// Número de identificación único de la persona.
         /// </summary>
         public string IdentificationNumber { get; set; } = string.Empty;
 
         /// <summary>
-        /// Person's first name
+        /// Primer nombre de la persona.
         /// </summary>
         public string FirstName { get; set; } = string.Empty;
 
         /// <summary>
-        /// Person's middle name
+        /// Segundo nombre de la persona (opcional).
         /// </summary>
-        public string? MiddleName { get; set; } = string.Empty;
+        public string? MiddleName { get; set; }
 
         /// <summary>
-        /// Person's first last name
+        /// Primer apellido de la persona.
         /// </summary>
         public string FirstLastName { get; set; } = string.Empty;
 
         /// <summary>
-        /// Person's secon last name
+        /// Segundo apellido de la persona (opcional).
         /// </summary>
-        public string? SecondLastName { get; set; } = string.Empty;
+        public string? SecondLastName { get; set; }
 
         /// <summary>
-        /// Person's secon last name
+        /// Nombre completo calculado (puede llenarse automáticamente en el backend).
         /// </summary>
-        public string? FullName { get; set; } = string.Empty;
+        public string? FullName { get; set; }
 
+        /// <summary>
+        /// Código DANE de la institución (si aplica).
+        /// </summary>
         public string CodeDane { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Correo institucional de la persona.
+        /// </summary>
         public string EmailInstitutional { get; set; } = string.Empty;
 
         /// <summary>
-        /// Person's Email
+        /// Correo personal de la persona.
         /// </summary>
         public string Email { get; set; } = string.Empty;
 
         /// <summary>
-        /// Person's Phone
+        /// Teléfono de la persona.
         /// </summary>
         public uint Phone { get; set; }
 
 
-
-        // datos de usuario 
+        // ============================
+        // DATOS DE USUARIO
+        // ============================
 
         /// <summary>
-        /// Unique code identifier for the user 
+        /// Código único de referencia para el usuario.
         /// </summary>
         public string Code { get; set; } = string.Empty;
+
         /// <summary>
-        /// The unique username for authentication
+        /// Nombre de usuario único para autenticación.
         /// </summary>
         public string Username { get; set; } = string.Empty;
+
         /// <summary>
-        /// Hashed password for user authentication
+        /// Contraseña (en texto plano al llegar al backend, luego se debe encriptar).
         /// </summary>
         public string Password { get; set; } = string.Empty;
+
         /// <summary>
-        /// /// Foreign key referencing the associated person
+        /// Identificador de los roles que tendrá el usuario.
         /// </summary>
-      
-
-
-
-
+        public List<int> RoleIds { get; set; } = new();
     }
 }

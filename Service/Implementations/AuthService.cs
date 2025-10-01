@@ -1,64 +1,91 @@
 ﻿using Entity.Dtos;
 using Entity.Models;
 using Entity.Requests;
-using Microsoft.Extensions.Configuration;
+using Entity.Resquest;
 using Repository.Interfaces;
 using Service.Interfaces;
 
 namespace Service.Implementations
 {
     /// <summary>
-    /// Implementation of the authentication service for login, registration, and token validation handling.
+    /// Implementación del servicio de autenticación.
+    /// 
+    /// Esta clase gestiona las operaciones principales relacionadas con:
+    /// - Inicio de sesión de usuarios.
+    /// - Cambio de contraseña.
+    /// - Obtención de un usuario a partir de un token JWT.
+    /// - Renovación de tokens JWT.
+    /// 
+    /// Internamente, delega la lógica de acceso a datos al repositorio de autenticación (<see cref="IAuthRepository"/>).
     /// </summary>
     public class AuthService : IAuthService
     {
         private readonly IAuthRepository _authrepository;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AuthService"/> class.
+        /// Inicializa una nueva instancia de la clase <see cref="AuthService"/>.
         /// </summary>
-        /// <param name="authRepository">The reference to auth Repository.</param>
+        /// <param name="authrepository">
+        /// Una implementación de <see cref="IAuthRepository"/> que gestiona la lógica de autenticación en la capa de persistencia.
+        /// </param>
         public AuthService(IAuthRepository authrepository)
         {
             _authrepository = authrepository;
         }
 
         /// <summary>
-        /// Retry a JWT for the correct user and password
+        /// Autentica al usuario con las credenciales proporcionadas y genera un token JWT válido.
         /// </summary>
-        /// <param name="username">The username of the user attempting to log in.</param>
-        /// <param name="password">The password of the user.</param>
+        /// <param name="username">Nombre de usuario utilizado para iniciar sesión.</param>
+        /// <param name="password">Contraseña asociada al usuario.</param>
+        /// <returns>
+        /// Una tarea asincrónica cuyo resultado es un <see cref="UserLoginResponseRequest"/> 
+        /// con la información del usuario autenticado y el token JWT.
+        /// </returns>
         public async Task<UserLoginResponseRequest> LoginAsync(string username, string password)
         {
             return await _authrepository.LoginAsync(username, password);
         }
 
         /// <summary>
-        /// A task representing the asynchronous operation.
+        /// Cambia la contraseña de un usuario existente.
         /// </summary>
-        /// <param name="request">The data transfer object containing the user ID and new password.</param>
+        /// <param name="request">
+        /// Objeto de tipo <see cref="ChangePasswordRequest"/> que contiene el ID del usuario y la nueva contraseña.
+        /// </param>
+        /// <returns>
+        /// Una tarea asincrónica que representa la operación de cambio de contraseña.
+        /// </returns>
         public async Task ChangePasswordAsync(ChangePasswordRequest request)
         {
             await _authrepository.ChangePasswordAsync(request);
         }
 
         /// <summary>
-        /// Return the user corresponding to the token.
+        /// Obtiene un usuario a partir de un token JWT válido.
         /// </summary>
-        /// <param name="token">The JWT token used to retrieve the user.</param>
+        /// <param name="token">El token JWT utilizado para identificar al usuario.</param>
+        /// <returns>
+        /// Una tarea asincrónica cuyo resultado es un objeto <see cref="User"/> correspondiente al token proporcionado.
+        /// </returns>
         public async Task<User> GetUserFromTokenAsync(string token)
         {
             return await _authrepository.GetUserFromTokenAsync(token);
         }
 
         /// <summary>
-        /// Renews an existing JWT token by creating a new token with the same claims but a new expiration time.
-        /// </summary> 
-        /// <param name="token">The existing JWT token to renew.</param>
-        /// <returns>A RenewTokenDTO containing the new token and its expiration details.</returns>
+        /// Renueva un token JWT existente, generando uno nuevo con los mismos claims 
+        /// pero con una fecha de expiración actualizada.
+        /// </summary>
+        /// <param name="token">El token JWT que se desea renovar.</param>
+        /// <returns>
+        /// Una tarea asincrónica cuyo resultado es un objeto <see cref="RenewTokenRequest"/> 
+        /// que contiene el nuevo token renovado y sus detalles de expiración.
+        /// </returns>
         public async Task<RenewTokenRequest> RenewTokenAsync(string token)
         {
             return await _authrepository.RenewTokenAsync(token);
         }
     }
 }
+

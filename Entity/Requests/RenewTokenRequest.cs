@@ -1,15 +1,14 @@
 namespace Entity.Requests
 {
     /// <summary>
-    /// Request containing the refresh token used to renew the access token.
+    /// Request que contiene el *refresh token* usado para renovar el token de acceso.
     /// </summary>
     public class RenewTokenRequest
     {
-
         /// <summary>
-        /// Refresh token used to obtain a new access token when the current one expires
+        /// Refresh token utilizado para obtener un nuevo access token 
+        /// cuando el actual ha expirado.
         /// </summary>
         public string Token { get; set; } = string.Empty;
-
     }
 }

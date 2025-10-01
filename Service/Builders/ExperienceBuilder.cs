@@ -3,20 +3,39 @@ using Entity.Models.ModuleOperation;
 
 namespace Service.Builders
 {
+    /// <summary>
+    /// ¿Qué es ExperienceBuilder?
+    /// Es una implementación del patrón Builder, que sirve para construir objetos complejos paso a paso.
+    /// En este caso, la entidad Experience tiene muchas relaciones (institución, documentos,
+    /// objetivos, etc.), y el Builder permite inicializarla de manera flexible y legible.
+    /// </summary>
+   
+
+    /// <summary>
+    /// Builder para crear instancias de la entidad Experience
+    /// de forma controlada y paso a paso.
+    /// Permite añadir información básica, institución, documentos,
+    /// objetivos, líneas temáticas, grados, poblaciones e historial.
+    /// </summary>
     public class ExperienceBuilder
     {
         private readonly Experience _experience;
 
+        /// <summary>
+        /// Constructor: inicializa la entidad Experience con valores por defecto.
+        /// </summary>
         public ExperienceBuilder()
         {
             _experience = new Experience
             {
-                StateId = 1, 
-                CreatedAt = DateTime.UtcNow,
-                
+                StateId = 1, // Estado inicial por defecto
+                CreatedAt = DateTime.UtcNow, // Fecha de creación automática
             };
         }
 
+        /// <summary>
+        /// Agrega la información básica de la experiencia a partir del DTO.
+        /// </summary>
         public ExperienceBuilder WithBasicInfo(ExperienceRegisterDTO dto)
         {
             _experience.NameExperiences = dto.NameExperiences;
@@ -45,6 +64,9 @@ namespace Service.Builders
             return this;
         }
 
+        /// <summary>
+        /// Agrega la institución relacionada a la experiencia.
+        /// </summary>
         public ExperienceBuilder WithInstitution(InstitutionCreateDTO dto)
         {
             _experience.Institution = new Institution
@@ -68,7 +90,10 @@ namespace Service.Builders
             return this;
         }
 
-       public ExperienceBuilder WithDocuments(IEnumerable<DocumentCreateDTO> docs)
+        /// <summary>
+        /// Agrega documentos asociados a la experiencia.
+        /// </summary>
+        public ExperienceBuilder WithDocuments(IEnumerable<DocumentCreateDTO> docs)
         {
             _experience.Documents = docs.Select(d => new Document
             {
@@ -80,7 +105,10 @@ namespace Service.Builders
             }).ToList();
             return this;
         }
-      
+
+        /// <summary>
+        /// Agrega objetivos relacionados con la experiencia.
+        /// </summary>
         public ExperienceBuilder WithObjectives(IEnumerable<ObjectiveCreateDTO> objectives)
         {
             _experience.Objectives = objectives.Select(o => new Objective
@@ -103,6 +131,9 @@ namespace Service.Builders
             return this;
         }
 
+        /// <summary>
+        /// Relaciona la experiencia con varias líneas temáticas.
+        /// </summary>
         public ExperienceBuilder WithThematics(IEnumerable<int> thematicLineIds)
         {
             _experience.ExperienceLineThematics = thematicLineIds.Select(id => new ExperienceLineThematic
@@ -114,6 +145,9 @@ namespace Service.Builders
             return this;
         }
 
+        /// <summary>
+        /// Relaciona grados con la experiencia.
+        /// </summary>
         public ExperienceBuilder WithGrades(IEnumerable<GradeRegisterDTO> grades)
         {
             _experience.ExperienceGrades = grades.Select(g => new ExperienceGrade
@@ -126,6 +160,9 @@ namespace Service.Builders
             return this;
         }
 
+        /// <summary>
+        /// Relaciona poblaciones beneficiarias con la experiencia.
+        /// </summary>
         public ExperienceBuilder WithPopulations(IEnumerable<int> populationGradeIds)
         {
             _experience.ExperiencePopulations = populationGradeIds.Select(id => new ExperiencePopulation
@@ -137,6 +174,10 @@ namespace Service.Builders
             return this;
         }
 
+        /// <summary>
+        /// Registra el historial de cambios/acciones de la experiencia.
+        /// Incluye el usuario que hizo el cambio y el estado.
+        /// </summary>
         public ExperienceBuilder WithHistory(IEnumerable<HistoryExperienceCreateDTO> historyExperiences, int userId, int stateId = 1)
         {
             if (historyExperiences != null)
@@ -153,6 +194,9 @@ namespace Service.Builders
             return this;
         }
 
+        /// <summary>
+        /// Devuelve la entidad Experience construida.
+        /// </summary>
         public Experience Build() => _experience;
     }
 }

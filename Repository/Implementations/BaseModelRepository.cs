@@ -13,11 +13,11 @@ using Utilities.Helper;
 namespace Repository.Implementations
 {
     /// <summary>
-    /// Concrete implementation of the abstract repository for performing generic CRUD operations.
+    /// Implementación concreta del repositorio abstracto para realizar operaciones CRUD genéricas.
     /// </summary>
-    /// <typeparam name="T">The entity type, which must inherit from <see cref="BaseModel"/>.</typeparam>
-    /// <typeparam name="D">The data transfer object (DTO) type, which must inherit from <see cref="BaseDTO"/>.</typeparam>
-    /// <typeparam name="R">The data transfer object (Request) type, which must inherit from <see cref="BaseRequest"/>.</typeparam>
+    /// <typeparam name="T">El tipo de entidad, que debe heredar de <see cref="BaseModel"/>.</typeparam>
+    /// <typeparam name="D">El tipo de objeto de transferencia de datos (DTO), que debe heredar de <see cref="BaseDTO"/>.</typeparam>
+    /// <typeparam name="R">El tipo de objeto de transferencia de datos (Request), que debe heredar de <see cref="BaseRequest"/>.</typeparam>
     public class BaseModelRepository<T, D, R> : ABaseModelRepository<T, D, R>
         where T : BaseModel
         where D : BaseDTO
@@ -29,10 +29,10 @@ namespace Repository.Implementations
         private readonly IHelper<T, D> _helperRepository;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseModelRepository{T, D, R}"/> class.
+        /// Inicializa una nueva instancia de la clase <see cref="BaseModelRepository{T, D, R}"/>.
         /// </summary>
-        /// <param name="context">The database context for accessing entity sets.</param>
-        /// <param name="mapper">The AutoMapper instance used to map between entity and DTO types.</param>
+        /// <param name="context">El contexto de base de datos para acceder a los conjuntos de entidades.</param>
+        /// <param name="mapper">La instancia de AutoMapper utilizada para mapear entre tipos de entidad y DTO.</param>
         public BaseModelRepository(ApplicationContext context, IMapper mapper, IConfiguration configuration, IHelper<T, D> helperRepository)
         {
             _context = context;
@@ -42,59 +42,62 @@ namespace Repository.Implementations
         }
 
         /// <summary>
-        /// Retrieves (where State is true) a filtered, sorted, and paginated list of DTOs based on the specified query filters.
+        /// Recupera (donde State es verdadero) una lista filtrada, ordenada y paginada de DTOs basada en los filtros de consulta especificados.
         /// </summary>
         /// <param name="filters">
-        /// An instance of <see cref="QueryFilterRequest"/> containing optional parameters for filtering, 
-        /// ordering, pagination, and foreign key constraints.
+        /// Una instancia de <see cref="QueryFilterRequest"/> que contiene parámetros opcionales para filtrado, 
+        /// ordenamiento, paginación y restricciones de claves foráneas.
         /// </param>
         /// <returns>
-        /// A task that represents the asynchronous operation. The task result contains an <see cref="IEnumerable{D}"/> 
-        /// representing the list of mapped DTOs that match the applied filters and pagination settings.
+        /// Una tarea que representa la operación asincrónica. El resultado contiene un <see cref="IEnumerable{D}"/> 
+        /// que representa la lista de DTOs mapeados que coinciden con los filtros y configuraciones de paginación aplicados.
         /// </returns>
         /// <exception cref="Exception">
-        /// Throws any exception encountered during query execution or data mapping.
+        /// Lanza cualquier excepción encontrada durante la ejecución de la consulta o el mapeo de datos.
         /// </exception>
         public override async Task<IEnumerable<R>> GetAll(QueryFilterRequest filters)
         {
-            // Set default values if not provided
-            int pageNumber = filters.PageNumber.HasValue && filters.PageNumber.Value > 0 ? filters.PageNumber.Value : _configuration.GetValue<int>("Pagination:DefaultPageNumber");
-            int pageSize = filters.PageSize.HasValue && filters.PageSize.Value > 0 ? filters.PageSize.Value : _configuration.GetValue<int>("Pagination:DefaultPageSize");
+            int pageNumber = filters.PageNumber.HasValue && filters.PageNumber.Value > 0
+                ? filters.PageNumber.Value
+                : _configuration.GetValue<int>("Pagination:DefaultPageNumber");
+
+            int pageSize = filters.PageSize.HasValue && filters.PageSize.Value > 0
+                ? filters.PageSize.Value
+                : _configuration.GetValue<int>("Pagination:DefaultPageSize");
 
             filters.ColumnOrder ??= _configuration.GetValue<string>("Ordering:DefaultColumnOrder");
             filters.DirectionOrder ??= _configuration.GetValue<string>("Ordering:DefaultDirectionOrder");
 
             try
             {
-                // Retrieves (Where State is true)
-              IQueryable<T> query = _context.Set<T>();
+                IQueryable<T> query = _context.Set<T>();
 
-// Aplica filtro por estado si viene en el request
-if (filters.OnlyActive.HasValue)
-{
-    if (filters.OnlyActive.Value)
-        query = query.Where(x => x.State);          // Solo activos
-    else
-        query = query.Where(x => !x.State);         // Solo inactivos
-}
+                // Filtro por estado
+                if (filters.OnlyActive.HasValue)
+                {
+                    query = filters.OnlyActive.Value
+                        ? query.Where(x => x.State)
+                        : query.Where(x => !x.State);
+                }
 
-                // Apply Foreign Key Filters
+                // Filtro por clave foránea
                 if (filters.ForeignKey != null && !string.IsNullOrEmpty(filters.NameForeignKey))
                 {
                     query = query.Where(i => EF.Property<int>(i, filters.NameForeignKey) == filters.ForeignKey);
                 }
 
-                // Apply Dynamic Filters
+                // Filtros dinámicos
                 if (!string.IsNullOrEmpty(filters.Filter))
                 {
                     query = PagedListRequest<T>.ApplyDynamicFilters(query, filters);
                 }
 
-                // Apply Ordering
+                // Ordenamiento
                 query = PagedListRequest<T>.ApplyOrdering(query, filters);
 
-                // Apply pagination
-                if (filters.AplyPagination) {
+                // Paginación
+                if (filters.AplyPagination)
+                {
                     int skip = (pageNumber - 1) * pageSize;
                     query = query.Skip(skip).Take(pageSize);
                 }
@@ -106,16 +109,16 @@ if (filters.OnlyActive.HasValue)
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error retrieving data: {ex.Message}");
+                Console.WriteLine($"Error al recuperar los datos: {ex.Message}");
                 throw;
             }
         }
 
         /// <summary>
-        /// Retrieves an entity by its unique identifier.
+        /// Recupera una entidad por su identificador único.
         /// </summary>
-        /// <param name="id">The ID of the entity to retrieve.</param>
-        /// <returns>A task representing the asynchronous operation, containing the entity of type <typeparamref name="T"/> if found; otherwise, null.</returns>
+        /// <param name="id">El ID de la entidad a recuperar.</param>
+        /// <returns>Una tarea que representa la operación asincrónica, conteniendo la entidad de tipo <typeparamref name="T"/> si se encuentra; de lo contrario, null.</returns>
         public override async Task<T> GetById(int id)
         {
             try
@@ -124,51 +127,33 @@ if (filters.OnlyActive.HasValue)
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error retrieving data: {ex.Message}");
+                Console.WriteLine($"Error al recuperar los datos: {ex.Message}");
                 throw;
             }
         }
 
-
-
-        // Iniciar transacción
-        public async Task<IDbContextTransaction> BeginTransactionAsync()
-        {
-            return await _context.Database.BeginTransactionAsync();
-        }
-
-
-
-
-        // Guardar entidad genérica
-        public async Task<T> SaveAsync(T entity)
-        {
-            await _context.Set<T>().AddAsync(entity);
-            await _context.SaveChangesAsync();
-            return entity;
-        }
-
+     
 
         /// <summary>
-        /// Saves a new entity to the database.
+        /// Guarda una nueva entidad en la base de datos.
         /// </summary>
-        /// <param name="entity">The entity to be saved.</param>
-        /// <returns>A task representing the asynchronous operation, containing the saved entity.</returns>
+        /// <param name="entity">La entidad que se va a guardar.</param>
+        /// <returns>Una tarea que representa la operación asincrónica, conteniendo la entidad guardada.</returns>
         public override async Task<T> Save(T entity)
         {
             try
             {
-                // Set default properties for the entity
+                // Establecer propiedades por defecto para la entidad
                 entity.CreatedAt = DateTime.UtcNow.AddHours(-5);
                 entity.State = true;
 
-                // Check if the entity has the 'Code' property (using reflection)
+                // Verificar si la entidad tiene la propiedad 'Code' (usando reflexión)
                 var codeProperty = typeof(T).GetProperty("Code");
                 if (codeProperty != null && codeProperty.CanWrite)
                 {
-                    // If the entity has the 'Code' property, generate a consecutive code using the helper service
+                    // Si la entidad tiene la propiedad 'Code', generar un código consecutivo usando el servicio helper
                     string generatedCode = await _helperRepository.GenerateConsecutiveCode();
-                    codeProperty.SetValue(entity, generatedCode); // Set the generated code
+                    codeProperty.SetValue(entity, generatedCode); // Asignar el código generado
                 }
 
                 _context.Set<T>().Add(entity);
@@ -177,15 +162,16 @@ if (filters.OnlyActive.HasValue)
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error saving data: {ex.Message}");
+                Console.WriteLine($"Error al guardar los datos: {ex.Message}");
                 throw;
             }
         }
+
         /// <summary>
-        /// Updates an existing entity in the database.
+        /// Actualiza una entidad existente en la base de datos.
         /// </summary>
-        /// <param name="entity">The entity to be updated.</param>
-        /// <returns>A task representing the asynchronous operation.</returns>
+        /// <param name="entity">La entidad que se va a actualizar.</param>
+        /// <returns>Una tarea que representa la operación asincrónica.</returns>
         public override async Task Update(T entityUpdated)
         {
             try
@@ -199,16 +185,17 @@ if (filters.OnlyActive.HasValue)
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error updating data: {ex.Message}");
+                Console.WriteLine($"Error al actualizar los datos: {ex.Message}");
                 throw;
             }
         }
+
         /// <summary>
-        /// Marks an entity as deleted by setting the DeletedAt timestamp and disabling its state.
+        /// Marca una entidad como eliminada estableciendo la marca de tiempo DeletedAt y deshabilitando su estado.
         /// </summary>
-        /// <param name="id">The unique identifier of the entity to logically delete.</param>
-        /// <returns>A task representing the asynchronous operation.</returns>
-        /// <exception cref="Exception">Thrown if the entity is not found.</exception>
+        /// <param name="id">El identificador único de la entidad a eliminar lógicamente.</param>
+        /// <returns>Una tarea que representa la operación asincrónica.</returns>
+        /// <exception cref="Exception">Se lanza si no se encuentra la entidad.</exception>
         public override async Task Delete(int id)
         {
             bool validateRelationships = await _helperRepository.ValidateEntityRelationships(id);
@@ -222,28 +209,27 @@ if (filters.OnlyActive.HasValue)
             }
             else
             {
-                throw new Exception("Related entities found, entity cannot be deleted");
+                throw new Exception("Se encontraron entidades relacionadas, no se puede eliminar la entidad");
             }
         }
 
-
-
+        /// <summary>
+        /// Restaura una entidad previamente eliminada, limpiando la fecha de eliminación y reactivando su estado.
+        /// </summary>
+        /// <param name="id">El identificador único de la entidad a restaurar.</param>
+        /// <returns>Una tarea que representa la operación asincrónica.</returns>
         public override async Task Restore(int id)
         {
             T entity = await GetById(id);
 
             if (entity == null)
-                throw new Exception("Entity not found");
+                throw new Exception("Entidad no encontrada");
 
             entity.DeletedAt = null;  // Se limpia la fecha de eliminación
-            entity.State = true;      // Se vuelve a marcar como activo
+            entity.State = true;      // Se vuelve a marcar como activa
 
             await Update(entity);
         }
-
-
-
-
-
     }
 }
+

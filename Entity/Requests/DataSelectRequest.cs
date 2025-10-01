@@ -1,20 +1,21 @@
 namespace Entity.Requests
 {
     /// <summary>
-    /// Represents a Request for selection data.
-    /// This class is used to encapsulate the data for items to be displayed in a selection list or dropdown.
+    /// Representa una petición de datos para selección.
+    /// Esta clase se utiliza para encapsular la información de los ítems que se mostrarán en una lista de selección o un menú desplegable.
     /// </summary>
     public class DataSelectRequest
     {
         /// <summary>
-        /// Gets or sets the unique identifier for the selection item.
+        /// Obtiene o establece el identificador único del ítem de selección.
         /// </summary>
         public long Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the display text for the selection item.
-        /// This is the text that will be shown in a selection interface, such as a dropdown or list.
+        /// Obtiene o establece el texto que se mostrará para el ítem de selección.
+        /// Este es el texto visible que aparecerá en una interfaz de selección, como un menú desplegable o una lista.
         /// </summary>
         public string DisplayText { get; set; } = null!;
     }
 }
+

@@ -10,16 +10,23 @@ using Utilities.Helper;
 namespace Repository.Implementations
 {
     /// <summary>
-    /// Implementation of the repository for role, form, and permission operations.
+    /// Implementación del repositorio para operaciones relacionadas con 
+    /// Roles, Formularios y Permisos.
     /// </summary>
-    public class RoleFormPermissionRepository : BaseModelRepository<RoleFormPermission, RoleFormPermissionDTO, RoleFormPermissionRequest>, IRoleFormPermissionRepository
+    public class RoleFormPermissionRepository
+        : BaseModelRepository<RoleFormPermission, RoleFormPermissionDTO, RoleFormPermissionRequest>, IRoleFormPermissionRepository
     {
         private readonly ApplicationContext _context;
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
         private readonly IHelper<RoleFormPermission, RoleFormPermissionDTO> _helperRepository;
 
-        public RoleFormPermissionRepository(ApplicationContext context, IMapper mapper, IConfiguration configuration, IHelper<RoleFormPermission, RoleFormPermissionDTO> helperRepository) : base(context, mapper, configuration, helperRepository)
+        public RoleFormPermissionRepository(
+            ApplicationContext context,
+            IMapper mapper,
+            IConfiguration configuration,
+            IHelper<RoleFormPermission, RoleFormPermissionDTO> helperRepository
+        ) : base(context, mapper, configuration, helperRepository)
         {
             _context = context;
             _mapper = mapper;
@@ -28,29 +35,35 @@ namespace Repository.Implementations
         }
 
         /// <summary>
-        /// Retrieves (where State is true) a filtered, sorted, and paginated list of DTOs based on the specified query filters.
+        /// Obtiene (donde <c>DeletedAt</c> es nulo) una lista filtrada, ordenada y paginada 
+        /// de registros de <see cref="RoleFormPermission"/> según los filtros especificados.
         /// </summary>
         /// <param name="filters">
-        /// An instance of <see cref="QueryFilterDTO"/> containing optional parameters for filtering, 
-        /// ordering, pagination, and foreign key constraints.
+        /// Instancia de <see cref="QueryFilterRequest"/> que contiene parámetros opcionales 
+        /// para filtrado, ordenamiento, paginación y restricciones por clave foránea.
         /// </param>
         /// <returns>
-        /// A task that represents the asynchronous operation. The task result contains an <see cref="IEnumerable{RoleFormPermissionRequest}"/> 
-        /// representing the list of mapped DTOs that match the applied filters and pagination settings.
+        /// Una tarea asincrónica cuyo resultado es un <see cref="IEnumerable{RoleFormPermissionRequest}"/> 
+        /// con la lista de registros que cumplen los filtros y paginación aplicados.
         /// </returns>
         /// <exception cref="Exception">
-        /// Throws any exception encountered during query execution or data mapping.
+        /// Lanza una excepción si ocurre un error durante la ejecución de la consulta o el mapeo de datos.
         /// </exception>
         public override async Task<IEnumerable<RoleFormPermissionRequest>> GetAll(QueryFilterRequest filters)
         {
             try
             {
-                int pageNumber = filters.PageNumber.HasValue && filters.PageNumber.Value > 0 ? filters.PageNumber.Value : _configuration.GetValue<int>("Pagination:DefaultPageNumber");
-                int pageSize = filters.PageSize.HasValue && filters.PageSize.Value > 0 ? filters.PageSize.Value : _configuration.GetValue<int>("Pagination:DefaultPageSize");
+                int pageNumber = filters.PageNumber.HasValue && filters.PageNumber.Value > 0
+                    ? filters.PageNumber.Value
+                    : _configuration.GetValue<int>("Pagination:DefaultPageNumber");
+
+                int pageSize = filters.PageSize.HasValue && filters.PageSize.Value > 0
+                    ? filters.PageSize.Value
+                    : _configuration.GetValue<int>("Pagination:DefaultPageSize");
 
                 filters.ColumnOrder ??= _configuration.GetValue<string>("Ordering:DefaultColumnOrder");
                 filters.DirectionOrder ??= _configuration.GetValue<string>("Ordering:DefaultDirectionOrder");
-                
+
                 var sql = @"SELECT
                             roleFormPermissions.Id,
                             roleFormPermissions.RoleId,
@@ -73,14 +86,19 @@ namespace Repository.Implementations
 
                 if (!string.IsNullOrEmpty(filters.Filter))
                 {
-                    sql += @"AND (UPPER(CONCAT()) LIKE UPPER(CONCAT(%, @filter, %))) ";
+                    // Filtro de búsqueda concatenando Role, Form y Permission
+                    sql += @"AND (UPPER(CONCAT(r.Name, f.Name, p.Name)) 
+                              LIKE UPPER(CONCAT('%', @filter, '%'))) ";
                 }
 
                 sql += @"ORDER BY roleFormPermissions." + filters.ColumnOrder + @" " + filters.DirectionOrder;
 
-                IEnumerable<RoleFormPermissionRequest> items = await _context.QueryAsync<RoleFormPermissionRequest>(sql, new { filter = filters.Filter, foreignKey = filters.ForeignKey });
+                IEnumerable<RoleFormPermissionRequest> items = await _context.QueryAsync<RoleFormPermissionRequest>(
+                    sql,
+                    new { filter = filters.Filter, foreignKey = filters.ForeignKey }
+                );
 
-                // Apply pagination
+                // Aplicar paginación
                 if (filters.AplyPagination)
                 {
                     int skip = (pageNumber - 1) * pageSize;
@@ -91,9 +109,10 @@ namespace Repository.Implementations
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error retrieving data: {ex.Message}");
+                Console.WriteLine($"Error al obtener datos: {ex.Message}");
                 throw;
             }
         }
     }
 }
+

@@ -8,10 +8,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Entity.Context
 {
-    /// <summary>
-    /// Configures the entities for the application.
-    /// It defines the primary keys for the User, Role, Permission, Form, and Module entities.
-    /// </summary>
+    
     public class ApplicationEntityConfigurations :
         IEntityTypeConfiguration<User>,
         IEntityTypeConfiguration<Person>,
@@ -47,14 +44,6 @@ namespace Entity.Context
 
     {
 
-
-      
-
-        /// <summary>
-        /// Configures the User entity.
-        /// Defines the primary key for the User entity.
-        /// </summary>
-        /// <param name="builder">The builder used to configure the entity.</param>
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(s => s.Id); // Primary key
@@ -67,19 +56,21 @@ namespace Entity.Context
         }
 
         /// <summary>
-        /// Configures the User entity.
-        /// Defines the primary key for the User entity.
+        /// Configura la entidad User.
+        /// Define la clave primaria para la entidad User.
         /// </summary>
-        /// <param name="builder">The builder used to configure the entity.</param>
+        /// <param name="builder">El constructor utilizado para configurar la entidad.</param>
+
         public void Configure(EntityTypeBuilder<Person> builder)
         {
             builder.HasKey(s => s.Id); // Primary key
         }
         /// <summary>
-        /// Configures the Role entity.
-        /// Defines the primary key for the Role entity.
+        /// Configura la entidad Role.
+        /// Define la clave primaria para la entidad Role.
         /// </summary>
-        /// <param name="builder">The builder used to configure the entity.</param>
+        /// <param name="builder">El constructor utilizado para configurar la entidad.</param>
+
         public void Configure(EntityTypeBuilder<Role> builder)
         {
             builder.HasKey(s => s.Id); // Primary key
@@ -115,28 +106,31 @@ namespace Entity.Context
         }
 
         /// <summary>
-        /// Configures the Permission entity.
-        /// Defines the primary key for the Permission entity.
+        /// Configura la entidad Permission.
+        /// Define la clave primaria para la entidad Permission.
         /// </summary>
-        /// <param name="builder">The builder used to configure the entity.</param>
+        /// <param name="builder">El constructor utilizado para configurar la entidad.</param>
+
         public void Configure(EntityTypeBuilder<Permission> builder)
         {
             builder.HasKey(s => s.Id); // Primary key
         }
         /// <summary>
-        /// Configures the Form entity.
-        /// Defines the primary key for the Form entity.
+        /// Configura la entidad Form.
+        /// Define la clave primaria para la entidad Form.
         /// </summary>
-        /// <param name="builder">The builder used to configure the entity.</param>
+        /// <param name="builder">El constructor utilizado para configurar la entidad.</param>
+
         public void Configure(EntityTypeBuilder<Form> builder)
         {
             builder.HasKey(s => s.Id); // Primary key
         }
         /// <summary>
-        /// Configures the Module entity.
-        /// Defines the primary key for the Module entity.
+        /// Configura la entidad Module.
+        /// Define la clave primaria para la entidad Module.
         /// </summary>
-        /// <param name="builder">The builder used to configure the entity.</param>
+        /// <param name="builder">El constructor utilizado para configurar la entidad.</param>
+
         public void Configure(EntityTypeBuilder<Module> builder)
         {
             builder.HasKey(s => s.Id); // Primary key

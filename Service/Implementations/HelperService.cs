@@ -9,11 +9,11 @@ using Utilities.Helper;
 namespace Service.Implementations
 {
     /// <summary>
-    /// Concrete implementation of the abstract helper service that handles entity operations 
-    /// and delegates validation logic to the repository layer.
+    /// Implementación concreta del servicio auxiliar abstracto que maneja operaciones de entidades 
+    /// y delega la lógica de validación a la capa de repositorio.
     /// </summary>
-    /// <typeparam name="T">The entity type, inheriting from <see cref="BaseModel"/>.</typeparam>
-    /// <typeparam name="D">The Data Transfer Object (DTO) type, inheriting from <see cref="BaseDTO"/>.</typeparam>
+    /// <typeparam name="T">El tipo de entidad, que hereda de <see cref="BaseModel"/>.</typeparam>
+    /// <typeparam name="D">El tipo de Data Transfer Object (DTO), que hereda de <see cref="BaseDTO"/>.</typeparam>
     public class HelperService<T, D> : AHelperService<T, D>
         where T : BaseModel
         where D : BaseDTO
@@ -22,10 +22,10 @@ namespace Service.Implementations
         private readonly IMapper _mapper;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="HelperService{T, D}"/> class.
+        /// Inicializa una nueva instancia de la clase <see cref="HelperService{T, D}"/>.
         /// </summary>
-        /// <param name="repository">The repository instance responsible for data access and relationship validation.</param>
-        /// <param name="mapper">The mapper instance used to convert between entities and DTOs.</param>
+        /// <param name="repository">La instancia del repositorio responsable del acceso a datos y validación de relaciones.</param>
+        /// <param name="mapper">La instancia de AutoMapper usada para convertir entre entidades y DTOs.</param>
         public HelperService(IHelper<T, D> repository, IMapper mapper)
         {
             _repository = repository;
@@ -33,45 +33,45 @@ namespace Service.Implementations
         }
 
         /// <summary>
-        /// Validates the relationships of the specified entity by delegating to the repository.
+        /// Valida las relaciones de la entidad especificada delegando al repositorio.
         /// </summary>
-        /// <param name="id">The unique identifier of the entity to validate.</param>
+        /// <param name="id">El identificador único de la entidad a validar.</param>
         /// <returns>
-        /// A task that represents the asynchronous operation. The task result contains 
-        /// <c>true</c> if the relationships are valid; otherwise, <c>false</c>.
+        /// Una tarea que representa la operación asincrónica. 
+        /// El resultado será <c>true</c> si las relaciones son válidas; de lo contrario, <c>false</c>.
         /// </returns>
         public override async Task<bool> ValidateEntityRelationships(int id)
         {
             return await _repository.ValidateEntityRelationships(id);
         }
+
         /// <summary>
-        /// Generates a consecutive code by delegating the logic to the repository layer.
+        /// Genera un código consecutivo delegando la lógica a la capa de repositorio.
         /// </summary>
         /// <returns>
-        /// A task that represents the asynchronous operation. The task result contains the generated 
-        /// consecutive code as a 4-digit string (e.g., "0001", "0002").
+        /// Una tarea que representa la operación asincrónica. 
+        /// El resultado contiene el código consecutivo generado en formato de 4 dígitos (ejemplo: "0001", "0002").
         /// </returns>
         public override async Task<string> GenerateConsecutiveCode()
         {
             return await _repository.GenerateConsecutiveCode();
         }
+
         /// <summary>
-        /// Retrieves a list of key-value pairs representing the values of the specified enum.
-        /// It uses reflection to locate the enum by name in the <c>Entity.Models</c> namespace and extracts its numeric value and associated <see cref="DescriptionAttribute"/>.
+        /// Obtiene una lista de pares clave-valor que representan los valores del enum especificado.
+        /// Utiliza reflexión para localizar el enum por nombre en el namespace <c>Entity.Models</c> 
+        /// y extrae su valor numérico junto con la descripción asociada en <see cref="DescriptionAttribute"/>.
         /// </summary>
-        /// <param name="enumName">The name of the enum to retrieve, such as "DocumentType" or "Gender".</param>
+        /// <param name="enumName">El nombre del enum a recuperar, como "DocumentType" o "Gender".</param>
         /// <returns>
-        /// A task representing the asynchronous operation. The task result is a list of <see cref="DataSelectRequest"/> containing the enum's value (as <c>Id</c>) and its description (as <c>DisplayText</c>).
+        /// Una tarea que representa la operación asincrónica. 
+        /// El resultado es una lista de <see cref="DataSelectRequest"/> que contiene el valor del enum (como <c>Id</c>) y su descripción (como <c>DisplayText</c>).
         /// </returns>
-        /// <exception cref="ArgumentException">Thrown if the enum type is not found or is not a valid enumeration.</exception>
+        /// <exception cref="ArgumentException">Se lanza si el tipo de enum no se encuentra o no es válido.</exception>
         public override async Task<List<DataSelectRequest>> GetEnum(string enumName)
         {
             return await _repository.GetEnum(enumName);
         }
-
-      
     }
-
-
 }
 

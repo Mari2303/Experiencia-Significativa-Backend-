@@ -6,39 +6,75 @@ using Service.Interfaces;
 namespace Service.Implementations
 {
     /// <summary>
-    /// Abstract base class for helper services that provides a contract for validating entity relationships.
-    /// Implements the <see cref="IHelperService{T, D}"/> interface.
+    /// Clase base abstracta para servicios auxiliares que proveen operaciones genéricas de validación 
+    /// y utilidades relacionadas con entidades del dominio.
+    /// 
+    /// Esta clase define la estructura común que deben implementar los servicios derivados, 
+    /// asegurando un contrato uniforme en operaciones clave como:
+    /// - Validación de relaciones entre entidades.
+    /// - Generación de códigos consecutivos.
+    /// - Obtención de valores de enumeraciones en formato de lista seleccionable.
+    /// 
+    /// Implementa la interfaz <see cref="IHelperService{T, D}"/>.
     /// </summary>
-    /// <typeparam name="T">The entity type, which must inherit from <see cref="BaseModel"/>.</typeparam>
-    /// <typeparam name="D">The Data Transfer Object (DTO) type, which must inherit from <see cref="BaseDTO"/>.</typeparam>
+    /// <typeparam name="T">
+    /// Tipo de entidad, el cual debe heredar de <see cref="BaseModel"/>.
+    /// Representa el modelo principal en la base de datos.
+    /// </typeparam>
+    /// <typeparam name="D">
+    /// Tipo de objeto de transferencia de datos (DTO), el cual debe heredar de <see cref="BaseDTO"/>.
+    /// Representa la capa de transporte de información entre las entidades y la capa de aplicación/servicio.
+    /// </typeparam>
     public abstract class AHelperService<T, D> : IHelperService<T, D>
         where T : BaseModel
         where D : BaseDTO
     {
         /// <summary>
-        /// When implemented in a derived class, validates the relationships associated with the specified entity ID.
+        /// Valida las relaciones de la entidad asociada al identificador proporcionado.
+        /// 
+        /// La lógica de validación debe ser implementada en la clase derivada. 
+        /// Por ejemplo, se puede verificar que la entidad no tenga dependencias activas 
+        /// antes de permitir una eliminación.
         /// </summary>
-        /// <param name="id">The unique identifier of the entity.</param>
+        /// <param name="id">Identificador único de la entidad a validar.</param>
         /// <returns>
-        /// A task representing the asynchronous operation. The result indicates whether the entity's relationships are valid.
+        /// Una tarea asincrónica cuyo resultado indica si las relaciones de la entidad son válidas:
+        /// <c>true</c> si no existen conflictos en las relaciones, 
+        /// <c>false</c> en caso contrario.
         /// </returns>
         public abstract Task<bool> ValidateEntityRelationships(int id);
+
         /// <summary>
-        /// When implemented in a derived class, generates a consecutive code based on the number of records in the associated model's table.
+        /// Genera un código consecutivo basado en la cantidad de registros existentes 
+        /// en la tabla de la entidad asociada.
+        /// 
+        /// Este código puede ser utilizado, por ejemplo, como un identificador legible 
+        /// o un número de folio secuencial.
         /// </summary>
         /// <returns>
-        /// A task representing the asynchronous operation. The result contains the generated consecutive code, formatted as a 4-digit string (e.g., "0001", "0002").
+        /// Una tarea asincrónica cuyo resultado es el código consecutivo generado, 
+        /// formateado como una cadena de 4 dígitos (ejemplo: "0001", "0002", etc.).
         /// </returns>
         public abstract Task<string> GenerateConsecutiveCode();
+
         /// <summary>
-        /// When implemented in a derived class, retrieves the key-value representation of the specified enumeration.
-        /// The method returns a list of <see cref="DataSelectRequest"/>, where each item contains the numeric value (Id) and its corresponding description (DisplayText).
+        /// Obtiene una representación clave-valor de un tipo de enumeración definido 
+        /// en el espacio de nombres <c>Entity.Models</c>.
+        /// 
+        /// Cada elemento de la lista representa un valor del enum con su identificador numérico (Id) 
+        /// y su descripción legible (DisplayText).
         /// </summary>
-        /// <param name="enumName">The name of the enumeration defined in the <c>Entity.Models</c> namespace.</param>
+        /// <param name="enumName">
+        /// Nombre del tipo de enumeración a consultar. Debe coincidir con un enum válido definido en <c>Entity.Models</c>.
+        /// </param>
         /// <returns>
-        /// A task representing the asynchronous operation. The task result contains a list of key-value pairs representing the enum values and their descriptions.
+        /// Una tarea asincrónica cuyo resultado es una lista de <see cref="DataSelectRequest"/> 
+        /// representando los valores del enum.
         /// </returns>
-        /// <exception cref="ArgumentException">Thrown when the provided <paramref name="enumName"/> does not correspond to a valid enum.</exception>
+        /// <exception cref="ArgumentException">
+        /// Se lanza cuando el <paramref name="enumName"/> no corresponde a un enum válido.
+        /// </exception>
         public abstract Task<List<DataSelectRequest>> GetEnum(string enumName);
     }
 }
+
