@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Entity.Requests.Email
 {
-    internal class PasswordRecoveryRequest
+    public class ForgotPasswordRequest
     {
+        public string Email { get; set; } = string.Empty;
     }
 }

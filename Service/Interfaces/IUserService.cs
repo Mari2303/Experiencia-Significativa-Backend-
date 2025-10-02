@@ -29,6 +29,13 @@ namespace Service.Interfaces
         /// <param name="userId">El ID del usuario.</param>
         /// <returns>Una tarea que representa la operación asíncrona, devolviendo la lista de elementos del menú.</returns>
         Task<List<MenuRequest>> GetMenuAsync(int userId);
+
+        Task SendRecoveryCodeAsync(string email);
+        Task ResetPasswordAsync(string email, string code, string newPassword);
+
+
+
+
     }
 }
 

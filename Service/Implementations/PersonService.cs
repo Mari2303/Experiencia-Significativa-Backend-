@@ -4,6 +4,7 @@ using Entity.Models;
 using Entity.Requests;
 using Repository.Interfaces;
 using Service.Interfaces;
+using Utilities.Helper.Implementation;
 
 namespace Service.Implementations
 {
@@ -22,6 +23,10 @@ namespace Service.Implementations
         // Método para crear persona desde PersonRequest
         public async Task<PersonRequest> CreatePersonAsync(PersonRequest request)
         {
+
+            // Validar todos los campos
+            PersonValidatorHelper.Validate(request);
+
             if (!Enum.TryParse<DocumentType>(request.DocumentType, out var docEnum))
             {
                 throw new Exception("DocumentType inválido");

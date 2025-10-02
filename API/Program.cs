@@ -93,14 +93,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Configuring CORS to allow any origin, method, and header
-app.UseCors(builder =>
-{
-    builder
-    .AllowAnyOrigin()
-    .AllowAnyMethod()
-    .AllowAnyHeader();
-});
+// Configuring CORS global con la política "AllowAll"
+app.UseCors("AllowAll");
 
 // Configuring Swagger in the application
 app.UseSwagger();
@@ -122,8 +116,7 @@ app.UseAuthorization();
 // Mapping controllers to routes
 app.MapControllers();
 
-// Specific CORS configuration
-app.UseCors("_myAllowSpecificOrigins");
+// app.UseCors("_myAllowSpecificOrigins");
 
 // Run the application
 app.Run();

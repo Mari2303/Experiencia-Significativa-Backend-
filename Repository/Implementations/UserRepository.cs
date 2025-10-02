@@ -223,6 +223,7 @@ namespace Repository.Implementations
                 .FirstOrDefaultAsync(u => u.Person != null && u.Person.Email == email);
         }
 
+
         /// <summary>
         /// Actualiza la información de un usuario.
         /// </summary>

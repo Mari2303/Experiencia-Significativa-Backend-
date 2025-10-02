@@ -3,8 +3,12 @@ using Entity.Dtos;
 using Entity.Models;
 using Entity.Requests;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Service.Interfaces;
+using Entity.Requests.Email;
+using ResetPasswordRequest = Entity.Requests.Email.ResetPasswordRequest;
+using ForgotPasswordRequest = Entity.Requests.Email.ForgotPasswordRequest;
 
 namespace API.Controllers
 {
@@ -62,13 +66,37 @@ namespace API.Controllers
         }
 
 
-            [Authorize]
-            [HttpGet("{userId}/menu")]
-            public async Task<ActionResult<List<MenuRequest>>> GetMenu(int userId)
-            {
-                var menu = await _userService.GetMenuAsync(userId);
-                return Ok(menu);
-            }
+        [Authorize]
+        [HttpGet("{userId}/menu")]
+        public async Task<ActionResult<List<MenuRequest>>> GetMenu(int userId)
+        {
+            var menu = await _userService.GetMenuAsync(userId);
+            return Ok(menu);
         }
+
+
+
+
+
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest request)
+        {
+            await _userService.SendRecoveryCodeAsync(request.Email);
+            return Ok("Correo de recuperación enviado.");
+        }
+
+
+
+
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
+        {
+            await _userService.ResetPasswordAsync(request.Email, request.Code, request.NewPassword);
+            return Ok("Contraseña actualizada correctamente.");
+        }
+
+
+
+    }
     }
 
