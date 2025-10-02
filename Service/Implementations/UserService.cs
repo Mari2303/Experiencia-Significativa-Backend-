@@ -168,8 +168,7 @@ namespace Service.Implementations
             if (user.RecoveryCode != code || user.RecoveryCodeExpiration == null || user.RecoveryCodeExpiration < DateTime.UtcNow)
                 throw new Exception("Código inválido o expirado");
 
-            // 🔹 Depuración: mostrar la contraseña antes de encriptar
-            Console.WriteLine($"[DEBUG] Nueva contraseña para {email}: {newPassword}");
+            
 
             // Encriptar la contraseña con MD5
             user.Password = EncryptMD5(newPassword);
@@ -180,8 +179,7 @@ namespace Service.Implementations
 
             await _userRepository.UpdateAsync(user);
 
-            // 🔹 Depuración: mostrar la contraseña encriptada
-            Console.WriteLine($"[DEBUG] Contraseña encriptada (MD5) para {email}: {user.Password}");
+            
         }
 
 
