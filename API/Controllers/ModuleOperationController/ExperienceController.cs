@@ -2,6 +2,8 @@
 using AutoMapper;
 using Entity.Dtos.ModuleOperational;
 using Entity.Models.ModuleOperation;
+using Entity.Requests.EntityCreateRequest;
+using Entity.Requests.EntityUpdateRequest;
 using Entity.Requests.ModuleOperation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,14 +25,14 @@ namespace API.Controllers.ModuleOperationController
 
         [Authorize]
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] ExperienceRegisterDTO dto)
+        public async Task<IActionResult> Register([FromBody] ExperienceCreateRequest request)
         {
-            if (dto == null)
+            if (request == null)
                 return BadRequest("El DTO no puede estar vacío.");
 
             try
             {
-                var experience = await _experienceService.RegisterExperienceAsync(dto);
+                var experience = await _experienceService.RegisterExperienceAsync(request);
                 return Ok(experience);
             }
             catch (Exception ex)
@@ -59,11 +61,11 @@ namespace API.Controllers.ModuleOperationController
 
         [Authorize(Roles = "SUPERADMIN")]
         [HttpPatch("patch")]
-        public async Task<IActionResult> Patch([FromBody] ExperiencePatchDTO dto)
+        public async Task<IActionResult> Patch([FromBody] ExperienceUpdateRequest request)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var success = await _experienceService.PatchAsync(dto);
+            var success = await _experienceService.PatchAsync(request);
             if (!success) return NotFound();
 
             return Ok(new { message = "Experience patched successfully" });

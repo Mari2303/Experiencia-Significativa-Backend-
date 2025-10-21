@@ -1,7 +1,7 @@
-﻿using Entity.Dtos.ModuleOperation.CreateEvaluation;
-using Entity.Dtos.ModuleOperational;
-using Entity.Models.ModelosParametros;
+﻿using Entity.Dtos.ModuleOperational;
 using Entity.Models.ModuleOperation;
+using Entity.Requests.EntityCreateRequest;
+using Entity.Requests.EntityDetailRequest;
 using Entity.Requests.ModuleOperation;
 using Repository.Interfaces.IModuleOperationRepository;
 using Service.Interfaces.ModelOperationService;
@@ -19,15 +19,15 @@ namespace Service.Implementations.ModelOperationService
 
 
 
-        public async Task<EvaluationDetailDTO> CreateEvaluationAsync(EvaluationRegisterDTO dto)
+        public async Task<EvaluationDetailRequest> CreateEvaluationAsync(EvaluationCreateRequest request)
         {
             // 1. Validar que la experiencia exista
-            var experience = await _evaluationRepository.GetExperienceWithInstitutionAsync(dto.ExperienceId)
+            var experience = await _evaluationRepository.GetExperienceWithInstitutionAsync(request.ExperienceId)
                 ?? throw new KeyNotFoundException("La experiencia no existe");
 
             // 2. Construir evaluación con Builder (suma los scores) y obtener criterios sin EvaluationId
-            var builder = new EvaluationBuilder(dto)
-                .AddCriteriaScores(dto.CriteriaEvaluations);
+            var builder = new EvaluationBuilder(request)
+                .AddCriteriaScores(request.EvaluationCriteriaDetail);
 
             var (evaluation, criteriaList) = builder.Build(); // ahora devuelve evaluación y lista de criterios
 
@@ -42,7 +42,7 @@ namespace Service.Implementations.ModelOperationService
             }
 
             // 5. Actualizar campos adicionales de Criteria si es necesario
-            foreach (var c in dto.CriteriaEvaluations)
+            foreach (var c in request.EvaluationCriteriaDetail)
             {
                 var criteria = await _evaluationRepository.GetCriteriaByIdAsync(c.CriteriaId);
                 if (criteria != null)

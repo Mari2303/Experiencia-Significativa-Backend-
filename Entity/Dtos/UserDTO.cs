@@ -1,4 +1,6 @@
-﻿namespace Entity.Dtos
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Entity.Dtos
 {
     /// <summary>
     /// Data Transfer Object for user information

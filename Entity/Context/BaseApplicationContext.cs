@@ -8,6 +8,7 @@ using System.Data;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore.Storage;
 using Entity.Models.ModuleOperation;
+using Entity.Models.ModuleGeographic;
 
 namespace Entity.Context
 {
@@ -38,7 +39,7 @@ namespace Entity.Context
             modelBuilder.ApplyConfiguration<UserRole>(configuration);
             modelBuilder.ApplyConfiguration<FormModule>(configuration);
             modelBuilder.ApplyConfiguration<RoleFormPermission>(configuration);
-            modelBuilder.ApplyConfiguration<State>(configuration);
+            modelBuilder.ApplyConfiguration<StateExperience>(configuration);
             modelBuilder.ApplyConfiguration<Grade>(configuration);
             modelBuilder.ApplyConfiguration<Criteria>(configuration);
             modelBuilder.ApplyConfiguration<LineThematic>(configuration);
@@ -47,7 +48,7 @@ namespace Entity.Context
 
 
             modelBuilder.ApplyConfiguration<Document>(configuration);
-            modelBuilder.ApplyConfiguration<Verification>(configuration);
+            modelBuilder.ApplyConfiguration<Development>(configuration);
             modelBuilder.ApplyConfiguration<Evaluation>(configuration);
             modelBuilder.ApplyConfiguration<EvaluationCriteria>(configuration);
             modelBuilder.ApplyConfiguration<Experience>(configuration);
@@ -57,6 +58,15 @@ namespace Entity.Context
             modelBuilder.ApplyConfiguration<HistoryExperience>(configuration);
             modelBuilder.ApplyConfiguration<Institution>(configuration);
             modelBuilder.ApplyConfiguration<Objective>(configuration);
+
+            modelBuilder.ApplyConfiguration<Leader>(configuration);
+            modelBuilder.ApplyConfiguration<Monitoring>(configuration);
+            modelBuilder.ApplyConfiguration<SupportInformation>(configuration);
+            modelBuilder.ApplyConfiguration<Departament>(configuration);
+            modelBuilder.ApplyConfiguration<Commune>(configuration);
+            modelBuilder.ApplyConfiguration<Address>(configuration);
+            modelBuilder.ApplyConfiguration<Municipality>(configuration);
+            modelBuilder.ApplyConfiguration<EEZone>(configuration);
 
 
             modelBuilder.Entity<PasswordRecovery>(entity =>
@@ -143,7 +153,7 @@ namespace Entity.Context
         public DbSet<RoleFormPermission> RoleFormPermissions { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Models.Module> Modules { get; set; }
-        public DbSet<State> State { get; set; }
+        public DbSet<StateExperience> StateExperiences { get; set; }
         public DbSet<Criteria> Criteria { get; set; }
         public DbSet<Grade> Grade { get; set; }
         public DbSet<LineThematic> LineThematics { get; set; }
@@ -151,7 +161,7 @@ namespace Entity.Context
 
       
         public DbSet<Models.ModuleOperation.Document> Documents { get; set; }
-        public DbSet<Verification> verifications { get; set; }
+        public DbSet<Development> Development { get; set; }
         public DbSet<Evaluation> Evaluations { get; set; }
         public DbSet<EvaluationCriteria> EvaluationCriterias { get; set; }
         public DbSet<Experience> Experiences { get; set; }
@@ -162,6 +172,16 @@ namespace Entity.Context
         public DbSet<Institution> Institutions { get; set; }
         public DbSet<Objective> Objectives { get; set; }
         public DbSet<PasswordRecovery> PasswordRecoveries { get; set; } = null!;
+
+
+        public DbSet<Leader> Leaders { get; set; }
+        public DbSet<Monitoring> Monitorings { get; set; }
+        public DbSet<SupportInformation> SupportInformations { get; set; }
+        public DbSet<Departament> Departaments { get; set; }
+        public DbSet<Commune> Communes { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Municipality> Municipalities { get; set; }
+        public DbSet<EEZone> EEZones { get; set; }
 
     }
 

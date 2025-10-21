@@ -1,22 +1,30 @@
 ﻿using Entity.Dtos; 
-using Entity.Dtos.ModelosParametro; 
+using Entity.Dtos.ModelosParametro;
+using Entity.Dtos.ModuleGeographic;
+using Entity.Dtos.ModuleOperation;
 using Entity.Dtos.ModuleOperational; 
 using Entity.Models;
 using Entity.Models.ModelosParametros;
+using Entity.Models.ModuleGeographic;
 using Entity.Models.ModuleOperation; 
-using Entity.Requests; 
+using Entity.Requests;
+using Entity.Requests.ModuleGeographic;
 using Entity.Requests.ModuleOperation; 
 using Entity.Requests.ModulesParamer; 
-using Repository.Implementations; 
+using Repository.Implementations;
+using Repository.Implementations.ModuleGeographicRepository;
 using Repository.Implementations.ModuleOperationRepository; 
 using Repository.Implementations.ModulePararmer; 
 using Repository.Interfaces;
+using Repository.Interfaces.IModuleGeographicRepository;
 using Repository.Interfaces.IModuleOperationRepository; 
 using Repository.Interfaces.ModuleParamer; 
 using Service.Implementations; 
-using Service.Implementations.ModelOperationService; 
+using Service.Implementations.ModelOperationService;
+using Service.Implementations.ModuleGeographicService;
 using Service.Implementations.ModuleParamer; 
-using Service.Interfaces; 
+using Service.Interfaces;
+using Service.Interfaces.IModuleGeographicService;
 using Service.Interfaces.ModelOperationService; 
 using Service.Interfaces.ModuleParamer; 
 using Utilities.Helper;
@@ -144,11 +152,11 @@ namespace API
             services.AddScoped<IHelperService<Grade, GradeDTO>, HelperService<Grade, GradeDTO>>();
             services.AddScoped<IHelper<Grade, GradeDTO>, Helper<Grade, GradeDTO>>();
 
-            services.AddScoped<IStateRepository, StateRepository>();
-            services.AddScoped<IStateService, StateService>();
-            services.AddScoped<IBaseModelService<State, StateDTO, StateRequest>, StateService>();
-            services.AddScoped<IHelperService<State, StateDTO>, HelperService<State, StateDTO>>();
-            services.AddScoped<IHelper<State, StateDTO>, Helper<State, StateDTO>>();
+            services.AddScoped<IStateExperienceRepository, StateExperienceRepository>();
+            services.AddScoped<IStateExperienceService, StateExperienceService>();
+            services.AddScoped<IBaseModelService<StateExperience, StateExperienceDTO, StateExperienceRequest>, StateExperienceService>();
+            services.AddScoped<IHelperService<StateExperience, StateExperienceDTO>, HelperService<StateExperience, StateExperienceDTO>>();
+            services.AddScoped<IHelper<StateExperience, StateExperienceDTO>, Helper<StateExperience, StateExperienceDTO>>();
 
             services.AddScoped<ILineThematicRepository, LineThematicRepository>();
             services.AddScoped<ILineThematicService, LineThematicService>();
@@ -231,11 +239,79 @@ namespace API
             services.AddScoped<IHelperService<Objective, ObjectiveDTO>, HelperService<Objective, ObjectiveDTO>>();
             services.AddScoped<IHelper<Objective, ObjectiveDTO>, Helper<Objective, ObjectiveDTO>>();
 
-            services.AddScoped<IVerificationRepository, VerificationRepository>();
-            services.AddScoped<IVerificationService, VerificationService>();
-            services.AddScoped<IBaseModelService<Verification, VerificationDTO, VerificationRequest>, VerificationService>();
-            services.AddScoped<IHelperService<Verification, VerificationDTO>, HelperService<Verification, VerificationDTO>>();
-            services.AddScoped<IHelper<Verification, VerificationDTO>, Helper<Verification, VerificationDTO>>();
+            services.AddScoped<IDevelopmentRepository, DevelopmentRepository>();
+            services.AddScoped<IDevelopmentService, DevelopmentService>();
+            services.AddScoped<IBaseModelService<Development, DevelopmentDTO, DevelopmentRequest>, DevelopmentService>();
+            services.AddScoped<IHelperService<Development, DevelopmentDTO>, HelperService<Development, DevelopmentDTO>>();
+            services.AddScoped<IHelper<Development, DevelopmentDTO>, Helper<Development, DevelopmentDTO>>();
+
+
+
+            // Registro de Leader
+            services.AddScoped<ILeaderRepository, LeaderRepository>();
+            services.AddScoped<ILeaderService, LeaderService>();
+            services.AddScoped<IBaseModelService<Leader, LeaderDTO, LeaderRequest>, LeaderService>();
+            services.AddScoped<IHelperService<Leader, LeaderDTO>, HelperService<Leader, LeaderDTO>>();
+            services.AddScoped<IHelper<Leader, LeaderDTO>, Helper<Leader, LeaderDTO>>();
+
+            // registro de Monitoring
+            services.AddScoped<IMonitoringRepository, MonitoringRepository>();
+            services.AddScoped<IMonitoringService, MonitoringService>();
+            services.AddScoped<IBaseModelService<Monitoring, MonitoringDTO, MonitoringRequest>, MonitoringService>();
+            services.AddScoped<IHelperService<Monitoring, MonitoringDTO>, HelperService<Monitoring, MonitoringDTO>>();
+            services.AddScoped<IHelper<Monitoring, MonitoringDTO>, Helper<Monitoring, MonitoringDTO>>();
+
+            // reistro de SupportInformation
+            services.AddScoped<ISupportInformationRepository, SupportInformationRepository>();
+            services.AddScoped<ISupportInformationService, SupportInformationService>();
+            services.AddScoped<IBaseModelService<SupportInformation, SupportInformationDTO, SupportInformationRequest>, SupportInformationService>();
+            services.AddScoped<IHelperService<SupportInformation, SupportInformationDTO>, HelperService<SupportInformation, SupportInformationDTO>>();
+            services.AddScoped<IHelper<SupportInformation, SupportInformationDTO>, Helper<SupportInformation, SupportInformationDTO>>();
+
+
+            // registro modulo geographic
+
+            services.AddScoped<IDepartamentRepository, DepartamentRepository>();
+            services.AddScoped<IDepartamentService, DepartamentService>();
+            services.AddScoped<IBaseModelService<Departament, DepartamentDTO, DepartamentRequest>, DepartamentService>();
+            services.AddScoped<IHelperService<Departament, DepartamentDTO>, HelperService<Departament, DepartamentDTO>>();
+            services.AddScoped<IHelper<Departament, DepartamentDTO>, Helper<Departament, DepartamentDTO>>();
+
+            services.AddScoped<IMunicipalityRepository, MunicipalityRepository>();
+            services.AddScoped<IMunicipalityService, MunicipalityService>();
+            services.AddScoped<IBaseModelService<Municipality, MunicipalityDTO, MunicipalityRequest>, MunicipalityService>();
+            services.AddScoped<IHelperService<Municipality, MunicipalityDTO>, HelperService<Municipality, MunicipalityDTO>>();
+            services.AddScoped<IHelper<Municipality, MunicipalityDTO>, Helper<Municipality, MunicipalityDTO>>();
+
+
+            services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddScoped<IAddressService, AddressService>();
+            services.AddScoped<IBaseModelService<Address, AddressDTO, AddressRequest>, AddressService>();
+            services.AddScoped<IHelperService<Address, AddressDTO>, HelperService<Address, AddressDTO>>();
+            services.AddScoped<IHelper<Address, AddressDTO>, Helper<Address, AddressDTO>>();
+
+
+            services.AddScoped<ICommuneRepository, CommuneRepository>();
+            services.AddScoped<ICommuneService, CommuneService>();
+            services.AddScoped<IBaseModelService<Commune, CommuneDTO, CommuneRequest>, CommuneService>();
+            services.AddScoped<IHelperService<Commune, CommuneDTO>, HelperService<Commune, CommuneDTO>>();
+            services.AddScoped<IHelper<Commune, CommuneDTO>, Helper<Commune, CommuneDTO>>();
+
+            services.AddScoped<IEEZoneRepository, EEZoneRepository>();
+            services.AddScoped<IEEZoneService, EEZoneService>();
+            services.AddScoped<IBaseModelService<EEZone, EEZoneDTO, EEZoneRequest>, EEZoneService>();
+            services.AddScoped<IHelperService<EEZone, EEZoneDTO>, HelperService<EEZone, EEZoneDTO>>();
+            services.AddScoped<IHelper<EEZone, EEZoneDTO>, Helper<EEZone, EEZoneDTO>>();
+
+            
+
+
+
+
+
+
+
+
 
         }
     }

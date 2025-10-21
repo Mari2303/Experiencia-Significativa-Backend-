@@ -31,9 +31,6 @@ namespace Entity.Requests
         public string? SecondLastName { get; set; } = string.Empty;
 
 
-        [StringLength(150, ErrorMessage = "El nombre completo no puede exceder 150 caracteres")]
-        public string? FullName { get; set; } = string.Empty;
-
 
         [Required(ErrorMessage = "El código DANE es obligatorio")]
         [StringLength(12, ErrorMessage = "El código DANE no puede exceder 12 caracteres")]
@@ -49,7 +46,7 @@ namespace Entity.Requests
         public string Email { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "El teléfono es obligatorio")]
-        [MaxLength(10)]
+       
         public uint Phone { get; set; }
     }
 }

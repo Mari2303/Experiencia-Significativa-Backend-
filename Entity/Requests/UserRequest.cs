@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Entity.Requests
 {
     public class UserRequest : BaseRequest
@@ -7,7 +9,8 @@ namespace Entity.Requests
      
      
         public string Username { get; set; } = string.Empty;
-        
+
+      
         public string Password { get; set; } = string.Empty;
        
         public int PersonId { get; set; }

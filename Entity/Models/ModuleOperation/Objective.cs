@@ -9,15 +9,10 @@ namespace Entity.Models.ModuleOperation
         public string EnfoqueExperience { get; set; } = string.Empty;
         public string Methodologias { get; set; } = string.Empty;
         public string InnovationExperience { get; set; } = string.Empty;
-        public string ResulsExperience { get; set; } = string.Empty;
-        public string SustainabilityExperience { get; set; } = string.Empty;
-        public string Tranfer { get; set; } = string.Empty;
-        public string Summary { get; set; } = string.Empty;
-        public string MetaphoricalPhrase { get; set; } = string.Empty;
-        public string Testimony { get; set; } = string.Empty;
-        public string FollowEvaluation { get; set; } = string.Empty;
         public int ExperienceId { get; set; }
         public virtual Experience Experience { get; set; } = null!;
-
+        public ICollection<Monitoring> Monitorings { get; set; } = new List<Monitoring>();
+        public ICollection<SupportInformation> SupportInformations { get; set; } = new List<SupportInformation>();
+       
     }
 }

@@ -1,4 +1,3 @@
-using Entity.Models;
 namespace Entity.Dtos
 {
     /// <summary>
@@ -35,8 +34,6 @@ namespace Entity.Dtos
         /// Person's secon last name
         /// </summary>
         public string? SecondLastName { get; set; } = string.Empty;
-
-    
 
         /// <summary>
         /// Person's Email

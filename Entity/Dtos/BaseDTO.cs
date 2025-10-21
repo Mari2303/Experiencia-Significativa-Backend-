@@ -12,14 +12,14 @@
         /// <summary>
         /// Indicates if the entity is currently active in the system
         /// </summary>
-        public bool State { get; set; }
+    //    public bool State { get; set; }
         /// <summary>
         /// Date and time when the entity was created
         /// </summary>
-        public DateTime? CreatedAt { get; set; }
+    //    public DateTime? CreatedAt { get; set; }
         /// <summary>
         /// Date and time when the entity was last deleted
         /// </summary>
-        public DateTime? DeletedAt { get; set; }
+     //   public DateTime? DeletedAt { get; set; }
     }
 }

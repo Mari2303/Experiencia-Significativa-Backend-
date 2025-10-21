@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Entity.Dtos.ModuleOperation.CreateEvaluation;
 using Entity.Dtos.ModuleOperational;
 using Entity.Models.ModuleOperation;
+using Entity.Requests.EntityCreateRequest;
 using Entity.Requests.ModuleOperation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,12 +23,12 @@ namespace API.Controllers.ModuleOperationController
 
         [Authorize(Roles = "SUPERADMIN")] // Solo admin crea evaluaciones
         [HttpPost("create")]
-        public async Task<IActionResult> Create([FromBody] EvaluationRegisterDTO dto)
+        public async Task<IActionResult> Create([FromBody] EvaluationCreateRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _evaluationService.CreateEvaluationAsync(dto);
+            var result = await _evaluationService.CreateEvaluationAsync(request);
             return Ok(result);
         }
 

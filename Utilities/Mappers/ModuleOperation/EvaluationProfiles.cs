@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Entity.Dtos.ModuleOperation.CreateEvaluation;
 using Entity.Dtos.ModuleOperational;
 using Entity.Models.ModuleOperation;
+using Entity.Requests.EntityDetailRequest;
 using Entity.Requests.ModuleOperation;
 
 namespace Utilities.Mappers.ModuleOperation
@@ -12,7 +12,7 @@ namespace Utilities.Mappers.ModuleOperation
         {
             CreateMap<EvaluationDTO, Evaluation>().ReverseMap();
             CreateMap<EvaluationRequest, Evaluation>().ReverseMap();
-            CreateMap<Evaluation, EvaluationDetailDTO>()
+            CreateMap<Evaluation, EvaluationDetailRequest>()
                 
 
     .ForMember(dest => dest.CriteriaEvaluations,

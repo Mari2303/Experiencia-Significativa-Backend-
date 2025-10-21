@@ -19,7 +19,7 @@ namespace Utilities.Helper.Implementation
             ValidateTextField(request.MiddleName, "Segundo nombre");
             ValidateTextField(request.FirstLastName, "Primer apellido");
             ValidateTextField(request.SecondLastName, "Segundo apellido");
-            ValidateTextField(request.FullName, "Nombre completo");
+           
 
             // Validar IdentificationNumber y CodeDane (solo números)
             ValidateNumberField(request.IdentificationNumber, "Número de identificación");

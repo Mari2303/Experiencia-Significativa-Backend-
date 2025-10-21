@@ -44,8 +44,7 @@ namespace Service.Implementations
                 EmailInstitutional = request.EmailInstitutional,
                 Phone = request.Phone,
                 CodeDane = request.CodeDane,
-                State = true,
-                CreatedAt = DateTime.UtcNow
+               
             };
 
             var savedEntity = await _personRepository.Save(entity);

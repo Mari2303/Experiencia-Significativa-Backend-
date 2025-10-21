@@ -1,4 +1,5 @@
-﻿using Entity.Models.ModuleOperation;
+﻿using System.ComponentModel.DataAnnotations;
+using Entity.Models.ModuleOperation;
 
 namespace Entity.Models
 {
@@ -12,7 +13,7 @@ namespace Entity.Models
 
         public int PersonId { get; set; }
 
-      
+        [Required]
         public string Password { get; set; } = string.Empty;
 
        
@@ -24,7 +25,6 @@ namespace Entity.Models
         public virtual ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
         public virtual ICollection<Experience> Experiences { get; set; } = new List<Experience>();
         public virtual ICollection<Evaluation> Evaluations { get; set; } = new List<Evaluation>();
-
         public virtual ICollection<HistoryExperience> HistoryExperiences { get; set; } = new List<HistoryExperience>();
     }
 }

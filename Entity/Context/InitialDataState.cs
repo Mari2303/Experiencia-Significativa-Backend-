@@ -12,7 +12,7 @@ namespace Entity.Context.Seed
         {
 
             
-            var StateRising = new State()
+            var StateRising = new StateExperience()
             {
                 Id = 1,
                 Name = "Naciente",
@@ -22,7 +22,7 @@ namespace Entity.Context.Seed
                 DeletedAt = null!
             };
 
-            var StateGrowing = new State()
+            var StateGrowing = new StateExperience()
             {
                 Id = 2,
                 Name = "Creciente",
@@ -32,7 +32,7 @@ namespace Entity.Context.Seed
                 DeletedAt = null!
             };
 
-            var StateInspirational = new State()
+            var StateInspirational = new StateExperience()
             {
                 Id = 3,
                 Name = "Inspiradora",
@@ -43,7 +43,7 @@ namespace Entity.Context.Seed
             };
 
             // Registrar los datos en EF Core
-            modelBuilder.Entity<State>().HasData(
+            modelBuilder.Entity<StateExperience>().HasData(
                 StateRising, StateGrowing, StateInspirational
             );
         }

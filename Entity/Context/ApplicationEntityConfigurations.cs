@@ -1,6 +1,7 @@
 ﻿using System.Reflection.Metadata;
 using Entity.Models;
 using Entity.Models.ModelosParametros;
+using Entity.Models.ModuleGeographic;
 using Entity.Models.ModuleOperation;
 using Entity.Requests;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +21,7 @@ namespace Entity.Context
         IEntityTypeConfiguration<FormModule>,
         IEntityTypeConfiguration<RoleFormPermission>,
          IEntityTypeConfiguration<Criteria>,
-         IEntityTypeConfiguration<State>,
+         IEntityTypeConfiguration<StateExperience>,
          IEntityTypeConfiguration<Grade>,
          IEntityTypeConfiguration<LineThematic>,
          IEntityTypeConfiguration<PopulationGrade>,
@@ -33,10 +34,20 @@ namespace Entity.Context
         IEntityTypeConfiguration<ExperiencePopulation>,
         IEntityTypeConfiguration<Evaluation>,
         IEntityTypeConfiguration<HistoryExperience>,
-        IEntityTypeConfiguration<Verification>,
+        IEntityTypeConfiguration<Development>,
         IEntityTypeConfiguration<Institution>,
         IEntityTypeConfiguration<EvaluationCriteria>,
-        IEntityTypeConfiguration<PasswordRecovery>
+        IEntityTypeConfiguration<PasswordRecovery>,
+
+        IEntityTypeConfiguration<Leader>,
+        IEntityTypeConfiguration<Monitoring>,
+        IEntityTypeConfiguration<SupportInformation>,
+
+        IEntityTypeConfiguration<Departament>,
+        IEntityTypeConfiguration<Municipality>,
+        IEntityTypeConfiguration<Commune>,
+        IEntityTypeConfiguration<EEZone>,
+        IEntityTypeConfiguration<Address>
 
 
 
@@ -82,7 +93,7 @@ namespace Entity.Context
         }
 
 
-        public void Configure(EntityTypeBuilder<State> builder)
+        public void Configure(EntityTypeBuilder<StateExperience> builder)
         {
             builder.HasKey(s => s.Id); // Primary key
 
@@ -214,9 +225,9 @@ namespace Entity.Context
                 .WithMany(i => i.Experiences)
                 .HasForeignKey(e => e.InstitucionId);
 
-            builder.HasOne(e => e.State)
+            builder.HasOne(e => e.StateExperience)
                 .WithMany(i => i.Experiences)
-                .HasForeignKey(e => e.StateId);
+                .HasForeignKey(e => e.StateExperienceId);
 
         }
 
@@ -272,17 +283,14 @@ namespace Entity.Context
                    .HasForeignKey(h => h.ExperienceId)
                    .OnDelete(DeleteBehavior.Cascade); // Solo esta puede ser cascade
 
-            builder.HasOne(h => h.State)
-                   .WithMany(s => s.HistoryExperiences)
-                   .HasForeignKey(h => h.StateId)
-                   .OnDelete(DeleteBehavior.Restrict); // Evita cascada
+          
 
 
         }
-        public void Configure(EntityTypeBuilder<Verification> builder)
+        public void Configure(EntityTypeBuilder<Development> builder)
         {
             builder.HasOne(e => e.Experience)
-                .WithMany(u => u.verifications)
+                .WithMany(u => u.Developments)
                 .HasForeignKey(e => e.ExperienceId);
 
 
@@ -295,15 +303,69 @@ namespace Entity.Context
 
         }
 
+        public void Configure(EntityTypeBuilder<Leader> builder)
+        {
+            builder.HasOne(e => e.Experience)
+                .WithMany(u => u.Leaders)
+                .HasForeignKey(e => e.ExperienceId);
+        }
+
+        public void Configure(EntityTypeBuilder<Monitoring> builder)
+        {
+            builder.HasOne(e => e.Objective)
+                .WithMany(u => u.Monitorings)
+                .HasForeignKey(e => e.ObjectiveId);
+
+        }
+
+        public void Configure(EntityTypeBuilder<SupportInformation> builder)
+        {
+            builder.HasOne(e => e.Objective)
+                .WithMany(u => u.SupportInformations)
+                .HasForeignKey(e => e.ObjectiveId);
+        }
+
+        public void Configure(EntityTypeBuilder<Departament> builder)
+        {
+            builder.HasOne(e => e.Institution)
+                .WithMany(u => u.Departaments)
+                .HasForeignKey(e => e.InstitutionId);
+        }
+
+        public void Configure(EntityTypeBuilder<Municipality> builder)
+        {
+            builder.HasOne(e => e.Institution)
+                .WithMany(u => u.Municipalitis)
+                .HasForeignKey(e => e.InstitutionId);
+        }
+
+        public void Configure(EntityTypeBuilder<Commune> builder)
+        {
+            builder.HasOne(e => e.Institution)
+                .WithMany(u => u.Communes)
+                .HasForeignKey(e => e.InstitutionId);
+
+        }
+
+
+        public void Configure(EntityTypeBuilder<EEZone> builder)
+        {
+            builder.HasOne(e => e.Institution)
+                .WithMany(u => u.EEZones)
+                .HasForeignKey(e => e.InstitutionId);
+        }
+
+        public void Configure(EntityTypeBuilder<Address> builder)
+        {
+            builder.HasOne(e => e.Institution)
+                .WithMany(u => u.Addresss)
+                .HasForeignKey(e => e.InstitutionId);
+        }
+
+     
 
 
 
 
-
-
-
-
-
-
-    }
+        }
 }

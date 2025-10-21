@@ -1,12 +1,18 @@
-﻿using Application.Builders;
-using Entity.Dtos.ModuleOperation.RegisterExperience;
+﻿
+using Builders;
+
 using Entity.Dtos.ModuleOperational;
+using Entity.Models.ModelosParametros;
 using Entity.Models.ModuleOperation;
+using Entity.Requests.EntityCreateRequest;
+using Entity.Requests.EntityDataRequest;
+using Entity.Requests.EntityDetailRequest;
+using Entity.Requests.EntityUpdateRequest;
 using Entity.Requests.ModuleOperation;
 using Microsoft.EntityFrameworkCore;
 using Repository.Interfaces.IModuleOperationRepository;
-using Service.Builders;
 using Service.Interfaces.ModelOperationService;
+
 
 namespace Service.Implementations.ModelOperationService
 {
@@ -22,19 +28,21 @@ namespace Service.Implementations.ModelOperationService
 
  
 
-        public async Task<Experience> RegisterExperienceAsync(ExperienceRegisterDTO dto)
+        public async Task<Experience> RegisterExperienceAsync(ExperienceCreateRequest request)
         {
             try
             {
                 var experience = new ExperienceBuilder()
-                    .WithBasicInfo(dto)
-                    .WithInstitution(dto.Institution)
-                   .WithDocuments(dto.Documents)
-                    .WithObjectives(dto.Objectives)
-                    .WithThematics(dto.ThematicLineIds)
-                    .WithGrades(dto.Grades)
-                    .WithPopulations(dto.PopulationGradeIds)
-                    .WithHistory(dto.HistoryExperiences, dto.UserId)
+                    .WithBasicInfo(request)
+                    .WithInstitution(request.Institution)
+                   .WithDocuments(request.Documents)
+                   .WithDevelopment(request.Developments)
+                   .WithLeader(request.Leaders)
+                  .WithObjective(request.Objectives)
+                    .WithThematics(request.ThematicLineIds)
+                    .WithGrades(request.Grades)
+                    .WithPopulations(request.PopulationGradeIds)
+                    .WithHistory(request.HistoryExperiences, request.UserId)
                     .Build();
 
                 await _experienceRepository.AddAsync(experience);
@@ -49,23 +57,24 @@ namespace Service.Implementations.ModelOperationService
             {
                 throw new Exception($"Error general al registrar la experiencia: {ex.Message}", ex);
             }
-        } 
-
-
-        public async Task<ExperienceDetailDTO?> GetDetailByIdAsync(int id)
-        {
-            var experience = await _experienceRepository.GetByIdWithDetailsAsync(id);
-            return experience?.ToDetailDTO(); 
         }
 
 
-        public async Task<bool> PatchAsync(ExperiencePatchDTO dto)
+        public async Task<ExperienceDetailRequest?> GetDetailByIdAsync(int id)
         {
-            var experience = await _experienceRepository.GetByIdWithDetailsAsync(dto.ExperienceId);
+            var experience = await _experienceRepository.GetByIdWithDetailsAsync(id);
+            return experience?.ToDetailRequest();
+        }
+
+
+
+        public async Task<bool> PatchAsync(ExperienceUpdateRequest Request)
+        {
+            var experience = await _experienceRepository.GetByIdWithDetailsAsync(Request.ExperienceId);
             if (experience == null) return false;
 
             
-            experience.ApplyPatch(dto);
+            experience.ApplyPatch(Request);
 
             await _experienceRepository.UpdateAsync(experience);
             return true;

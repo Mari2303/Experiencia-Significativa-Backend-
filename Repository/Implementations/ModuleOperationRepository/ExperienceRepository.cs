@@ -40,13 +40,18 @@ namespace Repository.Implementations.ModuleOperationRepository
         public async Task<Experience?> GetByIdWithDetailsAsync(int id)
         {
             return await _context.Experiences
+                 .Include(e => e.Leaders)
                 .Include(e => e.Institution)
                 .Include(e => e.Documents)
                 .Include(e => e.User)
-                    .ThenInclude(u => u.Person)
+                .ThenInclude(u => u.Person)
                 .Include(e => e.Evaluations)
-                    .ThenInclude(ev => ev.EvaluationCriterias)
-                        .ThenInclude(ec => ec.Criteria)
+                .ThenInclude(ev => ev.EvaluationCriterias)
+                .ThenInclude(ec => ec.Criteria)
+                .Include(e => e.Institution)
+                .ThenInclude(i => i.Departaments)
+                .Include(e => e.Institution)
+                .ThenInclude(i => i.Municipalitis)
                 .FirstOrDefaultAsync(e => e.Id == id);
         }
 

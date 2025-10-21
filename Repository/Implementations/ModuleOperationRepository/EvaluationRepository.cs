@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Entity.Context;
-using Entity.Dtos.ModuleOperation.CreateEvaluation;
 using Entity.Dtos.ModuleOperational;
 using Entity.Models.ModelosParametros;
 using Entity.Models.ModuleOperation;
+using Entity.Requests.EntityDetailRequest;
 using Entity.Requests.ModuleOperation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -66,7 +66,7 @@ namespace Repository.Implementations.ModuleOperationRepository
 
 
 
-        public async Task<EvaluationDetailDTO> GetEvaluationDetailAsync(int evaluationId)
+        public async Task<EvaluationDetailRequest> GetEvaluationDetailAsync(int evaluationId)
         {
             var evaluation = await _context.Evaluations
                 .Include(e => e.EvaluationCriterias)
@@ -80,7 +80,7 @@ namespace Repository.Implementations.ModuleOperationRepository
             if (evaluation == null)
                 throw new KeyNotFoundException("La evaluación no existe");
 
-            return _mapper.Map<EvaluationDetailDTO>(evaluation);
+            return _mapper.Map<EvaluationDetailRequest>(evaluation);
         }
 
 

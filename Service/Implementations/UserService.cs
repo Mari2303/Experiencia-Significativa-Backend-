@@ -29,14 +29,14 @@ namespace Service.Implementations
         }
 
 
-        //  public async Task<UserRequest> GetByName(string name)
-        //  {
-        //      return await _userRepository.GetByName(name);
-        //   }
+         public async Task<UserRequest> GetByName(string name)
+          {
+              return await _userRepository.GetByName(name);
+          }
 
 
 
-        // Obtener usuario por nombre (ya lo tienes)
+      /*  // Obtener usuario por nombre (ya lo tienes)
         public async Task<UserRequest?> GetByName(string name)
         {
             var user = await _userRepository.GetByName(name);
@@ -52,7 +52,7 @@ namespace Service.Implementations
 
             };
         }
-
+      */
 
         // Sobrescribimos AddAsync para registrar usuarios sin token
         public async Task<UserRequest> AddAsync(UserRequest request)

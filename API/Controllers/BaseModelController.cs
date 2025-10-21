@@ -90,6 +90,12 @@ namespace API.Controllers
         /// </summary>
         /// <param name="request">DTO del registro a crear.</param>
         /// <returns>Registro creado con mensaje de éxito.</returns>
+        /// <summary>
+        /// Stores a new record based on the provided DTO.
+        /// </summary>
+        /// <param name="dto">The DTO representing the new record.</param>
+        /// <returns>An <see cref="ActionResult"/> with the stored record or an error message.</returns>
+        /// [Authorize] Asegura que el acceso a este método esté restringido a los usuarios que estén autenticados y tengan los permisos adecuados
         [Authorize]
         [HttpPost]
         public override async Task<ActionResult<D>> Save(D request)
@@ -97,13 +103,15 @@ namespace API.Controllers
             try
             {
                 T saved = await _service.Save(_mapper.Map<T>(request));
+
                 var response = new ApiResponseRequest<D>(request, true, "Record stored successfully");
+
                 return new CreatedAtRouteResult(new { id = saved.Id }, response);
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    new ApiResponseRequest<IEnumerable<D>>(null!, false, ex.Message));
+                var response = new ApiResponseRequest<IEnumerable<D>>(null!, false, ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, response);
             }
         }
 
@@ -140,12 +148,14 @@ namespace API.Controllers
             try
             {
                 await _service.Delete(id);
-                return Ok(new ApiResponseRequest<D>(null!, true, "Record successfully deleted"));
+
+                var successResponse = new ApiResponseRequest<D>(null!, true, "Record successfully deleted");
+                return Ok(successResponse);
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    new ApiResponseRequest<D>(null!, false, ex.Message));
+                var errorResponse = new ApiResponseRequest<D>(null!, false, ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
             }
         }
 

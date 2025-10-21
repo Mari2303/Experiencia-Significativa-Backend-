@@ -63,6 +63,6 @@ namespace Entity.Requests
         /// <summary>
         /// Si es true, solo trae entidades activas.
         /// </summary>
-        public bool? OnlyActive { get; set; }
+        public bool? OnlyState { get; set; }
     }
 }

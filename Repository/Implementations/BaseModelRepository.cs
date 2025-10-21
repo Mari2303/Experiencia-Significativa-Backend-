@@ -73,9 +73,9 @@ namespace Repository.Implementations
                 IQueryable<T> query = _context.Set<T>();
 
                 // Filtro por estado
-                if (filters.OnlyActive.HasValue)
+                if (filters.OnlyState.HasValue)
                 {
-                    query = filters.OnlyActive.Value
+                    query = filters.OnlyState.Value
                         ? query.Where(x => x.State)
                         : query.Where(x => !x.State);
                 }
@@ -114,6 +114,7 @@ namespace Repository.Implementations
             }
         }
 
+
         /// <summary>
         /// Recupera una entidad por su identificador único.
         /// </summary>
@@ -132,28 +133,33 @@ namespace Repository.Implementations
             }
         }
 
-     
+
 
         /// <summary>
         /// Guarda una nueva entidad en la base de datos.
         /// </summary>
         /// <param name="entity">La entidad que se va a guardar.</param>
         /// <returns>Una tarea que representa la operación asincrónica, conteniendo la entidad guardada.</returns>
+        /// <summary>
+        /// Saves a new entity to the database.
+        /// </summary>
+        /// <param name="entity">The entity to be saved.</param>
+        /// <returns>A task representing the asynchronous operation, containing the saved entity.</returns>
         public override async Task<T> Save(T entity)
         {
             try
             {
-                // Establecer propiedades por defecto para la entidad
+                // Set default properties for the entity
                 entity.CreatedAt = DateTime.UtcNow.AddHours(-5);
                 entity.State = true;
 
-                // Verificar si la entidad tiene la propiedad 'Code' (usando reflexión)
+                // Check if the entity has the 'Code' property (using reflection)
                 var codeProperty = typeof(T).GetProperty("Code");
                 if (codeProperty != null && codeProperty.CanWrite)
                 {
-                    // Si la entidad tiene la propiedad 'Code', generar un código consecutivo usando el servicio helper
+                    // If the entity has the 'Code' property, generate a consecutive code using the helper service
                     string generatedCode = await _helperRepository.GenerateConsecutiveCode();
-                    codeProperty.SetValue(entity, generatedCode); // Asignar el código generado
+                    codeProperty.SetValue(entity, generatedCode); // Set the generated code
                 }
 
                 _context.Set<T>().Add(entity);
@@ -162,7 +168,7 @@ namespace Repository.Implementations
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al guardar los datos: {ex.Message}");
+                Console.WriteLine($"Error saving data: {ex.Message}");
                 throw;
             }
         }
