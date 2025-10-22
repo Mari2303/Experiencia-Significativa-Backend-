@@ -113,6 +113,7 @@ namespace API
             // ============================
             // Registro de UserRole
             // ============================
+            // Dependency injection for UserRole
             services.AddScoped<IUserRoleRepository, UserRoleRepository>();
             services.AddScoped<IUserRoleService, UserRoleService>();
             services.AddScoped<IBaseModelService<UserRole, UserRoleDTO, UserRoleRequest>, UserRoleService>();

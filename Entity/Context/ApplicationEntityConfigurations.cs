@@ -150,11 +150,11 @@ namespace Entity.Context
         {
             builder.HasOne(ur => ur.User)
                 .WithMany(u => u.UserRoles)
-                .HasForeignKey(ur => ur.UserId); //UserId
+                .HasForeignKey(ur => ur.UserId);
 
             builder.HasOne(ur => ur.Role)
                 .WithMany(u => u.UserRoles)
-                .HasForeignKey(ur => ur.RoleId); //RoleId
+                .HasForeignKey(ur => ur.RoleId);
         }
         public void Configure(EntityTypeBuilder<FormModule> builder)
         {
